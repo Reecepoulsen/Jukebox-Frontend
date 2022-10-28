@@ -1,0 +1,27 @@
+.selectedArtistSpotlight{
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 5px;
+  align-items: center;
+  justify-items: center;
+
+  &__image{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    height: 210px;
+    width: 210px;
+    overflow: hidden;
+    border-radius: 12px;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__name{
+    text-align: center;
+    white-space: nowrap;
+    font-size: large;
+  }
+}

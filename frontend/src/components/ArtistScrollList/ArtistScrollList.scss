@@ -1,0 +1,11 @@
+.artistScrollList{
+  height: 210px;
+  padding-right: 15px;
+  overflow-y: scroll;
+  li {
+    margin-bottom: 20px;
+    &:last-of-type{
+      margin-bottom: 0;
+    }
+  }
+}

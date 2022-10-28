@@ -1,0 +1,33 @@
+.greetingScreen{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  row-gap: 40px;
+  width: 100vw;
+  height: 100vh;
+  color: #FFFEFE;
+
+  &__header{
+    align-self: flex-end;
+    justify-self: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: rgb(0, 203, 230);
+    margin-bottom: 20px;
+
+    &__title{
+      font-size: 50px;
+      padding-right: 10px;
+    }
+  }
+
+  &__buttons{
+    align-self: flex-start;
+    justify-self: center;
+    display: flex;
+    width: 60vw;
+    justify-content: space-between;
+    font-size:x-large;
+  }
+}

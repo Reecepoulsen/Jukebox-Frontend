@@ -1,0 +1,17 @@
+.scrollableSongListItem{
+  display: flex;
+  flex-direction: row;
+  min-width: fit-content;
+  align-items: center;
+  margin: 10px 0px;
+  cursor: pointer;
+
+  &-Title{
+    flex-grow: 1;
+  }
+  transition: all .3s ease;
+}
+
+.activeSong{
+  color: rgb(0, 203, 230);
+}

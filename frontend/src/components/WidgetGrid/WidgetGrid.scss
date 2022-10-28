@@ -1,0 +1,9 @@
+.widgetGrid{
+  display:grid;
+  width: 90vw;
+  // width: 100%;
+  align-items: center;
+  justify-items: center;
+  row-gap: 20px;
+  margin: 20px auto;
+}

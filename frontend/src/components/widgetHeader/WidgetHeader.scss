@@ -1,0 +1,9 @@
+.widgetHeader{
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+
+  &__title{
+    flex-grow: 1;
+  }
+}

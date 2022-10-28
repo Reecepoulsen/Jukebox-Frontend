@@ -1,0 +1,33 @@
+.connectSpotify{
+  color: #FFFEFE;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-items: center;
+
+  .container{
+    background-color: black;
+    padding: 50px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    transform: translateY(-50%);
+    width: 100%;
+
+    h2{
+      border-bottom: solid rgb(0, 203, 230);
+      padding-inline: 15px;
+      padding-bottom: 10px;
+      color: rgb(0, 203, 230);
+      font-size:xx-large;
+    }
+
+    p{
+      margin-block: 30px;
+      font-size: larger;
+    }
+  }
+}

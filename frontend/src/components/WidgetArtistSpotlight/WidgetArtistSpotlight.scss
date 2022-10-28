@@ -1,0 +1,14 @@
+.widgetArtistSpotlight{
+  display: grid;
+  grid-template-columns: 1fr 110px;
+  // align-items: center;
+  justify-items: center;
+
+  .selectedArtistSpotlight{
+    justify-self: left;
+  }
+
+  .artistScrollList{
+    justify-self: right;
+  }
+}

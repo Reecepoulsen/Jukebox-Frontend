@@ -1,0 +1,12 @@
+.widget{
+  width: 90vw;
+  background-color: rgb(36, 36, 36);
+  border-radius: 20px;
+  padding: 20px;
+  color: #FFFEFE;
+
+  &__body{
+    overflow: hidden;
+  }
+}
+

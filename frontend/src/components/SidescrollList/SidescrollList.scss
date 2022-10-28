@@ -1,0 +1,14 @@
+.sideScrollList{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow-x: scroll;
+  padding-block: 15px;
+
+  li{
+    margin-right: 25px;
+    &:last-of-type{
+      margin-right: 0;
+    }
+  }
+}

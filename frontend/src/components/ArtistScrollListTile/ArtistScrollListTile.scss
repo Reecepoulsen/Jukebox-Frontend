@@ -1,0 +1,15 @@
+.artistScrollListTile{
+  &__image{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    height: 90px;
+    width: 90px;
+    overflow: hidden;
+    border-radius: 12px;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

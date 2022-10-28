@@ -1,0 +1,15 @@
+.widgetTitle{
+  display: flex;
+  align-items: center;
+  max-width: fit-content;
+  cursor: pointer;
+
+  &__text{
+    font-weight: bolder;
+    font-size: larger;
+  }
+
+  &__icon{
+    margin-left: 20px;
+  }
+}

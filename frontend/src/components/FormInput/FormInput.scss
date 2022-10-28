@@ -1,0 +1,15 @@
+.formInput{
+  padding: 12px 8px;
+  color: #FFFEFE;
+  background-color: rgb(36, 36, 36);
+  border-radius: 8px;
+  border: solid 1px transparent;
+  font-size: large;
+  display: block;
+  width: 100%;
+  
+  &:focus{
+    outline: none;
+    border: solid rgb(0, 203, 230) 1px;
+  }
+}
