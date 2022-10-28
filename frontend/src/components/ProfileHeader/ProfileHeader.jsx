@@ -1,12 +1,14 @@
+import LogoutBtn from '../LogoutBtn/LogoutBtn'
 import ProfileBanner from '../ProfileBanner/ProfileBanner'
 import ProfilePicture from '../ProfilePicture/ProfilePicture'
 import './ProfileHeader.scss'
 
-const ProfileHeader = ({profilePic, bannerPic}) => {
+const ProfileHeader = (props) => {
   return (
     <div className="profileHeader">
-      <ProfilePicture imgSrc={profilePic} />
-      <ProfileBanner imgSrc={bannerPic} />
+      <ProfilePicture imgSrc={props.profilePic} />
+      <ProfileBanner imgSrc={props.bannerPic} />
+      <LogoutBtn setLoginToken={props.setLoginToken}/>
     </div>
   )
 }

@@ -16,4 +16,9 @@
     grid-row: 1/-1;
     z-index: -1;
   }
+
+  .logoutBtn{
+    grid-column: 3/4;
+    grid-row: 1/2;
+  }
 }

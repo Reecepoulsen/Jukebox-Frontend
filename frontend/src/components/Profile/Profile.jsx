@@ -21,6 +21,7 @@ const Profile = (props) => {
         <ProfileHeader
           profilePic={props.profileData.profileImgUrl}
           bannerPic={props.profileData.bannerImgUrl}
+          setLoginToken={props.setLoginToken}
         />
         <ProfileInfo
           name={props.profileData.displayName}
