@@ -3,8 +3,8 @@ const getSpotifyToken = async (spotifyCode, loginToken) => {
     grant_type: "authorization_code",
     code: spotifyCode,
     redirect_uri: "http://localhost:3000",
-    client_id: "1bdca04f2bf24fc0a5860fb2f06388d1",
-    client_secret: "430bae3e7c9646e58dc5b33f1d0bc34a",
+    client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
+    client_secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET,
   };
 
   const encodeFormData = (data) => {
