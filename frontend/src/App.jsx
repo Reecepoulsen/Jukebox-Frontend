@@ -6,6 +6,7 @@ import ConnectSpotify from "./components/ConnectSpotify/ConnectSpotify";
 import { getProfileData } from "./helpers/getProfileData";
 import { getUser } from "./helpers/getUser";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
+import getSpotifyToken from "./helpers/getSpotifyToken";
 
 // Dummy Data
 const songData = [
@@ -272,14 +273,19 @@ function App() {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
+    const urlQueryString = window.location.search;
+
+    if (urlQueryString.includes("?code=")) {
+      const spotifyCode = urlQueryString.split("=")[1];
+      getSpotifyToken(spotifyCode, loginToken).then(() => {
+        console.log("ASYNC TEST");
+        window.location = '/'
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem("loginToken", loginToken);
-    // if (loginToken !== "undefined" && loginToken !== null){
-    //   const getUserData = async () => {
-    //     return await getUser(loginToken)
-    //   }
-    //   const user = getUserData()
-    //   setUserData(user);
-    // }
   }, [loginToken]);
 
   // Debugging console log useEffects
@@ -288,15 +294,12 @@ function App() {
     [profileData]
   );
 
-  useEffect(
-    () => console.log("userData changed", userData),
-    [userData]
-  );
+  useEffect(() => console.log("userData changed", userData), [userData]);
 
   // Possible app bodies to return based off of login state
   const connectSpotifyScreen = (
     <div>
-      <ConnectSpotify userData={userData} />
+      <ConnectSpotify userData={userData} loginToken={loginToken} />
     </div>
   );
 
@@ -313,6 +316,7 @@ function App() {
         profileData={profileData}
         setProfileData={setProfileData}
         loginToken={loginToken}
+        setLoginToken={setLoginToken}
       />
       <MobileNav className="Modal" setProfileData={setProfileData} />
     </div>
@@ -320,19 +324,18 @@ function App() {
 
   const errorScreen = (
     <div className="App">
-      <ErrorPage setLoginToken={setLoginToken}/>
+      <ErrorPage setLoginToken={setLoginToken} />
     </div>
-  )
+  );
 
   // console.log("LoginToken is ", loginToken);
-  if (loginToken == "undefined" || loginToken == null) {
+  if (loginToken == "undefined" || loginToken == null || loginToken == 'null') {
     // user not logged in
     return loginScreen;
   } else {
     if (userData == null) {
       return errorScreen;
-    }
-    else if (userData.spotifyAccessToken === "No Token") {
+    } else if (userData.spotifyAccessToken === "No Token") {
       // User logged in but spotify account isn't connected
       return connectSpotifyScreen;
     } else {

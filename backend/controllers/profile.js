@@ -50,7 +50,7 @@ const gatherData = async (token, accumulator, url) => {
 
 const getAllPlaylists = async (spotifyToken, spotifyUserId) => {
   const data = await getSpotifyData(spotifyToken, `https://api.spotify.com/v1/me/playlists`);
-  console.log("result of getting all data", data)
+  // console.log("result of getting all data", data)
   return data.items;
 };
 
