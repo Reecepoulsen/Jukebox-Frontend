@@ -23,14 +23,16 @@ const LoginForm = (props) => {
         },
         body: JSON.stringify(payload),
       })
-      .then(data => data.json())
-      .then((res) => {
-        console.log("Received Login Token", res.token)
-        props.setUserData(res.user)
-      })
+        .then((data) => data.json())
+        .then((res) => {
+          console.log("Login Response", res);
+          props.setLoginToken(res.data.token);
+          props.setUserData(res.data.user);
+
+        });
     } catch (error) {
-      console.log("Login Error", error)
-      throw new Error(error)
+      console.log("Login Error", error);
+      throw new Error(error);
     }
   };
 

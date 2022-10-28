@@ -1,10 +1,10 @@
-export async function getUser() {
+export async function getUser(loginToken) {
   let userData = null;
   try {
     await fetch('http://localhost:8080/profile/user/', {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${localStorage.getItem('loginToken')}`,
+        "Authorization": `Bearer ${loginToken}`,
         "Content-type": "application/json"
       },
     })

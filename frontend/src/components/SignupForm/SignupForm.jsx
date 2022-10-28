@@ -1,7 +1,7 @@
-import { useRef } from 'react';
-import BasicButton from '../BasicButton/BasicButton';
-import FormInput from '../FormInput/FormInput';
-import './SignupForm.scss'
+import { useRef } from "react";
+import BasicButton from "../BasicButton/BasicButton";
+import FormInput from "../FormInput/FormInput";
+import "./SignupForm.scss";
 
 const SignupForm = (props) => {
   const nameRef = useRef();
@@ -9,7 +9,7 @@ const SignupForm = (props) => {
   const passwordRef = useRef();
 
   const submitSignup = async (e) => {
-    props.setOpenSignupModal(false)
+    props.setOpenSignupModal(false);
     e.preventDefault();
 
     const payload = {
@@ -26,14 +26,15 @@ const SignupForm = (props) => {
         },
         body: JSON.stringify(payload),
       })
-      .then(data => data.json())
-      .then((res) => {
-        console.log("Signup response", res)
-        props.setUserData(res.user)
-      })
+        .then((data) => data.json())
+        .then((res) => {
+          console.log("Signup response", res);
+          props.setLoginToken(res.data.token);
+          props.setUserData(res.data.user);
+        });
     } catch (error) {
-      console.log("Login Error", error)
-      throw new Error(error)
+      console.log("Login Error", error);
+      throw new Error(error);
     }
   };
 
@@ -41,7 +42,7 @@ const SignupForm = (props) => {
     <div className="signupForm">
       <h2>Create Account</h2>
       <form onSubmit={submitSignup}>
-      <FormInput
+        <FormInput
           inputId="signupName"
           type="text"
           helpText="Name"
@@ -68,4 +69,4 @@ const SignupForm = (props) => {
   );
 };
 
-export default SignupForm
+export default SignupForm;

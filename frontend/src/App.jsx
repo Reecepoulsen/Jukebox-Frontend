@@ -5,6 +5,7 @@ import MobileNav from "./components/MobileNav/MobileNav";
 import ConnectSpotify from "./components/ConnectSpotify/ConnectSpotify";
 import { getProfileData } from "./helpers/getProfileData";
 import { getUser } from "./helpers/getUser";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
 
 // Dummy Data
 const songData = [
@@ -137,11 +138,7 @@ const playlistData = [
     id: 2,
     title: "Discovered",
     image: "/testImages/discovered.png",
-    songs: [
-      "All That Really Matters",
-      "Walk On Water",
-      "Kill Me With Silence",
-    ],
+    songs: ["All That Really Matters", "Walk On Water", "Kill Me With Silence"],
   },
   {
     id: 3,
@@ -165,11 +162,7 @@ const playlistData = [
     id: 6,
     title: "Discovered",
     image: "/testImages/discovered.png",
-    songs: [
-      "All That Really Matters",
-      "Walk On Water",
-      "Kill Me With Silence",
-    ],
+    songs: ["All That Really Matters", "Walk On Water", "Kill Me With Silence"],
   },
   {
     id: 7,
@@ -193,11 +186,7 @@ const playlistData = [
     id: 10,
     title: "Discovered",
     image: "/testImages/discovered.png",
-    songs: [
-      "All That Really Matters",
-      "Walk On Water",
-      "Kill Me With Silence",
-    ],
+    songs: ["All That Really Matters", "Walk On Water", "Kill Me With Silence"],
   },
   {
     id: 11,
@@ -276,44 +265,44 @@ const allWidgets = [
 ];
 
 function App() {
-  // Todo, conditionally get the user data if there is a login token
-  // Could possibly make the userData object a context for the app
+  const [loginToken, setLoginToken] = useState(
+    localStorage.getItem("loginToken")
+  );
   const [profileData, setProfileData] = useState(null);
   const [userData, setUserData] = useState(null);
 
-  // Run on the first render of the app
   useEffect(() => {
-    console.log("Login Token on initial load", localStorage.getItem("loginToken"))
-    if (localStorage.getItem("loginToken") !== "undefined"){
-      const getUserData = async () => {
-        return await getUser()
-      }
-      const user = getUserData()
-      setUserData(user);
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log("userData changed", userData)
-    if (userData !== null) {
-      localStorage.setItem("loginToken", userData.loginToken)
-      console.log("Login token is now", localStorage.getItem('loginToken'))
-    }
-  }, [userData])
+    localStorage.setItem("loginToken", loginToken);
+    // if (loginToken !== "undefined" && loginToken !== null){
+    //   const getUserData = async () => {
+    //     return await getUser(loginToken)
+    //   }
+    //   const user = getUserData()
+    //   setUserData(user);
+    // }
+  }, [loginToken]);
 
   // Debugging console log useEffects
-  useEffect(() => console.log("profileData changed", profileData), [profileData]);
+  useEffect(
+    () => console.log("profileData changed", profileData),
+    [profileData]
+  );
+
+  useEffect(
+    () => console.log("userData changed", userData),
+    [userData]
+  );
 
   // Possible app bodies to return based off of login state
   const connectSpotifyScreen = (
     <div>
-      <ConnectSpotify userData={userData}/>
+      <ConnectSpotify userData={userData} />
     </div>
   );
 
   const loginScreen = (
     <div className="App">
-      <GreetingScreen setUserData={setUserData} />
+      <GreetingScreen setUserData={setUserData} setLoginToken={setLoginToken} />
     </div>
   );
 
@@ -323,16 +312,27 @@ function App() {
         allWidgets={allWidgets}
         profileData={profileData}
         setProfileData={setProfileData}
+        loginToken={loginToken}
       />
       <MobileNav className="Modal" setProfileData={setProfileData} />
     </div>
   );
 
-  if (userData === null) {
+  const errorScreen = (
+    <div className="App">
+      <ErrorPage setLoginToken={setLoginToken}/>
+    </div>
+  )
+
+  // console.log("LoginToken is ", loginToken);
+  if (loginToken == "undefined" || loginToken == null) {
     // user not logged in
     return loginScreen;
   } else {
-    if (userData.spotifyAccessToken === "No Token") {
+    if (userData == null) {
+      return errorScreen;
+    }
+    else if (userData.spotifyAccessToken === "No Token") {
       // User logged in but spotify account isn't connected
       return connectSpotifyScreen;
     } else {

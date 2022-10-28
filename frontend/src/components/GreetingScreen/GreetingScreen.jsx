@@ -34,6 +34,7 @@ const GreetingScreen = (props) => {
         body={
           <LoginForm
             setOpenLoginModal={setOpenLoginModal}
+            setLoginToken={props.setLoginToken}
             setUserData={props.setUserData}
           />
         }
@@ -44,6 +45,7 @@ const GreetingScreen = (props) => {
         body={
           <SignupForm
             setOpenSignupModal={setOpenSignupModal}
+            setLoginToken={props.setLoginToken}
             setUserData={props.setUserData}
           />
         }

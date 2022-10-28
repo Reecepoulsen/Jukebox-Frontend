@@ -12,6 +12,7 @@ export function signup(req, res, next) {
   const password = req.body.password;
 
   let newUser = null;
+  let token = null;
   User.findOne({ email: email })
     .then((user) => {
       if (user) {
@@ -22,14 +23,13 @@ export function signup(req, res, next) {
 
       hash(password, 12)
         .then((hashedPass) => {
-          
           const user = new User({
             name: name,
             email: email,
-            password: hashedPass
+            password: hashedPass,
           });
 
-          const token = sign(
+          token = sign(
             {
               // Bundle the email and userId into the JWT
               email: user.email,
@@ -44,7 +44,12 @@ export function signup(req, res, next) {
           return user.save();
         })
         .then((result) => {
-          return res.status(201).json({ message: "User Created", user: newUser});
+          return res
+            .status(201)
+            .json({
+              message: "User Created",
+              data: { user: newUser, token: token },
+            });
         });
     })
     .catch((err) => {
@@ -77,7 +82,12 @@ export function login(req, res, next) {
       }
       console.log("Valid Login");
 
-      return res.status(200).json({ user: loadedUser });
+      return res
+        .status(200)
+        .json({
+          message: "Login Successful",
+          data: { user: loadedUser, token: loadedUser.loginToken },
+        });
     })
     .catch((err) => {
       next(err);
@@ -85,7 +95,7 @@ export function login(req, res, next) {
 }
 
 export function connectSpotify(req, res, next) {
-  console.log("Got a request to connectSpotify")
+  console.log("Got a request to connectSpotify");
   const scopes = [
     "user-read-private",
     "user-read-email",
@@ -119,7 +129,7 @@ const encodeFormData = (data) => {
 export async function authorizeSpotify(req, res, next) {
   // hardcoded for now, will be dynamic when is-auth middleware is added
   const userId = "6359bc8eaf286ccc1da2867c";
-  console.log("authorizespotify")
+  console.log("authorizespotify");
   User.findById(userId)
     .then(async (user) => {
       if (!user) {
@@ -170,7 +180,7 @@ export async function authorizeSpotify(req, res, next) {
           user.lastRefresh = new Date();
           user.save();
 
-          console.log("Updated Spotify token for.", user)
+          console.log("Updated Spotify token for.", user);
 
           // res.status(200).json({
           //   message: "Successfully connected Spotify account",
@@ -180,7 +190,7 @@ export async function authorizeSpotify(req, res, next) {
           //     tokenLifeTimeSec: user.spotifyTokenTimer,
           //   },
           // });
-          res.redirect("http://localhost:3000")
+          res.redirect("http://localhost:3000");
         });
     })
     .catch((err) => {

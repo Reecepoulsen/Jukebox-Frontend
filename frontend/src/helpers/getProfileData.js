@@ -1,22 +1,26 @@
-export async function getProfileData() {
+export async function getProfileData(loginToken) {
   let profileData = null;
+  console.log(
+    "loginToken at getProfileData",
+    localStorage.getItem("loginToken")
+  );
   try {
     await fetch("http://localhost:8080/profile", {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${localStorage.getItem('loginToken')}`,
-        "Content-type": "application/json"
+        Authorization: `Bearer ${loginToken}`,
+        "Content-type": "application/json",
       },
     })
-    .then(data => data.json())
-    .then((res) => {
-      console.log("Get profile response", res)
-      profileData = res.data;
-      // setProfileData(res.data)
-    })
+      .then((data) => data.json())
+      .then((res) => {
+        console.log("Get profile response", res);
+        profileData = res.data;
+        // setProfileData(res.data)
+      });
   } catch (error) {
-    console.log("Error getting profile data", error)
-    throw new Error(error)
+    console.log("Error getting profile data", error);
+    throw new Error(error);
   }
   return profileData;
 }

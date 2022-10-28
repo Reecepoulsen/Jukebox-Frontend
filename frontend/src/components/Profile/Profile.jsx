@@ -9,7 +9,8 @@ const Profile = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      props.setProfileData(await getProfileData());
+      console.log("props LoginToken at useEffect inside profile", props.loginToken)
+      props.setProfileData(await getProfileData(props.loginToken));
     };
     fetchData();
   }, []);
