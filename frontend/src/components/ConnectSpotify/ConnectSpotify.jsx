@@ -17,7 +17,7 @@ const queryString = `response_type=code&client_id=${
   '1bdca04f2bf24fc0a5860fb2f06388d1'
 }&scope=${scopes.join(
   " "
-)}&redirect_uri=http://localhost:3000`;
+)}&redirect_uri=http://localhost:3000&show_dialog=true`;
 
 const ConnectSpotify = (props) => {
   return (

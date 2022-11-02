@@ -7,6 +7,8 @@ import { getProfileData } from "./helpers/getProfileData";
 import { getUser } from "./helpers/getUser";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import getSpotifyToken from "./helpers/getSpotifyToken";
+import ConnectView from "./components/Connect/Connect";
+import Main from "./components/Main/Main";
 
 // Dummy Data
 const songData = [
@@ -311,14 +313,13 @@ function App() {
 
   const appScreen = (
     <div className="App">
-      <Profile
+      <Main 
         allWidgets={allWidgets}
         profileData={profileData}
         setProfileData={setProfileData}
         loginToken={loginToken}
         setLoginToken={setLoginToken}
       />
-      <MobileNav className="Modal" setProfileData={setProfileData} />
     </div>
   );
 
