@@ -1,0 +1,89 @@
+.loading {
+  width: 100vw;
+  height: 92vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center;
+  transform: translateY(-15%);
+
+  .text {
+    display: flex;
+    align-items: center;
+    color: rgb(0, 203, 230);
+    font-size: 23px;
+  }
+}
+
+$diameter: 18px;
+$clr: rgb(0, 203, 230);
+$clr-opacity: .4;
+$duration: 3.5s;
+$diagonal: 65%;
+$hv: $diagonal + 25%;
+
+.logo-container{
+  margin-left: 3px;
+  width: $diameter * 2.82;
+  height: $diameter * 2.82;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  animation: $duration spin infinite;
+}
+
+.circle{
+  height: $diameter;
+  width: $diameter;
+  background-color: rgba($clr, $clr-opacity);
+  border-radius: 50%;
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.c1{animation: move1 $duration infinite;}
+.c2{animation: move2 $duration infinite;}
+.c3{animation: move3 $duration infinite;}
+.c4{animation: move4 $duration infinite;}
+.c5{animation: move5 $duration infinite;}
+.c6{animation: move6 $duration infinite;}
+.c7{animation: move7 $duration infinite;}
+.c8{animation: move8 $duration infinite;}
+
+@keyframes move1{
+  50%{transform: translateX($hv);}
+}
+
+@keyframes move2{
+  50%{transform: translate($diagonal, -$diagonal);}
+}
+
+@keyframes move3{
+  50%{transform: translateY(-$hv);}
+}
+
+@keyframes move4{
+  50%{transform: translate(-$diagonal, -$diagonal);}
+}
+
+@keyframes move5{
+  50%{transform: translateX(-$hv);}
+}
+
+@keyframes move6{
+  50%{transform: translate(-$diagonal, $diagonal);}
+}
+
+@keyframes move7{
+  50%{transform: translateY($hv);}
+}
+
+@keyframes move8{
+  50%{transform: translate($diagonal, $diagonal);}
+}
+
+@keyframes spin{
+  50%{transform: rotate(180deg);}
+  100%{transform: rotate(360deg);}
+}
