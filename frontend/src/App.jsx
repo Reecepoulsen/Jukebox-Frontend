@@ -271,7 +271,6 @@ function App() {
   const [loginToken, setLoginToken] = useState(
     localStorage.getItem("loginToken")
   );
-  const [profileData, setProfileData] = useState(null);
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -290,13 +289,7 @@ function App() {
     localStorage.setItem("loginToken", loginToken);
   }, [loginToken]);
 
-  // Debugging console log useEffects
-  useEffect(
-    () => console.log("profileData changed", profileData),
-    [profileData]
-  );
-
-  useEffect(() => console.log("userData changed", userData), [userData]);
+  // useEffect(() => console.log("userData changed", userData), [userData]);
 
   // Possible app bodies to return based off of login state
   const connectSpotifyScreen = (
@@ -315,8 +308,6 @@ function App() {
     <div className="App">
       <Main 
         allWidgets={allWidgets}
-        profileData={profileData}
-        setProfileData={setProfileData}
         loginToken={loginToken}
         setLoginToken={setLoginToken}
       />

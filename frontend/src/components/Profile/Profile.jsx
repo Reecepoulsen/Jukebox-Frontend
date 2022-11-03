@@ -1,46 +1,57 @@
 import { useState, useEffect } from "react";
 import { getProfileData } from "../../helpers/getProfileData";
+import Loading from "../Loading/Loading";
 import ProfileHeader from "../ProfileHeader/ProfileHeader";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import WidgetGrid from "../WidgetGrid/WidgetGrid";
 
 const Profile = (props) => {
   const [tempWidgetList, setTempWidgetList] = useState(props.allWidgets);
+  const [profileData, setProfileData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      console.log("props LoginToken at useEffect inside profile", props.loginToken)
-      props.setProfileData(await getProfileData(props.loginToken));
-    };
-    fetchData();
-  }, []);
+    if (profileData == null) {
+      const fetchData = async () => {
+        // console.log("Profile data before getProfileData", profileData)
+        const result = await getProfileData(props.loginToken)
+        // console.log("Result of get profile", result);
+        setProfileData(result);
+      }
+      fetchData()
+    } else {
+      // console.log("Profile data is", profileData);
+      setLoading(false);
+    }
+  }, [profileData]);
 
-  if (props.profileData != null) {
+  if (loading) {
+    return <Loading />
+  } else {
+    console.log("Else condition")
     return (
       <div className="profile">
         <ProfileHeader
-          profilePic={props.profileData.profileImgUrl}
-          bannerPic={props.profileData.bannerImgUrl}
+          profilePic={profileData.profileImgUrl}
+          bannerPic={profileData.bannerImgUrl}
           setLoginToken={props.setLoginToken}
         />
         <ProfileInfo
-          name={props.profileData.displayName}
-          followerCount={props.profileData.followerCount}
-          hitCount={props.profileData.hitCount}
+          name={profileData.displayName}
+          followerCount={profileData.followerCount}
+          hitCount={profileData.hitCount}
           tempWidgetList={tempWidgetList}
           setTempWidgetList={setTempWidgetList}
         />
         <WidgetGrid
-          profileData={props.profileData}
+          profileData={profileData}
           tempWidgetList={tempWidgetList}
           setTempWidgetList={setTempWidgetList}
         />
       </div>
     );
-  } else {
-    // Return a template version of the profile
-    return <div>No profile data</div>
   }
+
 };
 
 export default Profile;

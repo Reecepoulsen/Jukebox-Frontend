@@ -1,9 +1,6 @@
 export async function getProfileData(loginToken) {
   let profileData = null;
-  console.log(
-    "loginToken at getProfileData",
-    localStorage.getItem("loginToken")
-  );
+  console.log("Getting profile data");
   try {
     await fetch("http://localhost:8080/profile", {
       method: "GET",

@@ -8,8 +8,6 @@ export default function Main(props) {
   const profileView = (
     <Profile
       allWidgets={props.allWidgets}
-      profileData={props.profileData}
-      setProfileData={props.setProfileData}
       loginToken={props.loginToken}
       setLoginToken={props.setLoginToken}
     />
