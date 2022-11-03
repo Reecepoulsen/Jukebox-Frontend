@@ -49,8 +49,8 @@ const MobileNav = (props) => {
       >
         <HiLink size={size} />
       </i>
-      {discoverIcon}
-      {feedIcon}
+      {/* {discoverIcon}
+      {feedIcon} */}
     </div>
   );
 };

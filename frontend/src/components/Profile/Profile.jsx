@@ -7,28 +7,39 @@ import WidgetGrid from "../WidgetGrid/WidgetGrid";
 
 const Profile = (props) => {
   const [tempWidgetList, setTempWidgetList] = useState(props.allWidgets);
-  const [profileData, setProfileData] = useState(null);
+  const [profileData, setProfileData] = useState(
+    JSON.parse(localStorage.getItem("profileData"))
+  );
+  const [updatedProfileData, setUpdatedProfileData] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // Blocking function to get data from backend
+  const fetchData = async () => {
+    const result = await getProfileData(props.loginToken);
+    localStorage.setItem("profileData", JSON.stringify(result));
+    setProfileData(result);
+  };
+
   useEffect(() => {
-    if (profileData == null) {
-      const fetchData = async () => {
-        // console.log("Profile data before getProfileData", profileData)
-        const result = await getProfileData(props.loginToken)
-        // console.log("Result of get profile", result);
-        setProfileData(result);
-      }
-      fetchData()
+    if (
+      profileData === null ||
+      profileData === "undefined" ||
+      profileData === "null"
+    ) {
+      fetchData();
     } else {
-      // console.log("Profile data is", profileData);
+      if (!updatedProfileData) {
+        console.log("Running background profile update");
+        fetchData();
+        setUpdatedProfileData(true);
+      }
       setLoading(false);
     }
   }, [profileData]);
 
   if (loading) {
-    return <Loading />
+    return <Loading />;
   } else {
-    console.log("Else condition")
     return (
       <div className="profile">
         <ProfileHeader
@@ -51,7 +62,6 @@ const Profile = (props) => {
       </div>
     );
   }
-
 };
 
 export default Profile;
