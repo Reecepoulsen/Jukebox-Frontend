@@ -1,10 +1,9 @@
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import fetch from "node-fetch";
-const { hash, compare } = bcrypt;
 const { sign } = jwt;
-
 import User from "../models/user.js";
+import UserLite from "../models/userLite.js";
+import CryptoJS from "crypto-js";
 
 export function signup(req, res, next) {
   const name = req.body.name;
@@ -14,40 +13,44 @@ export function signup(req, res, next) {
   let newUser = null;
   let token = null;
   User.findOne({ email: email })
-    .then((user) => {
-      if (user) {
+    .then((foundUser) => {
+      if (foundUser) {
         const err = new Error("A user with that email already exists");
         err.statusCode = 401;
         throw err;
       }
 
-      hash(password, 12)
-        .then((hashedPass) => {
-          const user = new User({
-            name: name,
-            email: email,
-            password: hashedPass,
-          });
+      const user = new User({
+        name: name,
+        email: email,
+        password: password,
+      });
 
-          token = sign(
-            {
-              // Bundle the email and userId into the JWT
-              email: user.email,
-              userId: user._id.toString(),
-            },
-            process.env.ACCESS_TOKEN_SECRET
-          );
+      token = sign(
+        {
+          // Bundle the email and userId into the JWT
+          email: user.email,
+          userId: user._id.toString(),
+        },
+        process.env.ACCESS_TOKEN_SECRET
+      );
 
-          user.loginToken = token;
-          newUser = user;
-          return user.save();
-        })
-        .then((result) => {
-          return res.status(201).json({
-            message: "User Created",
-            data: { user: newUser, token: token },
-          });
-        });
+      user.loginToken = token;
+      newUser = user;
+      return user.save();
+    })
+    .then((result) => {
+      console.log("creating userList");
+      const userLite = new UserLite({
+        userId: newUser._id,
+        name: name,
+      });
+      userLite.save();
+      console.log("userLite is", userLite);
+      return res.status(201).json({
+        message: "User Created",
+        data: { user: newUser, token: token },
+      });
     })
     .catch((err) => {
       next(err);
@@ -55,33 +58,32 @@ export function signup(req, res, next) {
 }
 
 export function login(req, res, next) {
-  const email = req.body.email;
-  const password = req.body.password;
-
-  console.log(`Login request for ${email}, ${password}`);
-
-  let loadedUser;
-  User.findOne({ email: email })
+  User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
-        const err = new Error("A user with this email does not exist");
+        const err = new Error("Invalid login");
         err.statusCode = 401;
         throw err;
       }
-      loadedUser = user;
-      return compare(password, user.password);
-    })
-    .then((isEqual) => {
-      if (!isEqual) {
-        const err = new Error("Incorrect Password");
+
+      const reqPass = CryptoJS.AES.decrypt(
+        req.body.password,
+        process.env.ENCRYPTION_SECRET
+      ).toString(CryptoJS.enc.Utf8);
+      const userPass = CryptoJS.AES.decrypt(
+        user.password,
+        process.env.ENCRYPTION_SECRET
+      ).toString(CryptoJS.enc.Utf8);
+
+      if (reqPass != userPass) {
+        const err = new Error("Invalid login");
         err.statusCode = 401;
         throw err;
       }
-      console.log("Valid Login");
 
       return res.status(200).json({
         message: "Login Successful",
-        data: { user: loadedUser, token: loadedUser.loginToken },
+        data: { user: user, token: user.loginToken },
       });
     })
     .catch((err) => {

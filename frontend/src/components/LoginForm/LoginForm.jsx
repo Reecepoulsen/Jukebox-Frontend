@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import BasicButton from "../BasicButton/BasicButton";
 import FormInput from "../FormInput/FormInput";
+import CryptoJS from "crypto-js";
 import "./LoginForm.scss";
 
 const LoginForm = (props) => {
@@ -10,10 +11,14 @@ const LoginForm = (props) => {
   const submitLogin = async (e) => {
     e.preventDefault();
 
+    const encryptedPassword = CryptoJS.AES.encrypt(passwordRef.current.value, process.env.REACT_APP_ENCRYPTION_SECRET).toString();
+
     const payload = {
       email: emailRef.current.value,
-      password: passwordRef.current.value,
+      password: encryptedPassword,
     };
+
+    console.log("Payload sent to login user", payload);
 
     try {
       fetch("http://localhost:8080/auth/login", {
@@ -28,7 +33,6 @@ const LoginForm = (props) => {
           console.log("Login Response", res);
           props.setLoginToken(res.data.token);
           props.setUserData(res.data.user);
-
         });
     } catch (error) {
       console.log("Login Error", error);

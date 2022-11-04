@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import BasicButton from "../BasicButton/BasicButton";
 import FormInput from "../FormInput/FormInput";
+import CryptoJS from "crypto-js";
 import "./SignupForm.scss";
 
 const SignupForm = (props) => {
@@ -12,11 +13,15 @@ const SignupForm = (props) => {
     props.setOpenSignupModal(false);
     e.preventDefault();
 
+    const encryptedPassword = CryptoJS.AES.encrypt(passwordRef.current.value, process.env.REACT_APP_ENCRYPTION_SECRET).toString();
+
     const payload = {
       name: nameRef.current.value,
       email: emailRef.current.value,
-      password: passwordRef.current.value,
+      password: encryptedPassword,
     };
+
+    console.log("Payload sent when creating new user", payload);
 
     try {
       fetch("http://localhost:8080/auth/signup", {
