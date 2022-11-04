@@ -24,6 +24,7 @@ const Profile = (props) => {
     if (
       profileData === null ||
       profileData === "undefined" ||
+      profileData === undefined ||
       profileData === "null"
     ) {
       fetchData();

@@ -8,7 +8,7 @@
 #  5. /profile/build adds data into the profile
 
 @contentType = application/json 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthdGVseW5wYXJrZXNoc0BnbWFpbC5jb20iLCJ1c2VySWQiOiI2MzUxZTZmOTg2MDJmODAwMjRhZjAzNzQiLCJpYXQiOjE2NjYzMTIwMTl9.39En23RgnaLYly6bs-nnpiWmp0Co4kL56cLMvkrirbw
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRyZWVjZXBvdWxzZW5AZ21haWwuY29tIiwidXNlcklkIjoiNjM1YzU2Yzc2NzdjZTJlOTQ3YmNkNzdjIiwiaWF0IjoxNjY2OTk1OTExfQ.mkKOVIQ7az9-NwSUAWh9pUrm1ZZPGzz3i7rSUpzUmno
 
 @spotifyToken = BQD4rl5agPJ4ZGjTvERmvez9ocAz0SQMH55lR11kQmsClHPlJnjJ9HC65Ho8eDoLGbyv_9Nk-F7vbLvsNziYrh2NWBTqqgnMyd5n3HLicH2T6oNBpnnq0rH5OLMDuskDFatYIrytoNjDnUcnoym3rWHfEYm9zdZ9vRlh8iG90PKFbvSirnAeSfW-fCKh-aQviyKUuJgfpEqDcYZhqaMSkS-6hMgp32kpaRHvR0IMo-qBPbA
 
@@ -33,7 +33,7 @@ post http://localhost:8080/auth/login
 Content-Type: {{contentType}}
 
 {
-  "email": "katelynparkeshs@gmail.com",
+  "email": "dreecepoulsen@gmail.com",
   "password": "jukeboxPass"
 }
 
@@ -81,3 +81,7 @@ Content-Type: {{contentType}}
 GET https://api.spotify.com/v1/users/reece.poulsen/playlists
 Authorization: "Bearer {{spotifyToken}}"
 Content-Type: {{contentType}}
+
+###
+get http://localhost:8080/profile/users
+Authorization: Bearer {{token}}

@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 import User from "../models/user.js";
 import Profile from "../models/profile.js";
+import UserLite from "../models/userLite.js";
 import { getSpotifyData } from "../helpers/spotifyComHelpers.js";
 
 // export function getProfile(req, res, next) {
@@ -56,6 +57,7 @@ const getAllPlaylists = async (spotifyToken, spotifyUserId) => {
 
 export function getProfile(req, res, next) {
   User.findOne({ _id: req.userId }).then((user) => {
+    console.log("Get profile for", user.name)
     const token = user.spotifyAccessToken;
     // let data = await gatherData(token, [], 'https://api.spotify.com/v1/me/top/tracks?limit=50');
     // data = data.flat();
@@ -75,7 +77,7 @@ export function getProfile(req, res, next) {
           message = "Built Profile!";
         } else {
           profile = existingProfile;
-          message = "Updated profile top songs";
+          message = "Profile already exists";
         }
         // Need to build the widgetlist
         profile.playlists = await getAllPlaylists(token, user.spotifyUserId);
@@ -104,4 +106,22 @@ export function getUser(req, res, next) {
   .catch((err) => {
     next(err);
   });
+}
+
+export function getAllUserLites(req, res, next) {
+  UserLite.find({_: true})
+  .then(users => {
+    if (!users) {
+      const err = new Error("Get all users was unsuccessful");
+      err.statusCode = 401;
+      throw err;
+    }
+
+    console.log("All users", users)
+    res.status(200).json({message: "Successfully got all users", users: users});
+  })
+  .catch(err => {
+    next(err);
+  })
+
 }
