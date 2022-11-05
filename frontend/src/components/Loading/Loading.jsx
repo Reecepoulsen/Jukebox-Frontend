@@ -5,15 +5,15 @@ export default function Loading() {
     <div className='loading'>
       <div className="text">
         <h2>Loading</h2>
-        <div class="logo-container">
-          <div class="circle c1"></div>
-          <div class="circle c2"></div>
-          <div class="circle c3"></div>
-          <div class="circle c4"></div>
-          <div class="circle c5"></div>
-          <div class="circle c6"></div>
-          <div class="circle c7"></div>
-          <div class="circle c8"></div>
+        <div className="logo-container">
+          <div className="circle c1"></div>
+          <div className="circle c2"></div>
+          <div className="circle c3"></div>
+          <div className="circle c4"></div>
+          <div className="circle c5"></div>
+          <div className="circle c6"></div>
+          <div className="circle c7"></div>
+          <div className="circle c8"></div>
         </div>
       </div>
     </div>
