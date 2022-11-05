@@ -1,4 +1,4 @@
-const getSpotifyToken = async (spotifyCode, loginToken) => {
+const getSpotifyToken = async (spotifyCode, loginToken, setConnectedSpotify) => {
   const body = {
     grant_type: "authorization_code",
     code: spotifyCode,
@@ -25,7 +25,6 @@ const getSpotifyToken = async (spotifyCode, loginToken) => {
   })
     .then((response) => response.json())
     .then(async (spotifyData) => {
-      console.log("---------", spotifyData);
       await fetch("http://localhost:8080/auth/authorizeSpotify", {
         method: "POST",
         headers: {
@@ -36,7 +35,9 @@ const getSpotifyToken = async (spotifyCode, loginToken) => {
       })
         .then((response) => response.json())
         .then((res) => {
-          console.log("Response from auth/authorizeSpotify", res);
+          if (res.status === 200) {
+            setConnectedSpotify(true);
+          }
         });
     });
 };
