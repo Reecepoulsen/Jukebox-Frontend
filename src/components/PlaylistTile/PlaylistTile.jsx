@@ -5,7 +5,7 @@ const PlaylistTile = ({ playListData }) => {
     <div className="tile">
       <div className="tile__image">
         <img
-          src={playListData.images[0].url ? playListData.images[0].url : ""}
+          src={playListData.images.length > 0 ? playListData.images[0].url : ""}
           alt={`${playListData.name}'s cover art`}
         />
       </div>
