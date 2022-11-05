@@ -102,21 +102,6 @@ export async function authorizeSpotify(req, res, next) {
         throw err;
       }
 
-      // Don't know if this check is necessary
-      // if (user.spotifyAccessToken != "No token") {
-      //   const err = new Error("This user has already given access to spotify");
-      //   throw err;
-      // }
-
-      // if (req.query.error) {
-      //   const err = new Error("Access to spotify was denied by user");
-      //   throw err;
-      // }
-
-      // if (!req.query.code) {
-      //   const err = new Error("Spotify Access code not provided");
-      //   throw err;
-      // }
       const data = req.body;
       console.log("Data from code exchange with spotify", data);
 
@@ -126,19 +111,38 @@ export async function authorizeSpotify(req, res, next) {
       user.lastRefresh = new Date();
       user.save();
 
-      console.log("Updated Spotify token for.", user);
+      console.log("Updated Spotify token for", user.name);
 
-      res.status(200).json({
-        message: "Successfully connected Spotify account",
-        tokenData: {
-          token: user.spotifyAccessToken,
-          refreshToken: user.spotifyRefreshToken,
-          tokenLifeTimeSec: user.spotifyTokenTimer,
-        },
-      });
+      res
+        .status(200)
+        .json({
+          status: 200,
+          message: "Successfully connected Spotify account",
+        });
     })
     .catch((err) => {
       err.statusCode = 401;
+      next(err);
+    });
+}
+
+export async function getSpotifyToken(req, res, next) {
+  User.findOne({ _id: req.userId })
+    .then((user) => {
+      if (!user) {
+        const err = new Error("Unable to find a user to get spotify token for");
+        throw err;
+      }
+
+      res
+        .status(200)
+        .json({
+          message: `Got ${user.name}'s spotifyAccessToken`,
+          data: user.spotifyAccessToken,
+        });
+      })
+      .catch((err) => {
+      err.statusCode(404);
       next(err);
     });
 }

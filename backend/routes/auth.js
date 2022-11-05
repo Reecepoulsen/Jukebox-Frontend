@@ -5,7 +5,7 @@ import { Router } from "express";
 
 // const User = require('../models/user');
 import isAuth from "../middleware/is-auth.js";
-import { signup, login, authorizeSpotify } from "../controllers/auth.js";
+import { signup, login, authorizeSpotify, getSpotifyToken } from "../controllers/auth.js";
 
 const router = Router();
 
@@ -14,5 +14,7 @@ router.post("/signup", signup);
 router.post("/login", login);
 
 router.post("/authorizeSpotify", isAuth, authorizeSpotify);
+
+router.get("/spotifyToken", isAuth, getSpotifyToken)
 
 export default router;

@@ -7,8 +7,6 @@ const router = Router();
 
 router.get("/", isAuth, refSpotify, getMyProfile);
 
-router.get("/user", isAuth, getUser);
-
 router.get("/users", isAuth, getAllUserLites);
 
 // router.get("/build", isAuth, refSpotify, buildProfile);
