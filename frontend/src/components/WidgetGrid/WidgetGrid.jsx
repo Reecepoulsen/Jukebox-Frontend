@@ -5,7 +5,7 @@ const WidgetGrid = (props) => {
   const widgets = [];
   let counter = 0;
 
-  props.widgetList.map((widget) => {
+  props.profileData.widgetList.map((widget) => {
     if (widget.addedToProfile) {
       widgets.push(
         <Widget

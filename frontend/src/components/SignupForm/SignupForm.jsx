@@ -35,7 +35,6 @@ const SignupForm = (props) => {
         .then((res) => {
           console.log("Signup response", res);
           props.setLoginToken(res.data.token);
-          props.setUserData(res.data.user);
         });
     } catch (error) {
       console.log("Login Error", error);

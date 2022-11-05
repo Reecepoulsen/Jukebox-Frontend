@@ -7,6 +7,7 @@ export default function LogoutBtn(props) {
       className="logoutBtn"
       onClick={() => {
         props.setLoginToken(null);
+        props.setConnectedSpotify(null);
         localStorage.setItem("profileData", null);
       }}
     >

@@ -15,6 +15,7 @@ export default function ErrorPage(props) {
           text={"Reload"}
           OnClickFunc={() => {
             props.setLoginToken(null);
+            props.setConnectedSpotify(false);
             localStorage.setItem("profileData", null);
           }}
         />

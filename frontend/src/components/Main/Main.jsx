@@ -7,9 +7,9 @@ import { useState } from "react";
 export default function Main(props) {
   const profileView = (
     <Profile
-      allWidgets={props.allWidgets}
       loginToken={props.loginToken}
       setLoginToken={props.setLoginToken}
+      setConnectedSpotify={props.setConnectedSpotify}
     />
   );
 
