@@ -6,7 +6,7 @@ import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import WidgetGrid from "../WidgetGrid/WidgetGrid";
 
 const Profile = (props) => {
-  const [tempWidgetList, setTempWidgetList] = useState(props.allWidgets);
+  const [widgetList, setWidgetList] = useState(null);
   const [profileData, setProfileData] = useState(
     JSON.parse(localStorage.getItem("profileData"))
   );
@@ -16,6 +16,8 @@ const Profile = (props) => {
   // Blocking function to get data from backend
   const fetchData = async () => {
     const result = await getProfileData(props.loginToken);
+    setWidgetList(result.widgetList);
+    console.log("widgetList state is", widgetList);
     localStorage.setItem("profileData", JSON.stringify(result));
     setProfileData(result);
   };
@@ -52,13 +54,13 @@ const Profile = (props) => {
           name={profileData.displayName}
           followerCount={profileData.followerCount}
           hitCount={profileData.hitCount}
-          tempWidgetList={tempWidgetList}
-          setTempWidgetList={setTempWidgetList}
+          widgetList={widgetList}
+          setWidgetList={widgetList}
         />
         <WidgetGrid
           profileData={profileData}
-          tempWidgetList={tempWidgetList}
-          setTempWidgetList={setTempWidgetList}
+          widgetList={widgetList}
+          setWidgetList={setWidgetList}
         />
       </div>
     );

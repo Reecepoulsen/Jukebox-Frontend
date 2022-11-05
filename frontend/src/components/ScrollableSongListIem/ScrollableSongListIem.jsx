@@ -11,9 +11,9 @@ const ScrollableSongListItem = ({ song, songSpotlight ,setSongSpotlight }) => {
       }}
     >
       <span className="scrollableSongListItem-Title">
-        {song.title.length > 14
-          ? song.title.substring(0, 14) + "..."
-          : song.title}
+        {song.name.length > 14
+          ? song.name.substring(0, 14) + "..."
+          : song.name}
       </span>
       <RiDiscLine className="scrollableSongListItem-Icon" size="24" />
     </li>

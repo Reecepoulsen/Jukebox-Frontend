@@ -7,11 +7,11 @@ import WidgetArtistSpotlight from "../WidgetArtistSpotlight/WidgetArtistSpotligh
 const Widget = (props) => {
   const determineBody = (type) => {
     if (type === 'songList'){
-      return <WidgetFavSongs songs={props.data} profileData={props.profileData}/>;
+      return <WidgetFavSongs songs={props.data}/>;
     } else if (type === 'playlist') {
-      return <WidgetPlaylistList playlists={props.data} profileData={props.profileData}/>;
+      return <WidgetPlaylistList playlists={props.data}/>;
     } else if (type === 'artistSpotlight'){
-      return <WidgetArtistSpotlight artistList={props.data} profileData={props.profileData}/>
+      return <WidgetArtistSpotlight artistList={props.data}/>
     }
   } 
 

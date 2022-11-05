@@ -4,17 +4,19 @@ import "./ScrollableSongList.scss";
 
 const ScrollableSongList = ({ songs, songSpotlight, setSongSpotlight }) => {
   const listItems = [];
+  let counter = 0;
 
-  for (let curSong of songs) {
+  songs.map(song => {
     listItems.push(
       <ScrollableSongListItem
-        key={curSong.id}
-        song={curSong}
+        key={counter}
+        song={song}
         songSpotlight={songSpotlight}
         setSongSpotlight={setSongSpotlight}
       />
     );
-  }
+    counter++;
+  })
 
   return <ul className="scrollableSongList">{listItems}</ul>;
 };

@@ -22,7 +22,8 @@ const gatherData = async (token, accumulator, url) => {
 // params: token, url (with the id already in it)
 export async function getSpotifyData(token, url) {
   let data = null;
-  await fetch(url, {
+  let baseUrl = "https://api.spotify.com/v1";
+  await fetch(baseUrl + url, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,

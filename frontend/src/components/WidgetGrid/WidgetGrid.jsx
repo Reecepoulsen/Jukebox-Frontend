@@ -3,12 +3,13 @@ import "./WidgetGrid.scss";
 
 const WidgetGrid = (props) => {
   const widgets = [];
+  let counter = 0;
 
-  props.tempWidgetList.map((widget) => {
+  props.widgetList.map((widget) => {
     if (widget.addedToProfile) {
       widgets.push(
         <Widget
-          key={widget.id}
+          key={counter}
           type={widget.type}
           title={widget.title}
           privacy={widget.privacy}
@@ -17,6 +18,7 @@ const WidgetGrid = (props) => {
         />
       );
     }
+    counter++;
   })
 
   return <div className="widgetGrid">{widgets}</div>;

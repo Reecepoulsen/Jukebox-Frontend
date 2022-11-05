@@ -4,7 +4,7 @@ const SelectedArtistSpotlight = ({ artistData }) => {
   return (
     <div className="selectedArtistSpotlight">
       <div className="selectedArtistSpotlight__image">
-        <img src={artistData.image} alt={artistData.name} />
+        <img src={artistData.images[0].url} alt={artistData.name} />
       </div>
       <div className="selectedArtistSpotlight__name">{artistData.name}</div>
     </div>
