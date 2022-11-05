@@ -21,7 +21,7 @@ const LoginForm = (props) => {
     console.log("Payload sent to login user", payload);
 
     try {
-      fetch("http://localhost:8080/auth/login", {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

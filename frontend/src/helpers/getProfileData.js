@@ -1,7 +1,7 @@
 export async function getProfileData(loginToken) {
   let profileData = null;
   try {
-    await fetch("http://localhost:8080/profile", {
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}/profile`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${loginToken}`,

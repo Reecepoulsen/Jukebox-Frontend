@@ -24,7 +24,7 @@ const SignupForm = (props) => {
     console.log("Payload sent when creating new user", payload);
 
     try {
-      fetch("http://localhost:8080/auth/signup", {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signup`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

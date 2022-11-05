@@ -2,7 +2,7 @@ const getSpotifyToken = async (spotifyCode, loginToken, setConnectedSpotify) => 
   const body = {
     grant_type: "authorization_code",
     code: spotifyCode,
-    redirect_uri: "http://localhost:3000",
+    redirect_uri: `${process.env.REACT_APP_FRONTEND_URL}`,
     client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
     client_secret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET,
   };
@@ -25,7 +25,7 @@ const getSpotifyToken = async (spotifyCode, loginToken, setConnectedSpotify) => 
   })
     .then((response) => response.json())
     .then(async (spotifyData) => {
-      await fetch("http://localhost:8080/auth/authorizeSpotify", {
+      await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/authorizeSpotify`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",

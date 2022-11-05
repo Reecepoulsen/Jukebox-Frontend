@@ -1,7 +1,7 @@
 export async function checkUserSpotifyToken(loginToken) {
   let spotifyToken = null;
   try {
-    await fetch("http://localhost:8080/auth/spotifyToken", {
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/spotifyToken`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${loginToken}`,
