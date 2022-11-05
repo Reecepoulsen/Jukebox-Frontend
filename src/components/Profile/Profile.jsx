@@ -6,6 +6,7 @@ import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import WidgetGrid from "../WidgetGrid/WidgetGrid";
 
 const Profile = (props) => {
+  console.log("Rendering profile");
   const [profileData, setProfileData] = useState(
     JSON.parse(localStorage.getItem("profileData"))
     );
@@ -15,6 +16,7 @@ const Profile = (props) => {
   // Blocking function to get data from backend
   const fetchData = async () => {
     const result = await getProfileData(props.loginToken);
+    console.log("Result from getProfileData");
     localStorage.setItem("profileData", JSON.stringify(result));
     setProfileData(result);
   };
