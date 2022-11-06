@@ -1,15 +1,21 @@
 import { useState, useEffect } from "react";
 import { getProfileData } from "../../helpers/getProfileData";
+import ErrorPage from "../ErrorPage/ErrorPage";
 import Loading from "../Loading/Loading";
 import ProfileHeader from "../ProfileHeader/ProfileHeader";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import WidgetGrid from "../WidgetGrid/WidgetGrid";
 
 const Profile = (props) => {
-  console.log("Rendering profile");
+  if (
+    localStorage.getItem("profileData") === undefined ||
+    localStorage.getItem("profileData") === "undefined"
+  ) {
+    localStorage.setItem("profileData", null);
+  }
   const [profileData, setProfileData] = useState(
     JSON.parse(localStorage.getItem("profileData"))
-    );
+  );
   const [updatedProfileData, setUpdatedProfileData] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -22,12 +28,7 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
-    if (
-      profileData === null ||
-      profileData === "undefined" ||
-      profileData === undefined ||
-      profileData === "null"
-    ) {
+    if (profileData === null || profileData === "null") {
       fetchData();
     } else {
       if (!updatedProfileData) {
@@ -42,6 +43,9 @@ const Profile = (props) => {
   if (loading) {
     return <Loading />;
   } else {
+    if (profileData === null || profileData === "null") {
+      return <ErrorPage />;
+    }
     return (
       <div className="profile">
         <ProfileHeader
@@ -55,9 +59,7 @@ const Profile = (props) => {
           followerCount={profileData.followerCount}
           hitCount={profileData.hitCount}
         />
-        <WidgetGrid
-          profileData={profileData}
-        />
+        <WidgetGrid profileData={profileData} />
       </div>
     );
   }

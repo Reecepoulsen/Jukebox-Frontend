@@ -91,7 +91,7 @@ function App() {
 
   const errorScreen = (
     <div className="App">
-      <ErrorPage setLoginToken={setLoginToken} setConnectedSpotify={setConnectedSpotify}/>
+      <ErrorPage />
     </div>
   );
 

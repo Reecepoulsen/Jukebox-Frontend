@@ -2,7 +2,7 @@ import React from "react";
 import BasicButton from "../BasicButton/BasicButton";
 import "./ErrorPage.scss";
 
-export default function ErrorPage(props) {
+export default function ErrorPage() {
   return (
     <div className="errorPage">
       <div className="container">
@@ -14,8 +14,8 @@ export default function ErrorPage(props) {
           type={"submit"}
           text={"Reload"}
           OnClickFunc={() => {
-            props.setLoginToken(null);
-            props.setConnectedSpotify(false);
+            localStorage.setItem("loginToken", null);
+            localStorage.setItem("connectedSpotify", null);
             localStorage.setItem("profileData", null);
           }}
         />
