@@ -1,22 +1,11 @@
 import "./availableWidgetList.scss";
 
-const AvailableWidgetList = ({ tempWidgetList, setTempWidgetList, setModalIsOpen }) => {
+const AvailableWidgetList = (props) => {
   const availableWidgets = [];
 
-  const widgetMover = (w) => {
-    console.log(tempWidgetList)
-    const newTempWidgetList = tempWidgetList;
-    newTempWidgetList.map((widget) => {
-      if (widget == w) {
-        widget.addedToProfile = true;
-      }
-    })
-    setTempWidgetList(newTempWidgetList);
-  }
-
-  tempWidgetList.map((w) => {
+  props.widgetList.map((w) => {
     if (w.addedToProfile == false) {
-      availableWidgets.push(<li onClick={() => {widgetMover(w); setModalIsOpen(false)}}>{w.title}</li>)
+      availableWidgets.push(<li onClick={() => props.setModalIsOpen(false)}>{w.title}</li>)
     }
   });
 

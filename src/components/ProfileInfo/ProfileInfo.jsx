@@ -6,20 +6,14 @@ import "./ProfileInfo.scss";
 import GenModal from "../GenModal/GenModal";
 import AvailableWidgetList from "../availableWidgetList/availableWidgetList";
 
-const ProfileInfo = ({
-  name,
-  followerCount,
-  hitCount,
-  tempWidgetList,
-  setTempWidgetList,
-}) => {
+const ProfileInfo = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
     <div className="profileInfo">
-      <div className="profileInfo__Name">{name}</div>
-      <FollowerCount count={followerCount} />
-      <HitCount count={hitCount} />
+      <div className="profileInfo__Name">{props.name}</div>
+      <FollowerCount count={props.followerCount} />
+      <HitCount count={props.hitCount} />
       <IoMdAdd
         className="profileInfo__addWidget"
         size="45"
@@ -30,8 +24,7 @@ const ProfileInfo = ({
         setModalIsOpen={setModalIsOpen}
         body={
           <AvailableWidgetList
-            tempWidgetList={tempWidgetList}
-            setTempWidgetList={setTempWidgetList}
+            widgetList={props.widgetList}
             setModalIsOpen={setModalIsOpen}
           />
         }

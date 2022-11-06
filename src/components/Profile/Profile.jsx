@@ -58,6 +58,7 @@ const Profile = (props) => {
           name={profileData.displayName}
           followerCount={profileData.followerCount}
           hitCount={profileData.hitCount}
+          widgetList={profileData.widgetList}
         />
         <WidgetGrid profileData={profileData} />
       </div>
