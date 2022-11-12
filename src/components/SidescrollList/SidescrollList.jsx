@@ -7,7 +7,7 @@ const SidescrollList = ({listData}) => {
 
   listData.map((playlist) => {
     if (playlist.owner.display_name === "Spotify") return
-    listItems.push(<li key={counter}><PlaylistTile playListData={playlist}/></li>)
+    listItems.push(<li key={counter}><PlaylistTile playlistData={playlist}/></li>)
     counter++;
   })
 
