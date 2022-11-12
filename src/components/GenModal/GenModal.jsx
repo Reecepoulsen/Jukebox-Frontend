@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import "./GenModal.scss";
 
-const GenModal = ({ modalIsOpen, setModalIsOpen, body }) => {
+const GenModal = ({ modalIsOpen, setModalIsOpen, body, width="75vw" }) => {
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -14,7 +14,7 @@ const GenModal = ({ modalIsOpen, setModalIsOpen, body }) => {
         content: {
           background: "#1B1A1B",
           height: "fit-content",
-          width: "70vw",
+          width: `${width}`,
           border: "none",
           top: "33%",
           left: "50%",

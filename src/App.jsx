@@ -68,7 +68,7 @@ function App() {
 
   // Possible app bodies to return based off of login state
   const connectSpotifyScreen = (
-    <div>
+    <div className="App">
       <ConnectSpotify />
     </div>
   );
@@ -105,7 +105,7 @@ function App() {
     } else if (connectedSpotify === 'false' || connectedSpotify === false) {
       // User logged in but spotify account isn't connected
       if (loading) {
-        return <Loading />
+        return <div className="App"><Loading /></div> 
       } else {
         return connectSpotifyScreen;
       }

@@ -5,6 +5,7 @@ import Loading from "../Loading/Loading";
 import ProfileHeader from "../ProfileHeader/ProfileHeader";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import WidgetGrid from "../WidgetGrid/WidgetGrid";
+import './Profile.scss';
 
 const Profile = (props) => {
   if (
@@ -28,7 +29,7 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
-    if (profileData === null || profileData === "null") {
+    if (profileData === null || profileData === "null" || profileData === undefined || profileData === "undefined") {
       fetchData();
     } else {
       if (!updatedProfileData) {
@@ -41,7 +42,7 @@ const Profile = (props) => {
   }, [profileData]);
 
   if (loading) {
-    return <Loading />;
+    return <div className="loadingContainer"><Loading /></div>;
   } else {
     if (profileData === null || profileData === "null") {
       return <ErrorPage />;
