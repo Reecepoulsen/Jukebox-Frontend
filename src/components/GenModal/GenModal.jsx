@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import "./GenModal.scss";
 
-const GenModal = ({ modalIsOpen, setModalIsOpen, body, width="75vw" }) => {
+const GenModal = ({ modalIsOpen, setModalIsOpen, body, width="75vw", top="33%", background="#1B1A1B"}) => {
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -12,18 +12,18 @@ const GenModal = ({ modalIsOpen, setModalIsOpen, body, width="75vw" }) => {
       ariaHideApp={false}
       style={{
         content: {
-          background: "#1B1A1B",
+          background: `${background}`,
           height: "fit-content",
           width: `${width}`,
           border: "none",
-          top: "33%",
+          top: `${top}`,
           left: "50%",
           transform: "translate(-50%, -50%)",
           color: "#FFFEFE",
           borderRadius: "12px"
         },
         overlay: {
-          background: "rgba(0, 0, 0, .3)",
+          background: "rgba(255, 255, 255, .05)",
         },
       }}
     >
