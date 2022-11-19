@@ -4,22 +4,22 @@ import "./WidgetHeader.scss";
 import { useState } from "react";
 
 const WidgetHeader = ({ title, privacy }) => {
-  const [showEdit, setShowEdit] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);  
 
   return (
-    <div
-      onMouseEnter={() => setShowEdit(true)}
-      onMouseLeave={() => setShowEdit(false)}
-      className="widgetHeader"
-    >
-      <div className="widgetHeader__title">
+    <div className="widgetHeader">
+      <div
+        onMouseEnter={() => setShowEdit(true)}
+        onMouseLeave={() => setShowEdit(false)}
+        className="widgetHeader__title"
+      >
         <WidgetTitle
           onClick={() => setShowEdit(!showEdit)}
           title={title}
           showEdit={showEdit}
         />
       </div>
-      <PrivacyTag text={privacy} />
+      <PrivacyTag text={privacy} widgetTitle={title}/>
     </div>
   );
 };
