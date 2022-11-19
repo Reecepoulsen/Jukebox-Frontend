@@ -27,7 +27,7 @@ const PlaylistTile = ({ playlistData }) => {
         modalIsOpen={openModal}
         setModalIsOpen={setOpenModal}
         width={"90vw"}
-        top={"45%"}
+        top={"42%"}
         background={"#121212"}
         body={<PlaylistModal playlistData={playlistData} />}
       />
