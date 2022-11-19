@@ -8,9 +8,12 @@ export default function SearchBar(props) {
 
   useEffect(() => {
     const filteredList = props.searchList.filter((i) =>
-      i.username.toLowerCase().includes(searchString.toLowerCase())
+      i.name.toLowerCase().includes(searchString.toLowerCase())
     );
     props.setUserList(filteredList)
+    if (searchString === '') {
+      props.setUserList(JSON.parse(localStorage.getItem('userList')))
+    }
   }, [searchString])
   
 
