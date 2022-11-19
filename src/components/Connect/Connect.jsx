@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { useState } from 'react'
+import Loading from '../Loading/Loading'
 import SearchBar from '../SearchBar/SearchBar'
 import UserList from '../UserList/UserList'
 import './Connect.scss'
@@ -156,13 +158,36 @@ const userListData = [
   },
 ]
 
-export default function Connect() {
-  const [userList, setUserList] = useState(userListData)
+const getUserList = async () => {
+  const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/profile/users`, {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("loginToken")}`
+    }
+    
+  }).then(res => res.json());
+  return result;
+}
 
-  return (
-    <div className='connectView'>
-      <SearchBar searchList={userListData} setUserList= {setUserList} />
-      <UserList userList={userList}/>
-    </div>
-  )
+export default function Connect() {
+  const [userList, setUserList] = useState(null)
+
+  useEffect(() => {
+    getUserList().then(res => {
+      console.log("response of get userlist", res);
+      setUserList(res.data);
+      localStorage.setItem("userList", JSON.stringify(res.data))
+    });
+  }, [])
+
+  if (userList === null) {
+    return <div className='userList__loadingContainer'><Loading /></div>
+  } else {
+    return (
+      <div className='connectView'>
+        <SearchBar searchList={userList} setUserList= {setUserList} />
+        <UserList userList={userList}/>
+      </div>
+    )
+  }
 }
