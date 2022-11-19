@@ -9,8 +9,8 @@ export default function UserList(props) {
     listItems.push(
       <UserListItem
         key={counter}
-        profileImage={user.profileImage}
-        username={user.username}
+        profileImage={user.profileImg}
+        username={user.name}
         followerCount={user.followerCount}
         isFollowed={user.isFollowed}
       />

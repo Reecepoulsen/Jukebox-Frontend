@@ -59,7 +59,7 @@ export default function PlaylistModal({ playlistData }) {
           <p className="header__songCount">Songs: {playlistData.tracks.total}</p>
           <div className="header__image">
             <img
-              src={playlistData.images[0] ? playlistData.images[0].url : ""}
+              src={playlistData.images[0] ? playlistData.images[0].url : "https://firebasestorage.googleapis.com/v0/b/jukebox-cfda4.appspot.com/o/Profile_avatar_placeholder_large.png?alt=media&token=602d1c6b-004c-4e8b-85a1-0d6d5fcddb7b"}
               alt=""
             />
           </div>
