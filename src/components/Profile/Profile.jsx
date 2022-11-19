@@ -23,7 +23,7 @@ const Profile = (props) => {
   // Blocking function to get data from backend
   const fetchData = async () => {
     const result = await getProfileData(props.loginToken);
-    console.log("Result from getProfileData");
+    console.log("Result from getProfileData", result);
     localStorage.setItem("profileData", JSON.stringify(result));
     setProfileData(result);
   };
