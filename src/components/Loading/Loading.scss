@@ -6,14 +6,8 @@
   grid-template-rows: 1fr;
   align-items: center;
   justify-items: center;
-  transform: translateY(-15%);
-
-  .text {
-    display: flex;
-    align-items: center;
-    color: rgb(0, 203, 230);
-    font-size: 23px;
-  }
+  color: rgb(0, 203, 230);
+  font-size: 23px;
 }
 
 $diameter: 18px;
