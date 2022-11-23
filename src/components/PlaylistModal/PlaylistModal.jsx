@@ -11,33 +11,33 @@ const loadSongs = async (playlistData) => {
     {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('loginToken')}`,
+        Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
         "Content-type": "application/json",
       },
     }
-  ).then(res => res.json());
+  ).then((res) => res.json());
   console.log("Result of loading songs", result);
   return result;
 };
 
 export default function PlaylistModal({ playlistData }) {
-  console.log("Playlistdata on playlist modal", playlistData)
+  console.log("Playlistdata on playlist modal", playlistData);
   const [tracks, setTracks] = useState(null);
 
   useEffect(() => {
     console.log("Tracks before", tracks);
-    loadSongs(playlistData).then(res => setTracks(res.data.flat()));
+    loadSongs(playlistData).then((res) => setTracks(res.data.flat()));
     console.log("Tracks after", tracks);
   }, []);
 
   if (playlistData === null || tracks === null) {
-    console.log("tracks is null")
+    console.log("tracks is null");
     return <Loading />;
   } else {
     console.log("Tracks is", tracks);
     const songList = [];
     let counter = 0;
-  
+
     tracks.map((song) => {
       songList.push(
         <li className="song" key={counter}>
@@ -51,18 +51,26 @@ export default function PlaylistModal({ playlistData }) {
       );
       counter++;
     });
-  
+
+    let playlistImg = null;
+    if (playlistData.images[0]) {
+      playlistImg = <img src={playlistData.images[0].url} alt="" />;
+    } else {
+      playlistImg = (
+        <div className="playlistPlaceholder">
+          <RiDiscLine size="50" />
+        </div>
+      );
+    }
+
     return (
       <div className="playlistModal">
         <div className="header">
           <h2 className="header__title">{playlistData.name}</h2>
-          <p className="header__songCount">Songs: {playlistData.tracks.total}</p>
-          <div className="header__image">
-            <img
-              src={playlistData.images[0] ? playlistData.images[0].url : "https://firebasestorage.googleapis.com/v0/b/jukebox-cfda4.appspot.com/o/Profile_avatar_placeholder_large.png?alt=media&token=602d1c6b-004c-4e8b-85a1-0d6d5fcddb7b"}
-              alt=""
-            />
-          </div>
+          <p className="header__songCount">
+            Songs: {playlistData.tracks.total}
+          </p>
+          <div className="header__image">{playlistImg}</div>
         </div>
         <ul className="songList">{songList}</ul>
       </div>
