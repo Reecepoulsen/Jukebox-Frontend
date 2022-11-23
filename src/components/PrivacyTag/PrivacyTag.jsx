@@ -9,14 +9,10 @@ const togglePrivacy = (widgetTitle, privacySetting, setPrivacySetting) => {
   const nextPrivacySetting = index === 2 ? privacySettings[0] : privacySettings[index + 1];
   setPrivacySetting(nextPrivacySetting);
 
-  // Change the privacy setting of the widget in the user's profileData in local storage and in the db
-  console.log(`Changing privacy for ${widgetTitle} widget`);
-
   const payload = JSON.stringify({
     widgetTitle: widgetTitle,
     privacy: nextPrivacySetting
   })
-  console.log("Payload is", payload);
 
   fetch(`${process.env.REACT_APP_BACKEND_URL}/profile/widget`, {
     method: 'POST',
