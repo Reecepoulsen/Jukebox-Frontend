@@ -11,6 +11,7 @@ const scopes = [
   "user-read-recently-played",
   "playlist-read-private",
   "playlist-read-collaborative",
+  "playlist-modify-public",
   "streaming",
 ];
 const queryString = `response_type=code&client_id=${
