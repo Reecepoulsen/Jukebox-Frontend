@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { RiDiscLine } from "react-icons/ri";
+import { getUsersJukeboxPlaylist } from "../../helpers/getUsersJukeboxPlaylist";
 import Loading from "../Loading/Loading";
+import ScrollableSongListItem from "../ScrollableSongListIem/ScrollableSongListIem";
 import "./PlaylistModal.scss";
 
 const loadSongs = async (playlistData) => {
@@ -21,33 +23,39 @@ const loadSongs = async (playlistData) => {
 };
 
 export default function PlaylistModal({ playlistData }) {
-  console.log("Playlistdata on playlist modal", playlistData);
   const [tracks, setTracks] = useState(null);
+  const [focusedSong, setFocusedSong] = useState(0);
+  const [jukeboxPlaylist, setJukeboxPlaylist] = useState(null);
 
   useEffect(() => {
     console.log("Tracks before", tracks);
     loadSongs(playlistData).then((res) => setTracks(res.data.flat()));
     console.log("Tracks after", tracks);
+    if (jukeboxPlaylist === null) {
+      getUsersJukeboxPlaylist().then(jukeboxPlaylist => {
+        setJukeboxPlaylist(jukeboxPlaylist);
+      })
+    }
   }, []);
 
-  if (playlistData === null || tracks === null) {
+  if (playlistData === null || tracks === null || jukeboxPlaylist === null) {
     console.log("tracks is null");
     return <Loading />;
   } else {
-    console.log("Tracks is", tracks);
     const songList = [];
     let counter = 0;
 
     tracks.map((song) => {
       songList.push(
-        <li className="song" key={counter}>
-          <span className="song__title">
-            {song.track.name.length > 24
-              ? song.track.name.substring(0, 24) + "..."
-              : song.track.name}
-          </span>
-          <RiDiscLine className="song__icon" size="24" />
-        </li>
+        <ScrollableSongListItem
+          key={counter}
+          song={song.track}
+          songSpotlight={focusedSong}
+          setSongSpotlight={setFocusedSong}
+          size="30"
+          charLimit="24"
+          inJukeboxPlaylist={jukeboxPlaylist.hasOwnProperty(song.track.id)}
+        />
       );
       counter++;
     });
@@ -68,7 +76,7 @@ export default function PlaylistModal({ playlistData }) {
         <div className="header">
           <h2 className="header__title">{playlistData.name}</h2>
           <p className="header__songCount">
-            Songs: {playlistData.tracks.total}
+            Songs: {songList.length}
           </p>
           <div className="header__image">{playlistImg}</div>
         </div>

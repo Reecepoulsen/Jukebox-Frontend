@@ -2,20 +2,59 @@ import { useState } from "react";
 import { RiDiscLine, RiDiscFill } from "react-icons/ri";
 import "./ScrollableSongListItem.scss";
 
-const ScrollableSongListItem = ({ song, songSpotlight, setSongSpotlight }) => {
-  const [savedSong, setSavedSong] = useState(false);
+const addSong = async (song) => {
+  const payload = {
+    trackUris: [song.uri],
+    song: song
+  };
+  const result = await fetch(
+    `${process.env.REACT_APP_BACKEND_URL}/profile/playlist/addSong`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    }
+  ).then(response => response.json());
+  console.log("Result of add song", result);
+};
+
+const ScrollableSongListItem = ({
+  song,
+  songSpotlight,
+  setSongSpotlight,
+  size = "24",
+  charLimit = 14,
+  inJukeboxPlaylist=false
+}) => {
+  const [savedSong, setSavedSong] = useState(inJukeboxPlaylist);
 
   let discIcon = null;
   if (savedSong) {
-    discIcon = <RiDiscFill className="scrollableSongListItem-Icon" size="24" onClick={() => {
-      console.log("Remove Song")
-      setSavedSong(false);
-    }} />
+    discIcon = (
+      <RiDiscFill
+        className="scrollableSongListItem-Icon"
+        size={size}
+        onClick={() => {
+          console.log("Remove Song");
+          setSavedSong(false);
+        }}
+      />
+    );
   } else {
-    discIcon = <RiDiscLine className="scrollableSongListItem-Icon" size="24" onClick={() => {
-      console.log("Add Song")
-      setSavedSong(true);
-    }}/>
+    discIcon = (
+      <RiDiscLine
+        className="scrollableSongListItem-Icon"
+        size={size}
+        onClick={() => {
+          console.log("Add Song");
+          addSong(song);
+          setSavedSong(true);
+        }}
+      />
+    );
   }
 
   return (
@@ -30,7 +69,9 @@ const ScrollableSongListItem = ({ song, songSpotlight, setSongSpotlight }) => {
           setSongSpotlight(song);
         }}
       >
-        {song.name.length > 14 ? song.name.substring(0, 14) + "..." : song.name}
+        {song.name.length > charLimit
+          ? song.name.substring(0, charLimit) + "..."
+          : song.name}
       </span>
       {discIcon}
     </li>
