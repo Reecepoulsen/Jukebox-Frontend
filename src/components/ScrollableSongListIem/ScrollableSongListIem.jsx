@@ -21,6 +21,25 @@ const addSong = async (song) => {
   console.log("Result of add song", result);
 };
 
+const removeSong = async (song) => {
+  const payload = {
+    trackUris: [song.uri],
+    song: song
+  };
+  const result = await fetch(
+    `${process.env.REACT_APP_BACKEND_URL}/profile/playlist/removeSong`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    }
+  ).then(response => response.json());
+  console.log("Result of remove song", result);
+};
+
 const ScrollableSongListItem = ({
   song,
   songSpotlight,
@@ -39,6 +58,7 @@ const ScrollableSongListItem = ({
         size={size}
         onClick={() => {
           console.log("Remove Song");
+          removeSong(song);
           setSavedSong(false);
         }}
       />
