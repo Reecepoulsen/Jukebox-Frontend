@@ -4,6 +4,7 @@ import "./UserList.scss";
 export default function UserList(props) {
   let listItems = [];
   let counter = 0;
+  window.scrollTo(0, 0);
 
   props.userList.map((user) => {
     listItems.push(
