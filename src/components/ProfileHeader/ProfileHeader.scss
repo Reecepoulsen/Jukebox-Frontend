@@ -16,6 +16,13 @@
     grid-row: 1/-1;
     z-index: -1;
     min-height: 175px;
+    background-image: linear-gradient(
+      305deg,
+      hsl(0deg, 0%, 14%) 0%,
+      hsl(189deg, 21%, 16%) 35%,
+      hsl(189deg, 45%, 17%) 65%,
+      hsl(187deg, 100%, 15%) 100%
+    );
   }
 
   .logoutBtn{
