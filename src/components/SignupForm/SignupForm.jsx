@@ -10,6 +10,7 @@ const SignupForm = (props) => {
   const passwordRef = useRef();
 
   const submitSignup = async (e) => {
+    localStorage.clear();
     props.setOpenSignupModal(false);
     e.preventDefault();
 

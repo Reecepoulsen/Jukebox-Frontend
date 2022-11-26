@@ -9,6 +9,7 @@ const LoginForm = (props) => {
   const passwordRef = useRef();
 
   const submitLogin = async (e) => {
+    localStorage.clear();
     e.preventDefault();
 
     const encryptedPassword = CryptoJS.AES.encrypt(passwordRef.current.value, process.env.REACT_APP_ENCRYPTION_SECRET).toString();

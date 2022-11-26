@@ -9,6 +9,7 @@ import "./GreetingScreen.scss";
 const GreetingScreen = (props) => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openSignupModal, setOpenSignupModal] = useState(false);
+  localStorage.clear();
 
   return (
     <div className="greetingScreen">

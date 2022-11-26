@@ -8,7 +8,7 @@ export default function LogoutBtn(props) {
       onClick={() => {
         props.setLoginToken(null);
         props.setConnectedSpotify(null);
-        localStorage.setItem("profileData", null);
+        localStorage.clear();
       }}
     >
       Logout
