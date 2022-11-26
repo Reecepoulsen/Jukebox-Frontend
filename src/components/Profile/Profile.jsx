@@ -54,14 +54,16 @@ const Profile = (props) => {
           bannerPic={profileData.bannerImgUrl}
           setLoginToken={props.setLoginToken}
           setConnectedSpotify={props.setConnectedSpotify}
+          owner={true}
         />
         <ProfileInfo
           name={profileData.displayName}
           followerCount={profileData.followerCount}
           hitCount={profileData.hitCount}
           widgetList={profileData.widgetList}
+          owner={true}
         />
-        <WidgetGrid profileData={profileData} />
+        <WidgetGrid profileData={profileData} owner={true}/>
       </div>
     );
   }

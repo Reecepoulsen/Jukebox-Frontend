@@ -14,7 +14,7 @@ export default function UserListItem(props) {
   const [userFollowed, setUserFollowed] = useState(props.isFollowed);
 
   const listItemNotFollowed = (
-    <li className="userListItem">
+    <li className="userListItem" onClick={() => props.setDisplayUserId(props.userId)}>
       <div className="profilePicture">
         <img
           src={

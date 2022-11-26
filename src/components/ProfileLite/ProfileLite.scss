@@ -1,0 +1,21 @@
+.loadingContainer{
+  height: 92vh;
+  width: 100vw;
+}
+
+.backArrow{
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, .6);
+  height: 50px;
+  width: 100%;
+  color: #FFFEFE;
+  padding-left: 10px;
+  z-index: 5;
+  span{
+    margin-left: 5px;
+    font-size: 20px;
+  }
+}

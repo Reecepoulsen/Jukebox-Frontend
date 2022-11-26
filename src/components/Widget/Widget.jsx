@@ -17,7 +17,7 @@ const Widget = (props) => {
 
   return (
     <div className="widget">
-      <WidgetHeader title={props.title} privacy={props.privacy} />
+      <WidgetHeader title={props.title} privacy={props.privacy} owner={props.owner}/>
       <div className="widget__body">{determineBody(props.type)}</div>
     </div>
   )

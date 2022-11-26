@@ -15,6 +15,7 @@ const WidgetGrid = (props) => {
           privacy={widget.privacy}
           data={widget.data}
           profileData={props.profileData}
+          owner={props.owner}
         />
       );
     }
