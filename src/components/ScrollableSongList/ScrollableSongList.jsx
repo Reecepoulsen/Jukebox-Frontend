@@ -18,7 +18,8 @@ const ScrollableSongList = ({ songs, songSpotlight, setSongSpotlight }) => {
   let listItems = [];
   let counter = 0;
 
-  if (jukeboxPlaylist !== null) {
+  if (jukeboxPlaylist) {
+    console.log("jukebox playlist in scrollableSongList", jukeboxPlaylist);
     songs.map(song => {
       listItems.push(
         <ScrollableSongListItem
