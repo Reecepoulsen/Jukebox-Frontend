@@ -1,18 +1,14 @@
+import ProfilePicPlaceholder from "../ProfilePicPlaceholder/ProfilePicPlaceholder";
 import "./ProfilePicture.scss";
 
 const ProfilePicture = ({ imgSrc }) => {
-  return (
-    <div className="profilePicture">
-      <img
-        src={
-          imgSrc === "None"
-            ? "https://firebasestorage.googleapis.com/v0/b/jukebox-cfda4.appspot.com/o/Profile_avatar_placeholder_large.png?alt=media&token=602d1c6b-004c-4e8b-85a1-0d6d5fcddb7b"
-            : imgSrc
-        }
-        alt="Profile Picture"
-      />
-    </div>
-  );
+  let profilePicture = null;
+  if (imgSrc === "None") {
+    profilePicture = <ProfilePicPlaceholder size={"50"} />;
+  } else {
+    profilePicture = <img src={imgSrc} alt="Profile Picture" />;
+  }
+  return <div className="profilePicture">{profilePicture}</div>;
 };
 
 export default ProfilePicture;

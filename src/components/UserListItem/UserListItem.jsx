@@ -2,6 +2,7 @@ import FollowerCount from "../FollowerCount/FollowerCount";
 import { RiUserAddLine, RiUserFill } from "react-icons/ri";
 import "./UserListItem.scss";
 import { useState } from "react";
+import ProfilePicPlaceholder from "../ProfilePicPlaceholder/ProfilePicPlaceholder";
 
 // Info that this component needs:
 // - Is this user being followed by the current user? -> tells which icon to show
@@ -13,18 +14,21 @@ export default function UserListItem(props) {
   const iconSize = 28;
   const [userFollowed, setUserFollowed] = useState(props.isFollowed);
 
+  let profilePicture = null;
+  if (props.profileImage === "None") {
+    profilePicture = <ProfilePicPlaceholder size={"35"} />;
+  } else {
+    profilePicture = (
+      <img src={props.profileImage} alt="" className="profilePicture__img" />
+    );
+  }
   const listItemNotFollowed = (
-    <li className="userListItem" onClick={() => props.setDisplayUserId(props.userId)}>
+    <li
+      className="userListItem"
+      onClick={() => props.setDisplayUserId(props.userId)}
+    >
       <div className="profilePicture">
-        <img
-          src={
-            props.profileImage === "None"
-              ? "https://firebasestorage.googleapis.com/v0/b/jukebox-cfda4.appspot.com/o/Profile_avatar_placeholder_large.png?alt=media&token=602d1c6b-004c-4e8b-85a1-0d6d5fcddb7b"
-              : props.profileImage
-          }
-          alt=""
-          className="profilePicture__img"
-        />
+        {profilePicture}
       </div>
       <h2 className="username">{props.username}</h2>
       <FollowerCount count={props.followerCount} />
