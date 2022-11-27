@@ -22,7 +22,7 @@ const loadSongs = async (playlistData) => {
   return result;
 };
 
-export default function PlaylistModal({ playlistData }) {
+export default function PlaylistModal({ playlistData, setPlayTrack }) {
   const [tracks, setTracks] = useState(null);
   const [focusedSong, setFocusedSong] = useState(0);
   const [jukeboxPlaylist, setJukeboxPlaylist] = useState(null);
@@ -55,6 +55,7 @@ export default function PlaylistModal({ playlistData }) {
           size="30"
           charLimit="24"
           inJukeboxPlaylist={jukeboxPlaylist.hasOwnProperty(song.track.id)}
+          setPlayTrack={setPlayTrack}
         />
       );
       counter++;

@@ -61,7 +61,7 @@ const ProfileLite = (props) => {
           widgetList={profileData.widgetList}
           owner={false}
         />
-        <WidgetGrid profileData={profileData} owner={false} />
+        <WidgetGrid profileData={profileData} owner={false} setPlayTrack={props.setPlayTrack}/>
       </div>
     );
   }

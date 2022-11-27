@@ -4,7 +4,7 @@ import GenModal from "../GenModal/GenModal";
 import PlaylistModal from "../PlaylistModal/PlaylistModal";
 import "./PlaylistTile.scss";
 
-const PlaylistTile = ({ playlistData }) => {
+const PlaylistTile = ({ playlistData, setPlayTrack }) => {
   const [openModal, setOpenModal] = useState(false);
 
   let playlistImg = null;
@@ -39,7 +39,7 @@ const PlaylistTile = ({ playlistData }) => {
         width={"90vw"}
         top={"42%"}
         background={"#121212"}
-        body={<PlaylistModal playlistData={playlistData} />}
+        body={<PlaylistModal playlistData={playlistData} setPlayTrack={setPlayTrack}/>}
       />
     </div>
   );

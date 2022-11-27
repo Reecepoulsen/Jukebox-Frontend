@@ -19,14 +19,14 @@ const getUserList = async () => {
   return result;
 };
 
-export default function Connect() {
+export default function Connect(props) {
   const [userList, setUserList] = useState(null);
   const [displayUserId, setDisplayUserId] = useState(null);
-  
+
   const connectView = (
     <div className="connectView">
       <SearchBar searchList={userList} setUserList={setUserList} />
-      <UserList userList={userList} setDisplayUserId={setDisplayUserId}/>
+      <UserList userList={userList} setDisplayUserId={setDisplayUserId} />
     </div>
   );
 
@@ -48,7 +48,13 @@ export default function Connect() {
     if (!displayUserId) {
       return connectView;
     } else {
-      return <ProfileLite userId={displayUserId} setDisplayUserId={setDisplayUserId}/>
+      return (
+        <ProfileLite
+          userId={displayUserId}
+          setDisplayUserId={setDisplayUserId}
+          setPlayTrack={props.setPlayTrack}
+        />
+      );
     }
   }
 }

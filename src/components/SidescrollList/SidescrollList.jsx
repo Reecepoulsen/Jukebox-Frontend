@@ -1,19 +1,24 @@
-import PlaylistTile from '../PlaylistTile/PlaylistTile';
-import './SidescrollList.scss';
+import PlaylistTile from "../PlaylistTile/PlaylistTile";
+import "./SidescrollList.scss";
 
-const SidescrollList = ({listData}) => {
+const SidescrollList = ({ listData, setPlayTrack }) => {
   const listItems = [];
   let counter = 0;
 
   listData.map((playlist) => {
-    if (playlist.owner.display_name === "Spotify") return
-    listItems.push(<li key={counter}><PlaylistTile playlistData={playlist}/></li>)
+    if (playlist.owner.display_name === "Spotify") return;
+    listItems.push(
+      <li key={counter}>
+        <PlaylistTile
+          playlistData={playlist}
+          setPlayTrack={setPlayTrack}
+        />
+      </li>
+    );
     counter++;
-  })
+  });
 
-  return (
-    <ul className="sideScrollList">{listItems}</ul>
-  )
-}
+  return <ul className="sideScrollList">{listItems}</ul>;
+};
 
 export default SidescrollList;

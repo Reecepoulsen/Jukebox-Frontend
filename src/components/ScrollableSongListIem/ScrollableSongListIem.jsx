@@ -46,7 +46,8 @@ const ScrollableSongListItem = ({
   setSongSpotlight,
   size = "24",
   charLimit = 14,
-  inJukeboxPlaylist=false
+  inJukeboxPlaylist=false, 
+  setPlayTrack
 }) => {
   const [savedSong, setSavedSong] = useState(inJukeboxPlaylist);
 
@@ -87,6 +88,7 @@ const ScrollableSongListItem = ({
         className="scrollableSongListItem-Title"
         onClick={() => {
           setSongSpotlight(song);
+          setPlayTrack(song.uri)
         }}
       >
         {song.name.length > charLimit

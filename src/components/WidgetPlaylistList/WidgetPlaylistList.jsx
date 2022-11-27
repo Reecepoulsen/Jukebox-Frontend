@@ -4,7 +4,7 @@ import './WidgetPlaylistList.scss'
 const WidgetPlaylistList = (props) => {
   return (
     <div className="widgetPlaylistList">
-      <SidescrollList listData={props.playlists} />
+      <SidescrollList listData={props.playlists} setPlayTrack={props.setPlayTrack}/>
     </div>
   )
 }

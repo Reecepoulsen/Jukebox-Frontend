@@ -1,0 +1,17 @@
+.player__container{
+  position: sticky;
+  bottom: 59px;
+  left: 0px;
+  transition: all ease .3s;
+
+  .collapseBtn{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 3px;
+    left: 15px;
+    color: #02CBE5;
+    transition: all ease .3s;
+  }
+}

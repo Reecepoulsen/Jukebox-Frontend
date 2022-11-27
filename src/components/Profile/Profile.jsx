@@ -63,7 +63,7 @@ const Profile = (props) => {
           widgetList={profileData.widgetList}
           owner={true}
         />
-        <WidgetGrid profileData={profileData} owner={true}/>
+        <WidgetGrid profileData={profileData} owner={true} setPlayTrack={props.setPlayTrack}/>
       </div>
     );
   }

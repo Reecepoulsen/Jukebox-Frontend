@@ -5,7 +5,7 @@ import Loading from "../Loading/Loading";
 import ScrollableSongListItem from "../ScrollableSongListIem/ScrollableSongListIem";
 import "./ScrollableSongList.scss";
 
-const ScrollableSongList = ({ songs, songSpotlight, setSongSpotlight }) => {
+const ScrollableSongList = ({ songs, songSpotlight, setSongSpotlight, setPlayTrack }) => {
   const [jukeboxPlaylist, setJukeboxPlaylist] = useState(null);
   useEffect(() => {
     if (jukeboxPlaylist === null) {
@@ -28,6 +28,7 @@ const ScrollableSongList = ({ songs, songSpotlight, setSongSpotlight }) => {
           songSpotlight={songSpotlight}
           setSongSpotlight={setSongSpotlight}
           inJukeboxPlaylist={jukeboxPlaylist.hasOwnProperty(song.id)}
+          setPlayTrack={setPlayTrack}
         />
       );
       counter++;

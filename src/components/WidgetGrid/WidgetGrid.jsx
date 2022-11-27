@@ -16,6 +16,7 @@ const WidgetGrid = (props) => {
         data={widget.data}
         profileData={props.profileData}
         owner={props.owner}
+        setPlayTrack={props.setPlayTrack}
       />
     );
     if (props.owner) {
