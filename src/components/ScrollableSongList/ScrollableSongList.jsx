@@ -19,8 +19,7 @@ const ScrollableSongList = ({ songs, songSpotlight, setSongSpotlight, setPlayTra
   let counter = 0;
 
   if (jukeboxPlaylist) {
-    console.log("jukebox playlist in scrollableSongList", jukeboxPlaylist);
-    songs.map(song => {
+    songs.forEach(song => {
       listItems.push(
         <ScrollableSongListItem
           key={counter}

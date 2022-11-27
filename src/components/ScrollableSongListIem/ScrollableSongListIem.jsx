@@ -50,6 +50,9 @@ const ScrollableSongListItem = ({
   setPlayTrack
 }) => {
   const [savedSong, setSavedSong] = useState(inJukeboxPlaylist);
+  if (song.track) {
+    song = song.track;
+  }
 
   let discIcon = null;
   if (savedSong) {
@@ -76,6 +79,10 @@ const ScrollableSongListItem = ({
         }}
       />
     );
+  }
+
+  if (song.name.toUpperCase() === song.name) {
+    song.name = song.name.toLowerCase();
   }
 
   return (

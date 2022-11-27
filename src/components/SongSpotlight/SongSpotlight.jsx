@@ -4,6 +4,9 @@ import HitCount from "../HitCount/HitCount";
 import './SongSpotlight.scss'
 
 const SongSpotlight = ({songData}) => {
+  if (songData.track) {
+    songData = songData.track;
+  }
   let artistString = '';
   songData.artists.map(artist => artistString = artistString + `${artist.name}, `)
   artistString = artistString.slice(0, -2);
