@@ -81,10 +81,6 @@ const ScrollableSongListItem = ({
     );
   }
 
-  if (song.name.toUpperCase() === song.name) {
-    song.name = song.name.toLowerCase();
-  }
-
   return (
     <li
       className={`scrollableSongListItem ${
