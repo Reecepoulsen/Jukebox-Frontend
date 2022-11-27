@@ -4,13 +4,14 @@
   left: 0px;
   transition: all ease .3s;
   z-index: 5;
+  overflow: hidden;
 
   .collapseBtn{
     display: grid;
     align-items: center;
     justify-content: center;
     position: absolute;
-    bottom: 3px;
+    bottom: 8px;
     left: 15px;
     color: #02CBE5;
     transition: all ease .3s;

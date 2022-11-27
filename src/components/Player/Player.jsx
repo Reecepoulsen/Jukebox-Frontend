@@ -52,7 +52,7 @@ export default function Player({ trackUri }) {
               trackNameColor: "#FFFEFE",
               trackArtistColor: "#FFFEFE",
               color: "#02CBE5",
-              height: 40,
+              height: 50,
             }}
           />
         </div>
