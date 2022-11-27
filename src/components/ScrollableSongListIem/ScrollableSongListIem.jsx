@@ -50,7 +50,7 @@ const ScrollableSongListItem = ({
   setPlayTrack
 }) => {
   const [savedSong, setSavedSong] = useState(inJukeboxPlaylist);
-  if (song.track) {
+  if (song.track?.name) {
     song = song.track;
   }
 
