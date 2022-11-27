@@ -23,6 +23,7 @@ const loadProfile = async (userId) => {
 const ProfileLite = (props) => {
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
+  window.scrollTo(0, 0);
 
   useEffect(() => {
     if (profileData === null) {
