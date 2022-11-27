@@ -45,7 +45,7 @@ const ScrollableSongListItem = ({
   songSpotlight,
   setSongSpotlight,
   size = "24",
-  charLimit = 14,
+  charLimit = 12,
   inJukeboxPlaylist=false, 
   setPlayTrack
 }) => {
