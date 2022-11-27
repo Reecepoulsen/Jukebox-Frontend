@@ -44,7 +44,7 @@ export default function Player({ trackUri }) {
           <SpotifyPlayer
             token={spotifyToken}
             uris={trackUri ? [trackUri] : []}
-            syncExternalDevice={false}
+            name="Jukebox"
             styles={{
               sliderColor: "#02CBE5",
               sliderHandleColor: "#FFFEFE",
