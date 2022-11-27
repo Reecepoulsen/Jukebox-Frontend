@@ -52,6 +52,8 @@ export default function Player({ trackUri }) {
               trackNameColor: "#FFFEFE",
               trackArtistColor: "#FFFEFE",
               color: "#02CBE5",
+              sliderHandleColor: "Transparent",
+              sliderTrackColor: "#242424",
               height: 50,
             }}
           />
