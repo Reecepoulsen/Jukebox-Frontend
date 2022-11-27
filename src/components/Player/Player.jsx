@@ -45,6 +45,7 @@ export default function Player({ trackUri }) {
             token={spotifyToken}
             uris={trackUri ? [trackUri] : []}
             name="Jukebox"
+            persistDeviceSelection="false"
             styles={{
               sliderColor: "#02CBE5",
               sliderHandleColor: "#FFFEFE",
@@ -52,7 +53,7 @@ export default function Player({ trackUri }) {
               trackNameColor: "#FFFEFE",
               trackArtistColor: "#FFFEFE",
               color: "#02CBE5",
-              sliderHandleColor: "Transparent",
+              // sliderHandleColor: "Transparent",
               sliderTrackColor: "#242424",
               height: 50,
             }}

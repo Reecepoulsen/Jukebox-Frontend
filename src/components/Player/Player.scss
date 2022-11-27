@@ -4,7 +4,14 @@
   left: 0px;
   transition: all ease .3s;
   z-index: 5;
-  overflow: hidden;
+  // overflow: hidden;
+  .player {
+    ._SliderRSWP{
+      div div:nth-child(2){
+        transform: scale(0);
+      }
+    }
+  }
 
   .collapseBtn{
     display: grid;
