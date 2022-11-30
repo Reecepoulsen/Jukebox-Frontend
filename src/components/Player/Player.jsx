@@ -44,6 +44,25 @@ export default function Player({ playerList, setPlayerTrackIndex, playerTrackInd
     console.log("Player track index", playerTrackIndex)
     console.log("Song uris", playerList);
     console.log("Uri at index", playerTrackIndex, playerList[playerTrackIndex]);
+    let songRange = [];
+    if (playerList.length > 700) {
+      let min = 0;
+      let max = playerList.length - 1;
+      let boundCount = 350;
+      let newSongIndex = playerTrackIndex;
+
+      if ((playerTrackIndex - boundCount) > 0) {
+        min = playerTrackIndex - boundCount;
+        newSongIndex = 350;
+      }
+
+      if ((playerTrackIndex + boundCount) > (playerList.length - 1)) {
+        max = playerTrackIndex + boundCount;
+      }
+
+      playerTrackIndex = newSongIndex;
+      playerList = playerList.slice(min, max);
+    }
     return (
       <div
         className="player__container"
