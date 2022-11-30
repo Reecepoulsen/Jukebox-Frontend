@@ -5,7 +5,7 @@ import "./ScrollableSongListItem.scss";
 const addSong = async (song) => {
   const payload = {
     trackUris: [song.uri],
-    song: song
+    song: song,
   };
   const result = await fetch(
     `${process.env.REACT_APP_BACKEND_URL}/profile/playlist/addSong`,
@@ -17,14 +17,14 @@ const addSong = async (song) => {
       },
       body: JSON.stringify(payload),
     }
-  ).then(response => response.json());
+  ).then((response) => response.json());
   console.log("Result of add song", result);
 };
 
 const removeSong = async (song) => {
   const payload = {
     trackUris: [song.uri],
-    song: song
+    song: song,
   };
   const result = await fetch(
     `${process.env.REACT_APP_BACKEND_URL}/profile/playlist/removeSong`,
@@ -36,18 +36,22 @@ const removeSong = async (song) => {
       },
       body: JSON.stringify(payload),
     }
-  ).then(response => response.json());
+  ).then((response) => response.json());
   console.log("Result of remove song", result);
 };
 
 const ScrollableSongListItem = ({
   song,
+  uriList,
+  index,
   songSpotlight,
   setSongSpotlight,
   size = "24",
   charLimit = 12,
-  inJukeboxPlaylist=false, 
-  setPlayTrack
+  inJukeboxPlaylist = false,
+  setPlayerList,
+  setPlayerTrackIndex,
+  playerTrackIndex
 }) => {
   const [savedSong, setSavedSong] = useState(inJukeboxPlaylist);
   if (song.track?.name) {
@@ -84,14 +88,15 @@ const ScrollableSongListItem = ({
   return (
     <li
       className={`scrollableSongListItem ${
-        songSpotlight.id === song.id ? "activeSong" : ""
+        (songSpotlight.id === song.id) ? "activeSong" : ""
       }`}
     >
       <span
         className="scrollableSongListItem-Title"
         onClick={() => {
           setSongSpotlight(song);
-          setPlayTrack(song.uri)
+          setPlayerTrackIndex(index);
+          setPlayerList(uriList);
         }}
       >
         {song.name.length > charLimit

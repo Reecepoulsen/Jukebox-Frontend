@@ -3,11 +3,24 @@ import SpotifyPlayer from "react-spotify-web-playback";
 import { TbLayoutSidebarRightCollapse } from "react-icons/tb";
 import "./Player.scss";
 
-export default function Player({ trackUri }) {
+export default function Player({ playerList, setPlayerTrackIndex, playerTrackIndex }) {
   const [spotifyToken, setSpotifyToken] = useState(null);
   const [containerBg, setContainerBg] = useState("rgba(18, 18, 18, .9)");
   const [playerScale, setPlayerScale] = useState(1);
   const [iconRotation, setIconRotation] = useState("90");
+
+  // const controls = document.getElementsByClassName("_ControlsRSWP")
+  // if (controls?.length > 0) {
+  //   controls.children[0].addEventListener("click", () => {
+  //     console.log("subtract 1")
+  //     setPlayerTrackIndex(playerTrackIndex -= 1);
+  //   })
+  //   controls.children[1].addEventListener("click", () => {
+  //     setPlayerTrackIndex(playerTrackIndex += 1);
+  //   })
+  //   console.log("Hello")
+  // }
+  // console.log("controls", controls);
 
   useEffect(() => {
     if (!spotifyToken) {
@@ -25,7 +38,7 @@ export default function Player({ trackUri }) {
     }
   }, [spotifyToken]);
 
-  if (!spotifyToken || !trackUri) {
+  if (!spotifyToken || !playerList) {
     return null;
   } else {
     return (
@@ -43,7 +56,8 @@ export default function Player({ trackUri }) {
         >
           <SpotifyPlayer
             token={spotifyToken}
-            uris={trackUri ? [trackUri] : []}
+            uris={playerList}
+            offset={playerTrackIndex}
             name="Jukebox"
             persistDeviceSelection="false"
             styles={{

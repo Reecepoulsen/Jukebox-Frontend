@@ -1,6 +1,11 @@
 import "./SelectedArtistSpotlight.scss";
 
-const SelectedArtistSpotlight = ({ artistData, setPlayTrack }) => {
+const SelectedArtistSpotlight = ({
+  artistData,
+  setPlayerList,
+  setPlayerTrackIndex,
+  playerTrackIndex,
+}) => {
   return (
     <div className="selectedArtistSpotlight">
       <div className="selectedArtistSpotlight__image">

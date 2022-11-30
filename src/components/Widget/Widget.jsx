@@ -6,21 +6,46 @@ import WidgetArtistSpotlight from "../WidgetArtistSpotlight/WidgetArtistSpotligh
 
 const Widget = (props) => {
   const determineBody = (type) => {
-    if (type === 'songList'){
-      return <WidgetFavSongs songs={props.data} setPlayTrack={props.setPlayTrack}/>;
-    } else if (type === 'playlist') {
-      return <WidgetPlaylistList playlists={props.data} setPlayTrack={props.setPlayTrack}/>;
-    } else if (type === 'artistSpotlight'){
-      return <WidgetArtistSpotlight artistList={props.data} setPlayTrack={props.setPlayTrack}/>
+    if (type === "songList") {
+      return (
+        <WidgetFavSongs
+          songs={props.data}
+          setPlayerList={props.setPlayerList}
+          setPlayerTrackIndex={props.setPlayerTrackIndex}
+          playerTrackIndex={props.playerTrackIndex}
+        />
+      );
+    } else if (type === "playlist") {
+      return (
+        <WidgetPlaylistList
+          playlists={props.data}
+          setPlayerList={props.setPlayerList}
+          setPlayerTrackIndex={props.setPlayerTrackIndex}
+          playerTrackIndex={props.playerTrackIndex}
+        />
+      );
+    } else if (type === "artistSpotlight") {
+      return (
+        <WidgetArtistSpotlight
+          artistList={props.data}
+          setPlayerList={props.setPlayerList}
+          setPlayerTrackIndex={props.setPlayerTrackIndex}
+          playerTrackIndex={props.playerTrackIndex}
+        />
+      );
     }
-  } 
+  };
 
   return (
     <div className="widget">
-      <WidgetHeader title={props.title} privacy={props.privacy} owner={props.owner}/>
+      <WidgetHeader
+        title={props.title}
+        privacy={props.privacy}
+        owner={props.owner}
+      />
       <div className="widget__body">{determineBody(props.type)}</div>
     </div>
-  )
+  );
 };
 
 export default Widget;

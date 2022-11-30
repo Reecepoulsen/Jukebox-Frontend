@@ -5,35 +5,55 @@ import Loading from "../Loading/Loading";
 import ScrollableSongListItem from "../ScrollableSongListIem/ScrollableSongListIem";
 import "./ScrollableSongList.scss";
 
-const ScrollableSongList = ({ songs, songSpotlight, setSongSpotlight, setPlayTrack }) => {
+const ScrollableSongList = ({
+  songs,
+  songSpotlight,
+  setSongSpotlight,
+  setPlayerList,
+  setPlayerTrackIndex,
+  playerTrackIndex,
+}) => {
   const [jukeboxPlaylist, setJukeboxPlaylist] = useState(null);
+
   useEffect(() => {
     if (jukeboxPlaylist === null) {
-      getUsersJukeboxPlaylist().then(jukeboxPlaylist => {
+      getUsersJukeboxPlaylist().then((jukeboxPlaylist) => {
         setJukeboxPlaylist(jukeboxPlaylist);
-      })
+      });
     }
-  }, [])
-
+  }, []);
   let listItems = [];
-  let counter = 0;
 
   if (jukeboxPlaylist) {
-    songs.forEach(song => {
+    let uriList = [];
+    songs.forEach((song) => {
+      if (song.track?.name) {
+        uriList.push(song.track.uri);
+      } else {
+        uriList.push(song.uri);
+      }
+    });
+
+    let counter = 0;
+    songs.forEach((song) => {
       listItems.push(
         <ScrollableSongListItem
           key={counter}
           song={song}
+          uriList={uriList}
+          index={counter}
           songSpotlight={songSpotlight}
           setSongSpotlight={setSongSpotlight}
           inJukeboxPlaylist={jukeboxPlaylist.hasOwnProperty(song.id)}
-          setPlayTrack={setPlayTrack}
+          setPlayerList={setPlayerList}
+          setPlayerTrackIndex={setPlayerTrackIndex}
+          playerTrackIndex={playerTrackIndex}
         />
       );
       counter++;
-    })
+    });
   } else {
-    listItems = <Loading />
+    listItems = <Loading />;
   }
 
   return <ul className="scrollableSongList">{listItems}</ul>;

@@ -15,7 +15,7 @@ const loadProfile = async (userId) => {
         Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
       },
     }
-  ).then(res => res.json());
+  ).then((res) => res.json());
   console.log("response in loadProfile", response);
   return response.data;
 };
@@ -28,7 +28,7 @@ const ProfileLite = (props) => {
   useEffect(() => {
     if (profileData === null) {
       loadProfile(props.userId).then((data) => {
-        console.log("data received from load profileLite", data)
+        console.log("data received from load profileLite", data);
         setProfileData(data);
         setLoading(false);
       });
@@ -62,7 +62,12 @@ const ProfileLite = (props) => {
           widgetList={profileData.widgetList}
           owner={false}
         />
-        <WidgetGrid profileData={profileData} owner={false} setPlayTrack={props.setPlayTrack}/>
+        <WidgetGrid
+          profileData={profileData}
+          owner={false}
+          setPlayerList={props.setPlayerList}
+          setPlayerTrackIndex={props.setPlayerTrackIndex}
+        />
       </div>
     );
   }

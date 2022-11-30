@@ -5,7 +5,7 @@ import Loading from "../Loading/Loading";
 import ProfileHeader from "../ProfileHeader/ProfileHeader";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import WidgetGrid from "../WidgetGrid/WidgetGrid";
-import './Profile.scss';
+import "./Profile.scss";
 
 const Profile = (props) => {
   if (
@@ -29,7 +29,12 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
-    if (profileData === null || profileData === "null" || profileData === undefined || profileData === "undefined") {
+    if (
+      profileData === null ||
+      profileData === "null" ||
+      profileData === undefined ||
+      profileData === "undefined"
+    ) {
       fetchData();
     } else {
       if (!updatedProfileData) {
@@ -42,7 +47,11 @@ const Profile = (props) => {
   }, [profileData]);
 
   if (loading) {
-    return <div className="loadingContainer"><Loading /></div>;
+    return (
+      <div className="loadingContainer">
+        <Loading />
+      </div>
+    );
   } else {
     if (profileData === null || profileData === "null") {
       return <ErrorPage />;
@@ -63,7 +72,13 @@ const Profile = (props) => {
           widgetList={profileData.widgetList}
           owner={true}
         />
-        <WidgetGrid profileData={profileData} owner={true} setPlayTrack={props.setPlayTrack}/>
+        <WidgetGrid
+          profileData={profileData}
+          owner={true}
+          setPlayerList={props.setPlayerList}
+          setPlayerTrackIndex={props.setPlayerTrackIndex}
+          playerTrackIndex={props.playerTrackIndex}
+        />
       </div>
     );
   }

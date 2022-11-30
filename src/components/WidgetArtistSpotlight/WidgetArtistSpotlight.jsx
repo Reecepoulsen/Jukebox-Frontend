@@ -3,14 +3,21 @@ import ArtistScrollList from "../ArtistScrollList/ArtistScrollList";
 import SelectedArtistSpotlight from "../SelectedArtistSpotlight/SelectedArtistSpotlight";
 import "./WidgetArtistSpotlight.scss";
 
-const WidgetArtistSpotlight = ({ artistList, setPlayTrack }) => {
+const WidgetArtistSpotlight = ({
+  artistList,
+  setPlayerList,
+  setPlayerTrackIndex,
+  playerTrackIndex,
+}) => {
   const [spotlightArtist, setSpotlightArtist] = useState(artistList[0]);
 
   return (
     <div className="widgetArtistSpotlight">
       <SelectedArtistSpotlight
         artistData={spotlightArtist}
-        setPlayTrack={setPlayTrack}
+        setPlayerList={setPlayerList}
+        setPlayerTrackIndex={setPlayerTrackIndex}
+        playerTrackIndex={playerTrackIndex}
       />
       <ArtistScrollList
         artistList={artistList}

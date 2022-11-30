@@ -1,7 +1,12 @@
 import PlaylistTile from "../PlaylistTile/PlaylistTile";
 import "./SidescrollList.scss";
 
-const SidescrollList = ({ listData, setPlayTrack }) => {
+const SidescrollList = ({
+  listData,
+  setPlayerList,
+  setPlayerTrackIndex,
+  playerTrackIndex,
+}) => {
   const listItems = [];
   let counter = 0;
 
@@ -11,7 +16,9 @@ const SidescrollList = ({ listData, setPlayTrack }) => {
       <li key={counter}>
         <PlaylistTile
           playlistData={playlist}
-          setPlayTrack={setPlayTrack}
+          setPlayerList={setPlayerList}
+          setPlayerTrackIndex={setPlayerTrackIndex}
+          playerTrackIndex={playerTrackIndex}
         />
       </li>
     );

@@ -7,24 +7,36 @@ import Player from "../Player/Player";
 import { useEffect } from "react";
 
 export default function Main(props) {
-  const [playTrack, setPlayTrack] = useState(null);
+  const [playerList, setPlayerList] = useState(null);
+  const [playerTrackIndex, setPlayerTrackIndex] = useState(0);
 
   const profileView = (
     <Profile
       loginToken={props.loginToken}
       setLoginToken={props.setLoginToken}
       setConnectedSpotify={props.setConnectedSpotify}
-      setPlayTrack={setPlayTrack}
+      setPlayerList={setPlayerList}
+      setPlayerTrackIndex={setPlayerTrackIndex}
+      playerTrackIndex={playerTrackIndex}
     />
   );
 
-  const connectView = <Connect setPlayTrack={setPlayTrack}/>;
+  const connectView = (
+    <Connect
+      setPlayerList={setPlayerList}
+      setPlayerTrackIndex={setPlayerTrackIndex}
+    />
+  );
 
   const [currentView, setCurrentView] = useState(profileView);
   return (
     <div className="main">
       {currentView}
-      <Player trackUri={playTrack} />
+      <Player
+        playerList={playerList}
+        setPlayerTrackIndex={setPlayerTrackIndex}
+        playerTrackIndex={playerTrackIndex}
+      />
       <MobileNav
         profileView={profileView}
         connectView={connectView}

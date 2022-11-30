@@ -3,7 +3,12 @@ import ScrollableSongList from "../ScrollableSongList/ScrollableSongList";
 import SongSpotlight from "../SongSpotlight/SongSpotlight";
 import "./WidgetFavSongs.scss";
 
-const WidgetFavSongs = ({ songs, setPlayTrack }) => {
+const WidgetFavSongs = ({
+  songs,
+  setPlayerList,
+  setPlayerTrackIndex,
+  playerTrackIndex,
+}) => {
   const [songSpotlight, setSongSpotlight] = useState(songs[0]);
   return (
     <div className="favSongsBody">
@@ -11,7 +16,9 @@ const WidgetFavSongs = ({ songs, setPlayTrack }) => {
         songs={songs}
         songSpotlight={songSpotlight}
         setSongSpotlight={setSongSpotlight}
-        setPlayTrack={setPlayTrack}
+        setPlayerList={setPlayerList}
+        setPlayerTrackIndex={setPlayerTrackIndex}
+        playerTrackIndex={playerTrackIndex}
       />
       <SongSpotlight songData={songSpotlight} />
     </div>

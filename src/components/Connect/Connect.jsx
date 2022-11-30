@@ -52,7 +52,8 @@ export default function Connect(props) {
         <ProfileLite
           userId={displayUserId}
           setDisplayUserId={setDisplayUserId}
-          setPlayTrack={props.setPlayTrack}
+          setPlayerList={props.setPlayerList}
+          setPlayerTrackIndex={props.setPlayerTrackIndex}
         />
       );
     }

@@ -16,7 +16,9 @@ const WidgetGrid = (props) => {
         data={widget.data}
         profileData={props.profileData}
         owner={props.owner}
-        setPlayTrack={props.setPlayTrack}
+        setPlayerList={props.setPlayerList}
+        setPlayerTrackIndex={props.setPlayerTrackIndex}
+        playerTrackIndex={props.playerTrackIndex}
       />
     );
     if (props.owner) {
@@ -36,10 +38,10 @@ const WidgetGrid = (props) => {
     return <div className="widgetGrid">{widgets}</div>;
   } else {
     return (
-    <div className="emptyGrid">
-      <BiLock size="80" />
-      <span>Widgets Locked</span>
-    </div>
+      <div className="emptyGrid">
+        <BiLock size="80" />
+        <span>Widgets Locked</span>
+      </div>
     );
   }
 };

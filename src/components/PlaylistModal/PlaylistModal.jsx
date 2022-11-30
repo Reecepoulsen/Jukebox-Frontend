@@ -22,7 +22,12 @@ const loadSongs = async (playlistData) => {
   return result;
 };
 
-export default function PlaylistModal({ playlistData, setPlayTrack }) {
+export default function PlaylistModal({
+  playlistData,
+  setPlayerList,
+  setPlayerTrackIndex,
+  playerTrackIndex
+}) {
   const [tracks, setTracks] = useState(null);
   const [focusedSong, setFocusedSong] = useState(0);
   const [jukeboxPlaylist, setJukeboxPlaylist] = useState(null);
@@ -32,9 +37,9 @@ export default function PlaylistModal({ playlistData, setPlayTrack }) {
     loadSongs(playlistData).then((res) => setTracks(res.data.flat()));
     console.log("Tracks after", tracks);
     if (jukeboxPlaylist === null) {
-      getUsersJukeboxPlaylist().then(jukeboxPlaylist => {
+      getUsersJukeboxPlaylist().then((jukeboxPlaylist) => {
         setJukeboxPlaylist(jukeboxPlaylist);
-      })
+      });
     }
   }, []);
 
@@ -42,6 +47,16 @@ export default function PlaylistModal({ playlistData, setPlayTrack }) {
     console.log("tracks is null");
     return <Loading />;
   } else {
+
+    let uriList = [];
+    tracks.forEach((song) => {
+      if (song.track?.name) {
+        uriList.push(song.track.uri);
+      } else {
+        uriList.push(song.uri);
+      }
+    })
+
     const songList = [];
     let counter = 0;
 
@@ -50,12 +65,16 @@ export default function PlaylistModal({ playlistData, setPlayTrack }) {
         <ScrollableSongListItem
           key={counter}
           song={song.track}
+          uriList={uriList}
+          index={counter}
           songSpotlight={focusedSong}
           setSongSpotlight={setFocusedSong}
           size="30"
           charLimit="24"
           inJukeboxPlaylist={jukeboxPlaylist.hasOwnProperty(song.track.id)}
-          setPlayTrack={setPlayTrack}
+          setPlayerList={setPlayerList}
+          setPlayerTrackIndex={setPlayerTrackIndex}
+          playerTrackIndex={playerTrackIndex}
         />
       );
       counter++;
@@ -76,9 +95,7 @@ export default function PlaylistModal({ playlistData, setPlayTrack }) {
       <div className="playlistModal">
         <div className="header">
           <h2 className="header__title">{playlistData.name}</h2>
-          <p className="header__songCount">
-            Songs: {songList.length}
-          </p>
+          <p className="header__songCount">Songs: {songList.length}</p>
           <div className="header__image">{playlistImg}</div>
         </div>
         <ul className="songList">{songList}</ul>

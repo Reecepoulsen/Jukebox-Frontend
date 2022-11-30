@@ -4,7 +4,12 @@ import GenModal from "../GenModal/GenModal";
 import PlaylistModal from "../PlaylistModal/PlaylistModal";
 import "./PlaylistTile.scss";
 
-const PlaylistTile = ({ playlistData, setPlayTrack }) => {
+const PlaylistTile = ({
+  playlistData,
+  setPlayerList,
+  setPlayerTrackIndex,
+  playerTrackIndex,
+}) => {
   const [openModal, setOpenModal] = useState(false);
 
   let playlistImg = null;
@@ -18,9 +23,9 @@ const PlaylistTile = ({ playlistData, setPlayTrack }) => {
   } else {
     playlistImg = (
       <div className="playlistPlaceholder">
-        <RiDiscLine size="50"/>
+        <RiDiscLine size="50" />
       </div>
-    )
+    );
   }
 
   return (
@@ -39,7 +44,14 @@ const PlaylistTile = ({ playlistData, setPlayTrack }) => {
         width={"90vw"}
         top={"42%"}
         background={"#121212"}
-        body={<PlaylistModal playlistData={playlistData} setPlayTrack={setPlayTrack}/>}
+        body={
+          <PlaylistModal
+            playlistData={playlistData}
+            setPlayerList={setPlayerList}
+            setPlayerTrackIndex={setPlayerTrackIndex}
+            playerTrackIndex={playerTrackIndex}
+          />
+        }
       />
     </div>
   );
