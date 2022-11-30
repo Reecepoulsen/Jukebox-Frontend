@@ -41,6 +41,9 @@ export default function Player({ playerList, setPlayerTrackIndex, playerTrackInd
   if (!spotifyToken || !playerList) {
     return null;
   } else {
+    console.log("Player track index", playerTrackIndex)
+    console.log("Song uris", playerList);
+    console.log("Uri at index", playerTrackIndex, playerList[playerTrackIndex]);
     return (
       <div
         className="player__container"
@@ -54,9 +57,10 @@ export default function Player({ playerList, setPlayerTrackIndex, playerTrackInd
             transform: `scale(${playerScale})`,
           }}
         >
+          {/* Implement a range where the selected index is the middle of the 750 songs */}
           <SpotifyPlayer
             token={spotifyToken}
-            uris={playerList}
+            uris={playerList.length > 750 ? playerList.slice(0, 750) : playerList}
             offset={playerTrackIndex}
             name="Jukebox"
             persistDeviceSelection="false"

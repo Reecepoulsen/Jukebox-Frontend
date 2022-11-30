@@ -51,9 +51,13 @@ export default function PlaylistModal({
     let uriList = [];
     tracks.forEach((song) => {
       if (song.track?.name) {
-        uriList.push(song.track.uri);
+        if (!song.track.is_local){
+          uriList.push(song.track.uri);
+        }
       } else {
-        uriList.push(song.uri);
+        if (!song.is_local) {
+          uriList.push(song.uri);
+        }
       }
     })
 
@@ -61,23 +65,25 @@ export default function PlaylistModal({
     let counter = 0;
 
     tracks.map((song) => {
-      songList.push(
-        <ScrollableSongListItem
-          key={counter}
-          song={song.track}
-          uriList={uriList}
-          index={counter}
-          songSpotlight={focusedSong}
-          setSongSpotlight={setFocusedSong}
-          size="30"
-          charLimit="24"
-          inJukeboxPlaylist={jukeboxPlaylist.hasOwnProperty(song.track.id)}
-          setPlayerList={setPlayerList}
-          setPlayerTrackIndex={setPlayerTrackIndex}
-          playerTrackIndex={playerTrackIndex}
-        />
-      );
-      counter++;
+      if (!song.is_local) {
+        songList.push(
+          <ScrollableSongListItem
+            key={counter}
+            song={song.track}
+            uriList={uriList}
+            index={counter}
+            songSpotlight={focusedSong}
+            setSongSpotlight={setFocusedSong}
+            size="30"
+            charLimit="24"
+            inJukeboxPlaylist={jukeboxPlaylist.hasOwnProperty(song.track.id)}
+            setPlayerList={setPlayerList}
+            setPlayerTrackIndex={setPlayerTrackIndex}
+            playerTrackIndex={playerTrackIndex}
+          />
+        );
+        counter++;
+      }
     });
 
     let playlistImg = null;

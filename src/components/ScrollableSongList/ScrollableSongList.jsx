@@ -28,29 +28,35 @@ const ScrollableSongList = ({
     let uriList = [];
     songs.forEach((song) => {
       if (song.track?.name) {
-        uriList.push(song.track.uri);
+        if (!song.track.is_local){
+          uriList.push(song.track.uri);
+        }
       } else {
-        uriList.push(song.uri);
+        if (!song.is_local) {
+          uriList.push(song.uri);
+        }
       }
-    });
+    })
 
     let counter = 0;
     songs.forEach((song) => {
-      listItems.push(
-        <ScrollableSongListItem
-          key={counter}
-          song={song}
-          uriList={uriList}
-          index={counter}
-          songSpotlight={songSpotlight}
-          setSongSpotlight={setSongSpotlight}
-          inJukeboxPlaylist={jukeboxPlaylist.hasOwnProperty(song.id)}
-          setPlayerList={setPlayerList}
-          setPlayerTrackIndex={setPlayerTrackIndex}
-          playerTrackIndex={playerTrackIndex}
-        />
-      );
-      counter++;
+      if (!song.is_local) {
+        listItems.push(
+          <ScrollableSongListItem
+            key={counter}
+            song={song}
+            uriList={uriList}
+            index={counter}
+            songSpotlight={songSpotlight}
+            setSongSpotlight={setSongSpotlight}
+            inJukeboxPlaylist={jukeboxPlaylist.hasOwnProperty(song.id)}
+            setPlayerList={setPlayerList}
+            setPlayerTrackIndex={setPlayerTrackIndex}
+            playerTrackIndex={playerTrackIndex}
+          />
+        );
+        counter++;
+      }
     });
   } else {
     listItems = <Loading />;
