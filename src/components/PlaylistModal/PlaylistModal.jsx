@@ -33,9 +33,9 @@ export default function PlaylistModal({
   const [jukeboxPlaylist, setJukeboxPlaylist] = useState(null);
 
   useEffect(() => {
-    console.log("Tracks before", tracks);
+    // console.log("Tracks before", tracks);
     loadSongs(playlistData).then((res) => setTracks(res.data.flat()));
-    console.log("Tracks after", tracks);
+    // console.log("Tracks after", tracks);
     if (jukeboxPlaylist === null) {
       getUsersJukeboxPlaylist().then((jukeboxPlaylist) => {
         setJukeboxPlaylist(jukeboxPlaylist);
@@ -44,7 +44,7 @@ export default function PlaylistModal({
   }, []);
 
   if (playlistData === null || tracks === null || jukeboxPlaylist === null) {
-    console.log("tracks is null");
+    // console.log("tracks is null");
     return <Loading />;
   } else {
 
