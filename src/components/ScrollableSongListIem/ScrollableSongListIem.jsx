@@ -86,23 +86,17 @@ const ScrollableSongListItem = ({
     );
   }
 
-  let explicitTag = null;
-  console.log("Song is explicit", song.explicit);
-  if (song.explicit) {
-    explicitTag = (
-      <div className="explicitTag">
-        <MdOutlineExplicit size={20} />
-      </div>
-    );
-  }
-
   return (
     <li
       className={`scrollableSongListItem ${
         songSpotlight.id === song.id ? "activeSong" : ""
       }`}
     >
-      {explicitTag}
+      {song.explicit && (
+        <div className="explicitTag">
+          <MdOutlineExplicit size={20} />
+        </div>
+      )}
       <span
         className="scrollableSongListItem-Title"
         onClick={() => {
