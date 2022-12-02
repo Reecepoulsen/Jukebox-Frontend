@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { RiDiscLine, RiDiscFill } from "react-icons/ri";
+import { MdOutlineExplicit } from "react-icons/md";
 import "./ScrollableSongListItem.scss";
 
 const addSong = async (song) => {
@@ -47,11 +48,11 @@ const ScrollableSongListItem = ({
   songSpotlight,
   setSongSpotlight,
   size = "24",
-  charLimit = 12,
+  charLimit = 11,
   inJukeboxPlaylist = false,
   setPlayerList,
   setPlayerTrackIndex,
-  playerTrackIndex
+  playerTrackIndex,
 }) => {
   const [savedSong, setSavedSong] = useState(inJukeboxPlaylist);
   if (song.track?.name) {
@@ -85,12 +86,23 @@ const ScrollableSongListItem = ({
     );
   }
 
+  let explicitTag = null;
+  console.log("Song is explicit", song.explicit);
+  if (song.explicit) {
+    explicitTag = (
+      <div className="explicitTag">
+        <MdOutlineExplicit size={20} />
+      </div>
+    );
+  }
+
   return (
     <li
       className={`scrollableSongListItem ${
-        (songSpotlight.id === song.id) ? "activeSong" : ""
+        songSpotlight.id === song.id ? "activeSong" : ""
       }`}
     >
+      {explicitTag}
       <span
         className="scrollableSongListItem-Title"
         onClick={() => {
