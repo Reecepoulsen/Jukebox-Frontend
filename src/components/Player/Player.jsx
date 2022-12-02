@@ -3,11 +3,16 @@ import SpotifyPlayer from "react-spotify-web-playback";
 import { TbLayoutSidebarRightCollapse } from "react-icons/tb";
 import "./Player.scss";
 
-export default function Player({ playerList, setPlayerTrackIndex, playerTrackIndex }) {
+export default function Player({
+  playerList,
+  setPlayerTrackIndex,
+  playerTrackIndex,
+}) {
   const [spotifyToken, setSpotifyToken] = useState(null);
   const [containerBg, setContainerBg] = useState("rgba(18, 18, 18, .9)");
   const [playerScale, setPlayerScale] = useState(1);
   const [iconRotation, setIconRotation] = useState("90");
+  const [pointerEvents, setPointerEvents] = useState("auto");
 
   // const controls = document.getElementsByClassName("_ControlsRSWP")
   // if (controls?.length > 0) {
@@ -41,7 +46,7 @@ export default function Player({ playerList, setPlayerTrackIndex, playerTrackInd
   if (!spotifyToken || !playerList) {
     return null;
   } else {
-    console.log("Player track index", playerTrackIndex)
+    console.log("Player track index", playerTrackIndex);
     console.log("Song uris", playerList);
     console.log("Uri at index", playerTrackIndex, playerList[playerTrackIndex]);
     let songRange = [];
@@ -51,12 +56,12 @@ export default function Player({ playerList, setPlayerTrackIndex, playerTrackInd
       let boundCount = 350;
       let newSongIndex = playerTrackIndex;
 
-      if ((playerTrackIndex - boundCount) > 0) {
+      if (playerTrackIndex - boundCount > 0) {
         min = playerTrackIndex - boundCount;
         newSongIndex = 350;
       }
 
-      if ((playerTrackIndex + boundCount) > (playerList.length - 1)) {
+      if (playerTrackIndex + boundCount > playerList.length - 1) {
         max = playerTrackIndex + boundCount;
       }
 
@@ -68,6 +73,7 @@ export default function Player({ playerList, setPlayerTrackIndex, playerTrackInd
         className="player__container"
         style={{
           background: `${containerBg}`,
+          pointerEvents: `${pointerEvents}`,
         }}
       >
         <div
@@ -79,7 +85,9 @@ export default function Player({ playerList, setPlayerTrackIndex, playerTrackInd
           {/* Implement a range where the selected index is the middle of the 750 songs */}
           <SpotifyPlayer
             token={spotifyToken}
-            uris={playerList.length > 750 ? playerList.slice(0, 750) : playerList}
+            uris={
+              playerList.length > 750 ? playerList.slice(0, 750) : playerList
+            }
             offset={playerTrackIndex}
             name="Jukebox"
             persistDeviceSelection="false"
@@ -100,9 +108,11 @@ export default function Player({ playerList, setPlayerTrackIndex, playerTrackInd
           className="collapseBtn"
           style={{
             transform: `rotate(${iconRotation}deg)`,
+            pointerEvents: "auto"
           }}
           onClick={() => {
             setIconRotation(iconRotation === "90" ? "-90" : "90");
+            setPointerEvents(pointerEvents === "none" ? "auto" : "none");
             setContainerBg(
               containerBg === "Transparent"
                 ? "rgba(18, 18, 18, .9)"
