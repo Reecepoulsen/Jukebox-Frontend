@@ -1,4 +1,7 @@
 .artistScrollListTile{
+  &:hover{
+    cursor: pointer;
+  }
   &__image{
     display: grid;
     align-items: center;

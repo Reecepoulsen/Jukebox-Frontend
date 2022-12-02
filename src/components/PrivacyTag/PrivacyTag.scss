@@ -6,4 +6,7 @@
   // border: solid 2px #47BA79;
   width: fit-content;
   border-radius: 15px;
+  &:hover{
+    cursor: pointer;
+  }
 }

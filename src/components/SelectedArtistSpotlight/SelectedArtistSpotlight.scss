@@ -4,6 +4,9 @@
   row-gap: 5px;
   align-items: center;
   justify-items: center;
+  &:hover{
+    cursor: pointer;
+  }
 
   &__image{
     display: grid;

@@ -15,7 +15,9 @@
   &__icon{
     color: #FFFEFE;
     transform: scale(1);
-
+    &:hover{
+      cursor: pointer;
+    }
   }
 
   .active{

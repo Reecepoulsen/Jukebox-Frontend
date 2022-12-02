@@ -9,7 +9,7 @@ import AvailableWidgetList from "../availableWidgetList/availableWidgetList";
 const ProfileInfo = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  if (props.owner){
+  if (props.owner) {
     return (
       <div className="profileInfo">
         <div className="profileInfo__Name">{props.name}</div>
@@ -19,6 +19,9 @@ const ProfileInfo = (props) => {
           className="profileInfo__addWidget"
           size="45"
           onClick={() => setModalIsOpen(!modalIsOpen)}
+          style={{
+            cursor: "pointer",
+          }}
         />
         <GenModal
           modalIsOpen={modalIsOpen}

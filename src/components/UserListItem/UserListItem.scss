@@ -8,6 +8,9 @@
   justify-items: center;
   padding: 8px 12px;
   color: #FFFEFE;
+  &:hover{
+    cursor: pointer;
+  }
 
   .profilePicture{
     grid-row: 1/-1;

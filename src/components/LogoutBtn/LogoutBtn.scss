@@ -5,4 +5,7 @@
   width: fit-content;
   border-radius: 15px;
   transform: translateY(15px);
+  &:hover{
+    cursor: pointer;
+  }
 }
