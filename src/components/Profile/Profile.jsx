@@ -74,10 +74,10 @@ const Profile = (props) => {
         />
         <WidgetGrid
           profileData={profileData}
-          owner={true}
           setPlayerList={props.setPlayerList}
           setPlayerTrackIndex={props.setPlayerTrackIndex}
           playerTrackIndex={props.playerTrackIndex}
+          owner={true}
         />
       </div>
     );

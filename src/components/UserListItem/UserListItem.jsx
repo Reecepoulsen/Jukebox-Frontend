@@ -4,61 +4,69 @@ import "./UserListItem.scss";
 import { useState } from "react";
 import ProfilePicPlaceholder from "../ProfilePicPlaceholder/ProfilePicPlaceholder";
 
-// Info that this component needs:
-// - Is this user being followed by the current user? -> tells which icon to show
-// - Username
-// - FollowerCount
-// - Image source
-// - Profile Id attached to list item to open on click
+const modifyFollowerStatus = async (operation, userId, userliteId) => {
+  const payload = {
+    operation: operation,
+    followerUserId: userId,
+    followerUserliteId: userliteId
+  }
+
+  const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/profile/followers/modify`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("loginToken")}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  }).then(res => res.json())
+
+  console.log("Result of modifyFollowerStatus", response);
+}
+
 export default function UserListItem(props) {
   const iconSize = 28;
   const [userFollowed, setUserFollowed] = useState(props.isFollowed);
 
   let profilePicture = null;
-  if (props.profileImage === "None") {
+  if (props.userlite.profileImg === "None") {
     profilePicture = <ProfilePicPlaceholder size={"35"} />;
   } else {
     profilePicture = (
-      <img src={props.profileImage} alt="" className="profilePicture__img" />
+      <img src={props.userlite.profileImg} alt="" className="profilePicture__img" />
     );
   }
   const listItemNotFollowed = (
-    <li
-      className="userListItem"
-      onClick={() => props.setDisplayUserId(props.userId)}
-    >
-      <div className="profilePicture">
-        {profilePicture}
+    <li className="userListItem">
+      <div className="container" onClick={() => props.setDisplayUserId(props.userId)}>
+        <div className="profilePicture">{profilePicture}</div>
+        <h2 className="username">{props.userlite.name}</h2>
+        <FollowerCount count={props.followerCount} />
       </div>
-      <h2 className="username">{props.username}</h2>
-      <FollowerCount count={props.followerCount} />
       <RiUserAddLine
         className="icon"
         size={iconSize}
-        onClick={() => setUserFollowed(!userFollowed)}
+        onClick={() => {
+          modifyFollowerStatus("add", props.userlite.userId, props.userlite._id)
+          setUserFollowed(!userFollowed)
+        }}
       />
     </li>
   );
 
   const listItemFollowed = (
     <li className="userListItem">
-      <div className="profilePicture">
-        <img
-          src={
-            props.profileImage === "None"
-              ? "https://firebasestorage.googleapis.com/v0/b/jukebox-cfda4.appspot.com/o/Profile_avatar_placeholder_large.png?alt=media&token=602d1c6b-004c-4e8b-85a1-0d6d5fcddb7b"
-              : props.profileImage
-          }
-          alt=""
-          className="profilePicture__img"
-        />
+      <div className="container" onClick={() => props.setDisplayUserId(props.userId)}>
+        <div className="profilePicture">{profilePicture}</div>
+        <h2 className="username">{props.userlite.name}</h2>
+        <FollowerCount count={props.followerCount} />
       </div>
-      <h2 className="username">{props.username}</h2>
-      <FollowerCount count={props.followerCount} />
       <RiUserFill
         className="icon"
         size={iconSize}
-        onClick={() => setUserFollowed(!userFollowed)}
+        onClick={() => {
+          modifyFollowerStatus("remove", props.userlite.userId, props.userlite._id)
+          setUserFollowed(!userFollowed)
+        }}
       />
     </li>
   );

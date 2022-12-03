@@ -1,4 +1,4 @@
-const FollowerCount = ({count}) =>{
+const FollowerCount = ({count}) => {
   return (
     <div className="followerCount">
       Followers: {count}
