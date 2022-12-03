@@ -15,7 +15,7 @@ const loadFollowers = async () => {
       },
     }
   ).then((res) => res.json());
-  console.log("Response from loadFollowers", response);
+  // console.log("Response from loadFollowers", response);
   return response.followerList;
 };
 

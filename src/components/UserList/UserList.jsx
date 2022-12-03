@@ -14,7 +14,7 @@ const loadFollowers = async () => {
       },
     }
   ).then((res) => res.json());
-  console.log("Response from loadFollowers", response);
+  // console.log("Response from loadFollowers", response);
   return response.followerDataStructure;
 };
 
@@ -42,7 +42,6 @@ export default function UserList(props) {
     const curUsersId = profileData.userId;
     props.userList.map((userlite) => {
       if (userlite.userId !== curUsersId) {
-        console.log("User is ", userlite);
         const followerCount = userlite.followers
           ? Object.keys(userlite.followers).length
           : 0;
