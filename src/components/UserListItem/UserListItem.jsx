@@ -37,7 +37,7 @@ export default function UserListItem(props) {
   }
   const listItemNotFollowed = (
     <li className="userListItem">
-      <div className="container" onClick={() => props.setDisplayUserId(props.userId)}>
+      <div className="container" onClick={() => props.setDisplayUserId(props.userlite.userId)}>
         <div className="profilePicture">{profilePicture}</div>
         <h2 className="username">{props.userlite.name}</h2>
         <FollowerCount count={props.followerCount} />
@@ -55,7 +55,7 @@ export default function UserListItem(props) {
 
   const listItemFollowed = (
     <li className="userListItem">
-      <div className="container" onClick={() => props.setDisplayUserId(props.userId)}>
+      <div className="container" onClick={() => props.setDisplayUserId(props.userlite.userId)}>
         <div className="profilePicture">{profilePicture}</div>
         <h2 className="username">{props.userlite.name}</h2>
         <FollowerCount count={props.followerCount} />
