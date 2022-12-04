@@ -15,6 +15,7 @@
   &__icon{
     color: #FFFEFE;
     transform: scale(1);
+    transition: all ease .2s;
     &:hover{
       cursor: pointer;
     }
