@@ -4,24 +4,27 @@ import "./UserListItem.scss";
 import { useState } from "react";
 import ProfilePicPlaceholder from "../ProfilePicPlaceholder/ProfilePicPlaceholder";
 
-const modifyFollowerStatus = async (operation, userId, userliteId) => {
+const modifyFollowStatus = async (operation, userId, userliteId) => {
   const payload = {
     operation: operation,
-    followerUserId: userId,
-    followerUserliteId: userliteId
-  }
+    followUserId: userId,
+    followUserliteId: userliteId,
+  };
 
-  const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/profile/followers/modify`, {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${localStorage.getItem("loginToken")}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(payload)
-  }).then(res => res.json())
+  const response = await fetch(
+    `${process.env.REACT_APP_BACKEND_URL}/profile/follow/status`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    }
+  ).then((res) => res.json());
 
-  console.log("Result of modifyFollowerStatus", response);
-}
+  console.log("Result of modifyFollowStatus", response);
+};
 
 export default function UserListItem(props) {
   const iconSize = 28;
@@ -32,12 +35,20 @@ export default function UserListItem(props) {
     profilePicture = <ProfilePicPlaceholder size={"35"} />;
   } else {
     profilePicture = (
-      <img src={props.userlite.profileImg} alt="" className="profilePicture__img" />
+      <img
+        src={props.userlite.profileImg}
+        alt=""
+        className="profilePicture__img"
+      />
     );
   }
+
   const listItemNotFollowed = (
     <li className="userListItem">
-      <div className="container" onClick={() => props.setDisplayUserId(props.userlite.userId)}>
+      <div
+        className="container"
+        onClick={() => props.setDisplayUserId(props.userlite.userId)}
+      >
         <div className="profilePicture">{profilePicture}</div>
         <h2 className="username">{props.userlite.name}</h2>
         <FollowerCount count={props.followerCount} />
@@ -45,9 +56,9 @@ export default function UserListItem(props) {
       <RiUserAddLine
         className="icon"
         size={iconSize}
-        onClick={() => {
-          modifyFollowerStatus("add", props.userlite.userId, props.userlite._id)
-          setUserFollowed(!userFollowed)
+        onClick={async () => {
+          await modifyFollowStatus("add", props.userlite.userId, props.userlite._id);
+          setUserFollowed(!userFollowed);
         }}
       />
     </li>
@@ -55,7 +66,10 @@ export default function UserListItem(props) {
 
   const listItemFollowed = (
     <li className="userListItem">
-      <div className="container" onClick={() => props.setDisplayUserId(props.userlite.userId)}>
+      <div
+        className="container"
+        onClick={() => props.setDisplayUserId(props.userlite.userId)}
+      >
         <div className="profilePicture">{profilePicture}</div>
         <h2 className="username">{props.userlite.name}</h2>
         <FollowerCount count={props.followerCount} />
@@ -63,9 +77,13 @@ export default function UserListItem(props) {
       <RiUserFill
         className="icon"
         size={iconSize}
-        onClick={() => {
-          modifyFollowerStatus("remove", props.userlite.userId, props.userlite._id)
-          setUserFollowed(!userFollowed)
+        onClick={async () => {
+          await modifyFollowStatus(
+            "remove",
+            props.userlite.userId,
+            props.userlite._id
+          );
+          setUserFollowed(!userFollowed);
         }}
       />
     </li>

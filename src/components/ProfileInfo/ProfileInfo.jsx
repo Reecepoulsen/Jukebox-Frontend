@@ -5,6 +5,7 @@ import "./ProfileInfo.scss";
 import GenModal from "../GenModal/GenModal";
 import { FiUsers } from "react-icons/fi";
 import FollowerList from "../FollowerList/FollowerList";
+import FollowerModal from "../FollowerModal/FollowerModal";
 
 const ProfileInfo = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -27,17 +28,7 @@ const ProfileInfo = (props) => {
           modalIsOpen={modalIsOpen}
           setModalIsOpen={setModalIsOpen}
           body={
-            <div>
-              <h2
-                style={{
-                  marginBottom: "10px",
-                  color: "rgb(0, 203, 230)"
-                }}
-              >
-                Following
-              </h2>
-              <FollowerList />
-            </div>
+            <FollowerModal />
           }
         />
       </div>

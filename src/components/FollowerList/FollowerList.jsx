@@ -2,12 +2,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import FollowerListItem from "../FollowerListItem/FollowerListItem";
 import Loading from "../Loading/Loading";
-import UserListItem from "../UserListItem/UserListItem";
 import "./FollowerList.scss";
 
-const loadFollowers = async () => {
+const loadUserList = async (route) => {
   const response = await fetch(
-    `${process.env.REACT_APP_BACKEND_URL}/profile/followers/get`,
+    `${process.env.REACT_APP_BACKEND_URL}/profile/${route}/get`,
     {
       method: "GET",
       headers: {
@@ -16,35 +15,32 @@ const loadFollowers = async () => {
     }
   ).then((res) => res.json());
   // console.log("Response from loadFollowers", response);
-  return response.followerList;
+  return response.userList;
 };
 
-export default function FollowerList() {
+export default function FollowerList(props) {
   const [loading, setLoading] = useState(true);
-  const [followers, setFollowers] = useState(null);
+  const [userList, setUserList] = useState(null);
 
   useEffect(() => {
-    if (!followers) {
-      loadFollowers().then((result) => {
-        setFollowers(result);
-        setLoading(false);
-      });
-    }
-  }, []);
+    setLoading(true);
+    loadUserList(props.listType).then((result) => {
+      setUserList(result);
+      setLoading(false);
+    });
+  }, [props.listType]);
 
   if (loading) {
-    return <Loading />;
+    return <ul className="followerList"><Loading /></ul>;
   } else {
-    const followerList = [];
-
-    console.log("Followers", followers);
+    const users = [];
     let counter = 0;
-    followers.forEach(follower => {
-      followerList.push(
-        <FollowerListItem key={counter} follower={follower}/>
+    userList.forEach(user => {
+      users.push(
+        <FollowerListItem key={counter} follower={user}/>
       );
       counter++;
     });
-    return <ul className="followerList">{followerList}</ul>;
+    return <ul className="followerList">{users}</ul>;
   }
 }

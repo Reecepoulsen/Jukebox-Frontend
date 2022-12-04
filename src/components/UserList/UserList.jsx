@@ -4,9 +4,9 @@ import Loading from "../Loading/Loading";
 import UserListItem from "../UserListItem/UserListItem";
 import "./UserList.scss";
 
-const loadFollowers = async () => {
+const loadFollowing = async () => {
   const response = await fetch(
-    `${process.env.REACT_APP_BACKEND_URL}/profile/followers/get`,
+    `${process.env.REACT_APP_BACKEND_URL}/profile/following/get`,
     {
       method: "GET",
       headers: {
@@ -14,19 +14,18 @@ const loadFollowers = async () => {
       },
     }
   ).then((res) => res.json());
-  // console.log("Response from loadFollowers", response);
-  return response.followerDataStructure;
+  return response.userDataStructure;
 };
 
 export default function UserList(props) {
   const [loading, setLoading] = useState(true);
-  const [followersData, setFollowersData] = useState(null);
+  const [followingData, setFollowingData] = useState(null);
   window.scrollTo(0, 0);
 
   useEffect(() => {
-    if (!followersData) {
-      loadFollowers().then((res) => {
-        setFollowersData(res);
+    if (!followingData) {
+      loadFollowing().then((res) => {
+        setFollowingData(res);
         setLoading(false);
       });
     }
@@ -49,7 +48,7 @@ export default function UserList(props) {
           <UserListItem
             key={counter}
             userlite={userlite}
-            isFollowed={followersData[userlite.userId]}
+            isFollowed={followingData[userlite.userId]}
             followerCount={followerCount}
             setDisplayUserId={props.setDisplayUserId}
           />
