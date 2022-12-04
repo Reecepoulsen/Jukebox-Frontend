@@ -10,7 +10,6 @@ export async function checkUserSpotifyToken(loginToken) {
     })
       .then((data) => data.json())
       .then((res) => {
-        console.log("checkUserSpotifyToken response", res);
         spotifyToken = res.data;
       });
   } catch (error) {

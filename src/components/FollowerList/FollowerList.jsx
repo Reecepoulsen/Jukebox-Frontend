@@ -14,7 +14,6 @@ const loadUserList = async (route) => {
       },
     }
   ).then((res) => res.json());
-  // console.log("Response from loadFollowers", response);
   return response.userList;
 };
 

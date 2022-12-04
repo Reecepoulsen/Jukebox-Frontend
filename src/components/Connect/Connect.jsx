@@ -32,7 +32,6 @@ export default function Connect(props) {
 
   useEffect(() => {
     getUserList().then((res) => {
-      console.log("response of get userlist", res);
       setUserList(res.data);
       localStorage.setItem("userList", JSON.stringify(res.data));
     });

@@ -9,7 +9,6 @@ export async function getUsersJukeboxPlaylist() {
     })
       .then((data) => data.json())
       .then((res) => {
-        console.log("response from getUsersJukeboxPlaylist", res)
         return res.data;
       });
   } catch (error) {

@@ -66,7 +66,6 @@ const ScrollableSongListItem = ({
         className="scrollableSongListItem-Icon"
         size={size}
         onClick={() => {
-          console.log("Remove Song");
           removeSong(song);
           setSavedSong(false);
         }}
@@ -78,7 +77,6 @@ const ScrollableSongListItem = ({
         className="scrollableSongListItem-Icon"
         size={size}
         onClick={() => {
-          console.log("Add Song");
           addSong(song);
           setSavedSong(true);
         }}

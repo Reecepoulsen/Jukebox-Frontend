@@ -31,7 +31,6 @@ const LoginForm = (props) => {
       })
         .then((data) => data.json())
         .then((res) => {
-          console.log("Login Response", res);
           props.setLoginToken(res.data.token);
         });
     } catch (error) {

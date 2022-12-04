@@ -30,12 +30,9 @@ function App() {
   const fetchData = async () => {
     setLoading(true);
     const result = await checkUserSpotifyToken(loginToken);
-    console.log("User' spotify token is", result)
     if (result === "No Token"){
-      console.log("No token")
       setConnectedSpotify(false);
     } else {
-      console.log("Token is present")
       setConnectedSpotify(true);
     }
     setLoading(false);
@@ -57,7 +54,6 @@ function App() {
     // replace initial localstorage null state with false
     if (connectedSpotify === 'null' || connectedSpotify === null || connectedSpotify === 'undefined')
     {
-      console.log("Setting connectedSpotify to false because of initial null")
       setConnectedSpotify(false);
       return
     }
@@ -95,7 +91,6 @@ function App() {
     </div>
   );
 
-  // console.log("LoginToken is ", loginToken);
   if (loginToken == "undefined" || loginToken == null || loginToken == 'null') {
     // user not logged in
     return loginScreen;

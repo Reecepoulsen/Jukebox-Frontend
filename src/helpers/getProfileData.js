@@ -10,7 +10,6 @@ export async function getProfileData(loginToken) {
     })
       .then((data) => data.json())
       .then((res) => {
-        console.log("response from call to /profile", res)
         profileData = res.data;
       });
   } catch (error) {

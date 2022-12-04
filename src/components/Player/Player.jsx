@@ -37,7 +37,6 @@ export default function Player({
       })
         .then((result) => result.json())
         .then((response) => {
-          console.log("Response for get users spotify token", response);
           setSpotifyToken(response.data);
         });
     }
@@ -46,9 +45,6 @@ export default function Player({
   if (!spotifyToken || !playerList) {
     return null;
   } else {
-    console.log("Player track index", playerTrackIndex);
-    console.log("Song uris", playerList);
-    console.log("Uri at index", playerTrackIndex, playerList[playerTrackIndex]);
     let songRange = [];
     if (playerList.length > 700) {
       let min = 0;

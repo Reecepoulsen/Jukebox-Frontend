@@ -24,7 +24,6 @@ const togglePrivacy = (widgetTitle, privacySetting, setPrivacySetting) => {
   }).then(res => res.json())
   .then(response => {
     localStorage.setItem('profileData', JSON.stringify(response.data));
-    console.log("Response from updating widget privacy setting", response);
   })
 }
 

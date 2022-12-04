@@ -46,7 +46,6 @@ export default function ArtistModal(props) {
   if (loading || !jukeboxPlaylist) {
     return <Loading />
   } else {
-    console.log("Songs is", songs)
     let uriList = [];
     songs.forEach((song) => {
       uriList.push(song.uri);
