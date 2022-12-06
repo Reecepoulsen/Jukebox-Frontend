@@ -31,7 +31,12 @@ const LoginForm = (props) => {
       })
         .then((data) => data.json())
         .then((res) => {
-          props.setLoginToken(res.data.token);
+          
+          if (res.statusCode === 401){
+            alert("Invalid Login");
+          } else {
+            props.setLoginToken(res.data.token);
+          }
         });
     } catch (error) {
       console.log("Login Error", error);

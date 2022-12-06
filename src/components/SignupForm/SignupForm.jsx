@@ -37,8 +37,11 @@ const SignupForm = (props) => {
       })
         .then((data) => data.json())
         .then((res) => {
-          console.log("Signup response", res);
-          props.setLoginToken(res.data.token);
+          if (res.statusCode === 401) {
+            alert("A user with that email already exists")
+          } else {
+            props.setLoginToken(res.data.token);
+          }
         });
     } catch (error) {
       console.log("Login Error", error);
