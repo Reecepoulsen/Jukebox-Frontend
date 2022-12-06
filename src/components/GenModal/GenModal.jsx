@@ -20,10 +20,11 @@ const GenModal = ({ modalIsOpen, setModalIsOpen, body, width="75vw", top="33%", 
           left: "50%",
           transform: "translate(-50%, -50%)",
           color: "#FFFEFE",
-          borderRadius: "12px"
+          borderRadius: "12px",
         },
         overlay: {
           background: "rgba(255, 255, 255, .05)",
+          zIndex: 5
         },
       }}
     >
