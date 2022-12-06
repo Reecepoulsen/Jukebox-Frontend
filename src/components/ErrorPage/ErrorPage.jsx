@@ -14,9 +14,8 @@ export default function ErrorPage() {
           type={"submit"}
           text={"Reload"}
           OnClickFunc={() => {
-            localStorage.setItem("loginToken", null);
-            localStorage.setItem("connectedSpotify", null);
-            localStorage.setItem("profileData", null);
+            localStorage.clear();
+            window.location.reload();
           }}
         />
       </div>
