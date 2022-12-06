@@ -1,33 +1,60 @@
-.greetingScreen{
+.greetingScreen {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   row-gap: 40px;
   width: 100vw;
   height: 100vh;
-  color: #FFFEFE;
+  color: #fffefe;
 
-  &__header{
+  &__header {
     align-self: flex-end;
     justify-self: center;
     display: flex;
     flex-direction: row;
     align-items: center;
-    color: rgb(0, 203, 230);
     margin-bottom: 20px;
+    animation: colorChange 15s ease infinite;
 
-    &__title{
+    &__title {
       font-size: 50px;
       padding-right: 10px;
     }
   }
 
-  &__buttons{
+  &__buttons {
     align-self: flex-start;
     justify-self: center;
     display: flex;
     width: 60vw;
     justify-content: space-between;
-    font-size:x-large;
+    font-size: x-large;
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    color: var(--highlight-blue);
+  }
+  15% {
+    color: var(--highlight-green);
+  }
+  30% {
+    color: var(--highlight-yellow);
+  }
+  45% {
+    color: var(--highlight-orange);
+  }
+  60% {
+    color: var(--highlight-red);
+  }
+  75% {
+    color: var(--highlight-pink);
+  }
+  90% {
+    color: var(--highlight-purple);
+  }
+  100%{
+    color: var(--highlight-blue);
   }
 }

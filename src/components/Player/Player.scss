@@ -27,7 +27,7 @@
     position: absolute;
     bottom: 8px;
     left: 15px;
-    color: #02CBE5;
+    color: var(--app-highlightColor);
     transition: all ease .3s;
   }
 }

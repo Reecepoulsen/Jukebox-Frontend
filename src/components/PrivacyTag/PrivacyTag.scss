@@ -1,7 +1,7 @@
 .privacyTag{
   padding: 4px 12px;
-  color: rgb(0, 203, 230);
-  border: solid 2px rgb(0, 203, 230);
+  color: var(--app-highlightColor);
+  border: solid 2px var(--app-highlightColor);
   // color: #47BA79;
   // border: solid 2px #47BA79;
   width: fit-content;

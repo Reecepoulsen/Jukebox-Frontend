@@ -88,12 +88,12 @@ export default function Player({
             name="Jukebox"
             persistDeviceSelection="false"
             styles={{
-              sliderColor: "#02CBE5",
+              sliderColor: "var(--app-highlightColor)",
               sliderHandleColor: "#FFFEFE",
               bgColor: "Transparent",
               trackNameColor: "#FFFEFE",
               trackArtistColor: "#FFFEFE",
-              color: "#02CBE5",
+              color: "var(--app-highlightColor)",
               // sliderHandleColor: "Transparent",
               sliderTrackColor: "#242424",
               height: 50,

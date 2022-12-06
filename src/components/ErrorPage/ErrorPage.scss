@@ -1,24 +1,24 @@
-.errorPage{
+.errorPage {
   width: 100vw;
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
   justify-items: center;
-  color: #FFFEFE;
+  color: #fffefe;
   text-align: center;
 
-  .container{
+  .container {
     transform: translateY(-50%);
     width: 100%;
     padding: 50px 60px;
     background-color: black;
   }
 
-  h1{
-    color: rgb(0, 203, 230);
+  h1 {
+    color: var(--app-highlightColor);
   }
-  p{
+  p {
     font-size: larger;
   }
 }

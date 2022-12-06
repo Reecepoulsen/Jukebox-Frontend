@@ -1,5 +1,5 @@
-.widgetGrid{
-  display:grid;
+.widgetGrid {
+  display: grid;
   width: 90vw;
   min-height: 61vh;
   align-items: flex-start;
@@ -8,17 +8,17 @@
   margin: 20px auto;
 }
 
-.emptyGrid{
+.emptyGrid {
   display: grid;
   grid-template-rows: 100px 1fr;
   justify-items: center;
   width: 90vw;
   margin: 80px auto;
   min-height: 42vh;
-  color: rgb(0, 203, 230);
+  color: var(--app-highlightColor);
   text-align: center;
   font-size: 25px;
-  span{
+  span {
     align-self: flex-start;
   }
 }

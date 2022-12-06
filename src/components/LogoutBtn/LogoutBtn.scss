@@ -1,11 +1,11 @@
-.logoutBtn{
+.logoutBtn {
   padding: 4px 12px;
-  color: rgb(0, 203, 230);
-  border: solid 2px rgb(0, 203, 230);
+  color: var(--app-highlightColor);
+  border: solid 2px var(--app-highlightColor);
   width: fit-content;
   border-radius: 15px;
   transform: translateY(15px);
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 }

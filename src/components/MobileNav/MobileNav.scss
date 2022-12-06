@@ -1,4 +1,4 @@
-.mobileNav{
+.mobileNav {
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -9,20 +9,20 @@
   bottom: 0px;
   left: 0px;
   z-index: 6;
-  background: rgba(18, 18, 18, .9);
+  background: rgba(18, 18, 18, 0.9);
   // border-radius: 15px 15px 0px 0px;
 
-  &__icon{
-    color: #FFFEFE;
+  &__icon {
+    color: #fffefe;
     transform: scale(1);
-    transition: all ease .2s;
-    &:hover{
+    transition: all ease 0.2s;
+    &:hover {
       cursor: pointer;
     }
   }
 
-  .active{
-    color: rgb(0, 203, 230);
+  .active {
+    color: var(--app-highlightColor);
     transform: scale(1.3);
   }
 }

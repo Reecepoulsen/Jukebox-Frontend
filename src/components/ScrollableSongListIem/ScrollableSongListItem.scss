@@ -1,4 +1,4 @@
-.scrollableSongListItem{
+.scrollableSongListItem {
   display: flex;
   flex-direction: row;
   min-width: fit-content;
@@ -7,17 +7,17 @@
   cursor: pointer;
   // width: 100%;
 
-  &-Title{
+  &-Title {
     flex-grow: 1;
   }
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
-.activeSong{
-  color: rgb(0, 203, 230);
+.activeSong {
+  color: var(--app-highlightColor);
 }
 
-.explicitTag{
+.explicitTag {
   color: #cecece;
   transform: translateY(2px);
   margin-right: 3px;

@@ -1,22 +1,57 @@
-.loginForm{
-  h2{
+.loginForm {
+  h2 {
     margin-bottom: 15px;
     padding-bottom: 5px;
-    color: rgb(0, 203, 230);
-    border-bottom: solid 1px rgb(0, 203, 230);
+    color: var(--app-highlightColor);
+    border-bottom: solid 1px var(--app-highlightColor);
   }
-  form{
+  form {
     display: grid;
     grid-template-rows: 1fr 1fr;
     align-items: center;
-    .formInput{
+    .formInput {
       justify-self: left;
       margin-bottom: 10px;
     }
-  
-    .basicButton{
+
+    .basicButton {
       justify-self: right;
       margin-top: 10px;
     }
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    color: var(--highlight-blue);
+    border-bottom: solid 1px var(--highlight-blue);
+  }
+  15% {
+    color: var(--highlight-green);
+    border-bottom: solid 1px var(--highlight-green);
+  }
+  30% {
+    color: var(--highlight-yellow);
+    border-bottom: solid 1px var(--highlight-yellow);
+  }
+  45% {
+    color: var(--highlight-orange);
+    border-bottom: solid 1px var(--highlight-orange);
+  }
+  60% {
+    color: var(--highlight-red);
+    border-bottom: solid 1px var(--highlight-red);
+  }
+  75% {
+    color: var(--highlight-pink);
+    border-bottom: solid 1px var(--highlight-pink);
+  }
+  90% {
+    color: var(--highlight-purple);
+    border-bottom: solid 1px var(--highlight-purple);
+  }
+  100%{
+    color: var(--highlight-blue);
+    border-bottom: solid 1px var(--highlight-blue);
   }
 }

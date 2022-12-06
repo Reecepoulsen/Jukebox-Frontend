@@ -1,31 +1,31 @@
-.playlistModal{
+.playlistModal {
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 20px;
 
-  .header{
+  .header {
     grid-column: 1/3;
     grid-row: 1/2;
     display: grid;
     grid-template-columns: 1fr 1fr;
 
-    &__title{
+    &__title {
       grid-column: 1/2;
       grid-row: 1/2;
       justify-self: left;
       align-self: flex-end;
-      color: rgb(0, 203, 230);
+      color: var(--app-highlightColor);
       font-size: 26px;
     }
 
-    &__songCount{
+    &__songCount {
       grid-column: 1/2;
       grid-row: 2/3;
       justify-self: left;
       align-self: flex-start;
     }
 
-    &__image{
+    &__image {
       grid-column: 2/3;
       grid-row: 1/3;
       justify-self: right;
@@ -36,17 +36,17 @@
       border-radius: 12px;
       overflow: hidden;
 
-      .playlistPlaceholder{
+      .playlistPlaceholder {
         display: grid;
         justify-items: center;
         align-items: center;
-        color: rgb(0, 203, 230);
+        color: var(--app-highlightColor);
         width: 100%;
         height: 100%;
         background-color: #3a3a3a;
       }
 
-      img{
+      img {
         width: 100%;
         height: 100%;
         justify-self: center;
@@ -55,7 +55,7 @@
     }
   }
 
-  .songList{
+  .songList {
     grid-column: 1/3;
     grid-row: 2/3;
     width: 100%;
@@ -65,13 +65,13 @@
     font-size: 17px;
   }
 
-  .song{
+  .song {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-block: 10px;
 
-    &__title{
+    &__title {
       flex-grow: 1;
     }
   }
