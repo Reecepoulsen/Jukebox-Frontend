@@ -14,7 +14,10 @@ const SignupForm = (props) => {
     props.setOpenSignupModal(false);
     e.preventDefault();
 
-    const encryptedPassword = CryptoJS.AES.encrypt(passwordRef.current.value, process.env.REACT_APP_ENCRYPTION_SECRET).toString();
+    const encryptedPassword = CryptoJS.AES.encrypt(
+      passwordRef.current.value,
+      process.env.REACT_APP_ENCRYPTION_SECRET
+    ).toString();
 
     const payload = {
       name: nameRef.current.value,

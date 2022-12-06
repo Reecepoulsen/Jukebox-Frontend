@@ -57,7 +57,7 @@ export default function PlaylistModal({
       }
     })
 
-    const songList = [];
+    let songList = [];
     let counter = 0;
 
     tracks.map((song) => {
