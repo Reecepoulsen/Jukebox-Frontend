@@ -63,6 +63,7 @@ const ProfileLite = (props) => {
         <WidgetGrid
           profileData={profileData}
           owner={false}
+          isFollower={props.isFollower}
           setPlayerList={props.setPlayerList}
           setPlayerTrackIndex={props.setPlayerTrackIndex}
         />

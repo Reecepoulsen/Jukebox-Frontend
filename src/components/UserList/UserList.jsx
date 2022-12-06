@@ -48,7 +48,7 @@ export default function UserList(props) {
           <UserListItem
             key={counter}
             userlite={userlite}
-            isFollowed={followingData[userlite.userId]}
+            isFollowed={followingData.hasOwnProperty(userlite.userId)}
             followerCount={followerCount}
             setDisplayUserId={props.setDisplayUserId}
           />

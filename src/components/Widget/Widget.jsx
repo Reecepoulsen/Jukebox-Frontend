@@ -36,6 +36,11 @@ const Widget = (props) => {
     }
   };
 
+  let blurWidgetContent = false;
+  if (props.privacy === "Followers" && !props.owner && !props.isFollower) {
+    blurWidgetContent = true;
+  }
+
   return (
     <div className="widget">
       <WidgetHeader
@@ -43,7 +48,10 @@ const Widget = (props) => {
         privacy={props.privacy}
         owner={props.owner}
       />
-      <div className="widget__body">{determineBody(props.type)}</div>
+      {blurWidgetContent && <div className="followMsg">Follow to View</div>}
+      <div className={`widget__body ${blurWidgetContent ? "blurWidget" : ""}`}>
+        {determineBody(props.type)}
+      </div>
     </div>
   );
 };

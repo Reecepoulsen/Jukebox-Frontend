@@ -4,9 +4,30 @@
   border-radius: 20px;
   padding: 20px;
   color: #FFFEFE;
+  position: relative;
 
+  .followMsg{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25px;
+    color: #FFFEFE;
+    z-index: 1;
+    background:rgba(36, 36, 36, .8);
+    padding: 10px;
+    text-align: center;
+    border-radius: 12px;
+  }
+  
   &__body{
     overflow: hidden;
+
   }
+  .blurWidget{
+    filter: blur(.8rem);
+    pointer-events: none;
+  }
+
 }
 

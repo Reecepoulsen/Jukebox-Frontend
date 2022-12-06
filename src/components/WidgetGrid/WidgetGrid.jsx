@@ -19,6 +19,7 @@ const WidgetGrid = (props) => {
         setPlayerList={props.setPlayerList}
         setPlayerTrackIndex={props.setPlayerTrackIndex}
         playerTrackIndex={props.playerTrackIndex}
+        isFollower={props.isFollower}
       />
     );
     if (props.owner) {

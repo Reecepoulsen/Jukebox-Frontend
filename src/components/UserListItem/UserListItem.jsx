@@ -47,7 +47,12 @@ export default function UserListItem(props) {
     <li className="userListItem">
       <div
         className="container"
-        onClick={() => props.setDisplayUserId(props.userlite.userId)}
+        onClick={() =>
+          props.setDisplayUserId({
+            userId: props.userlite.userId,
+            isFollowed: userFollowed,
+          })
+        }
       >
         <div className="profilePicture">{profilePicture}</div>
         <h2 className="username">{props.userlite.name}</h2>
@@ -57,7 +62,11 @@ export default function UserListItem(props) {
         className="icon"
         size={iconSize}
         onClick={async () => {
-          await modifyFollowStatus("add", props.userlite.userId, props.userlite._id);
+          await modifyFollowStatus(
+            "add",
+            props.userlite.userId,
+            props.userlite._id
+          );
           setUserFollowed(!userFollowed);
         }}
       />
@@ -68,7 +77,12 @@ export default function UserListItem(props) {
     <li className="userListItem">
       <div
         className="container"
-        onClick={() => props.setDisplayUserId(props.userlite.userId)}
+        onClick={() =>
+          props.setDisplayUserId({
+            userId: props.userlite.userId,
+            isFollowed: userFollowed,
+          })
+        }
       >
         <div className="profilePicture">{profilePicture}</div>
         <h2 className="username">{props.userlite.name}</h2>

@@ -47,9 +47,11 @@ export default function Connect(props) {
     if (!displayUserId) {
       return connectView;
     } else {
+      console.log("displayUserId is", displayUserId);
       return (
         <ProfileLite
-          userId={displayUserId}
+          userId={displayUserId.userId}
+          isFollower={displayUserId.isFollowed}
           setDisplayUserId={setDisplayUserId}
           setPlayerList={props.setPlayerList}
           setPlayerTrackIndex={props.setPlayerTrackIndex}
