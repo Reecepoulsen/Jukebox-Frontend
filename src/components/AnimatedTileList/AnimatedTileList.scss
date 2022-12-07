@@ -1,0 +1,29 @@
+.animatedTileList{
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  column-gap: 25px;
+  animation: scroll linear 120s infinite;
+
+  .tile{ 
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: rgba(256, 256, 256, 0.24) 0px 3px 8px;
+    img{
+      height: 100%;
+      width: 100%;
+    }
+    z-index: 1;
+  }
+}
+
+@keyframes scroll{
+  0%{
+    transform: translateX(-100%);
+  }
+  100%{
+    transform: translateX(12%);
+  }
+}

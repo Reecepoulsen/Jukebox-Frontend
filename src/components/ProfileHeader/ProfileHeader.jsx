@@ -7,8 +7,8 @@ const ProfileHeader = (props) => {
   if (props.owner) {
     return (
       <div className="profileHeader">
-        <ProfilePicture imgSrc={props.profilePic} />
-        <ProfileBanner imgSrc={props.bannerPic} />
+        <ProfilePicture imgSrc={props.profileData.profileImgUrl} />
+        <ProfileBanner profileData={props.profileData} />
         <LogoutBtn
           setLoginToken={props.setLoginToken}
           setConnectedSpotify={props.setConnectedSpotify}
@@ -18,8 +18,8 @@ const ProfileHeader = (props) => {
   } else {
     return (
       <div className="profileHeader">
-        <ProfilePicture imgSrc={props.profilePic} />
-        <ProfileBanner imgSrc={props.bannerPic} />
+        <ProfilePicture imgSrc={props.profileData.profileImgUrl} />
+        <ProfileBanner profileData={props.profileData} />
       </div>
     );
   }

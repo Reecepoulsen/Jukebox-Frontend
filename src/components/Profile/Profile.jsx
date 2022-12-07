@@ -59,8 +59,7 @@ const Profile = (props) => {
     return (
       <div className="profile">
         <ProfileHeader
-          profilePic={profileData.profileImgUrl}
-          bannerPic={profileData.bannerImgUrl}
+          profileData={profileData}
           setLoginToken={props.setLoginToken}
           setConnectedSpotify={props.setConnectedSpotify}
           owner={true}

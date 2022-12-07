@@ -47,8 +47,7 @@ const ProfileLite = (props) => {
           <span>Search</span>
         </div>
         <ProfileHeader
-          profilePic={profileData.profileImgUrl}
-          bannerPic={profileData.bannerImgUrl}
+          profileData={profileData}
           setLoginToken={false}
           setConnectedSpotify={false}
           owner={false}
