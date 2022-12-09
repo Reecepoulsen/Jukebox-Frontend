@@ -6,6 +6,8 @@
   width: 100vw;
   height: 100vh;
   color: #fffefe;
+  position: relative;
+  overflow-y: hidden;
 
   &__header {
     align-self: flex-end;
@@ -14,11 +16,15 @@
     flex-direction: row;
     align-items: center;
     margin-bottom: 20px;
-    animation: colorChange 15s ease infinite;
+    animation: colorChangeText 15s ease infinite;
 
     &__title {
-      font-size: 50px;
+      font-size: 60px;
       padding-right: 10px;
+
+    }
+    .icon{
+      transform: translateY(5px);
     }
   }
 
@@ -30,9 +36,84 @@
     justify-content: space-between;
     font-size: x-large;
   }
+
+  .arch{
+    animation: colorChangeBackground 15s ease infinite;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 300px;
+    width: 25px;
+    transform: translateX(50px);
+
+    &::before{
+      content: "";
+      animation: colorChangeBackground 15s ease infinite;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 125px;
+      width: 314px;
+      border-radius: 50% 50% 0px 0px;
+      transform: translateY(-124px);
+      z-index: 0;
+    }
+
+    &::after{
+      content: "";
+      animation: colorChangeBackground 15s ease infinite;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      height: 300px;
+      width: 25px;
+      transform: translateX(289px);
+    }
+  }
+
+  .shapes{
+    height: 100px;
+    border-radius: 50% 50% 0 0;
+    width: 264px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -298px);
+    background-color: #1B1A1B;
+    z-index: 1;
+
+    &::before{
+      content: "";
+      height: 70px;
+      width: 204px;
+      // background-color: white;
+      border-radius: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 80px);
+      animation: colorChangeBackground 15s ease infinite;
+    }
+
+    &::after{
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      height: 204px;
+      width: 204px;
+      border-radius: 50%;
+      animation: colorChangeBorder 15s ease infinite;
+      background-color: #1B1A1B;
+      border: solid white 25px;
+      transform: translate(-50%, 350px);
+
+    }
+  }
 }
 
-@keyframes colorChange {
+@keyframes colorChangeText {
   0% {
     color: var(--highlight-blue);
   }
@@ -56,5 +137,59 @@
   }
   100%{
     color: var(--highlight-blue);
+  }
+}
+
+@keyframes colorChangeBackground {
+  0% {
+    background-color: var(--highlight-blue);
+  }
+  15% {
+    background-color: var(--highlight-green);
+  }
+  30% {
+    background-color: var(--highlight-yellow);
+  }
+  45% {
+    background-color: var(--highlight-orange);
+  }
+  60% {
+    background-color: var(--highlight-red);
+  }
+  75% {
+    background-color: var(--highlight-pink);
+  }
+  90% {
+    background-color: var(--highlight-purple);
+  }
+  100%{
+    background-color: var(--highlight-blue);
+  }
+}
+
+@keyframes colorChangeBorder {
+  0% {
+    border: solid 25px var(--highlight-blue);
+  }
+  15% {
+    border: solid 25px var(--highlight-green);
+  }
+  30% {
+    border: solid 25px var(--highlight-yellow);
+  }
+  45% {
+    border: solid 25px var(--highlight-orange);
+  }
+  60% {
+    border: solid 25px var(--highlight-red);
+  }
+  75% {
+    border: solid 25px var(--highlight-pink);
+  }
+  90% {
+    border: solid 25px var(--highlight-purple);
+  }
+  100%{
+    border: solid 25px var(--highlight-blue);
   }
 }

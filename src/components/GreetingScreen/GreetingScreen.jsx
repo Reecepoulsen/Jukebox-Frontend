@@ -15,7 +15,7 @@ const GreetingScreen = (props) => {
     <div className="greetingScreen">
       <div className="greetingScreen__header">
         <h1 className="greetingScreen__header__title">Jukebox</h1>
-        <RiDiscLine size={50} />
+        <RiDiscLine className="icon" size={60} />
       </div>
       <div className="greetingScreen__buttons">
         <BasicButton
@@ -32,6 +32,7 @@ const GreetingScreen = (props) => {
       <GenModal
         modalIsOpen={openLoginModal}
         setModalIsOpen={setOpenLoginModal}
+        top={"40%"}
         body={
           <LoginForm
             setOpenLoginModal={setOpenLoginModal}
@@ -42,6 +43,7 @@ const GreetingScreen = (props) => {
       <GenModal
         modalIsOpen={openSignupModal}
         setModalIsOpen={setOpenSignupModal}
+        top={"40%"}
         body={
           <SignupForm
             setOpenSignupModal={setOpenSignupModal}
@@ -49,6 +51,8 @@ const GreetingScreen = (props) => {
           />
         }
       />
+      <div className="arch"></div>
+      <div className="shapes"></div>
     </div>
   );
 };
