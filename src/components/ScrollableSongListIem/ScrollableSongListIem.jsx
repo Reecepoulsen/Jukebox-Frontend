@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RiDiscLine, RiDiscFill } from "react-icons/ri";
 import { MdOutlineExplicit } from "react-icons/md";
+import { Timeout } from "../../helpers/abortController";
 import "./ScrollableSongListItem.scss";
 
 const addSong = async (song) => {
@@ -17,6 +18,7 @@ const addSong = async (song) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
+      signal: Timeout(15).signal,
     }
   ).then((response) => response.json());
   console.log("Result of add song", result);
@@ -35,6 +37,7 @@ const removeSong = async (song) => {
         Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
         "Content-Type": "application/json",
       },
+      signal: Timeout(15).signal,
       body: JSON.stringify(payload),
     }
   ).then((response) => response.json());
@@ -54,6 +57,11 @@ const ScrollableSongListItem = ({
   setPlayerTrackIndex,
   playerTrackIndex,
 }) => {
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
+
   const [savedSong, setSavedSong] = useState(inJukeboxPlaylist);
   if (song.track?.name) {
     song = song.track;
@@ -66,7 +74,7 @@ const ScrollableSongListItem = ({
         className="scrollableSongListItem-Icon"
         size={size}
         onClick={() => {
-          removeSong(song);
+          removeSong(song).catch((err) => setError(err));
           setSavedSong(false);
         }}
       />
@@ -77,7 +85,7 @@ const ScrollableSongListItem = ({
         className="scrollableSongListItem-Icon"
         size={size}
         onClick={() => {
-          addSong(song);
+          addSong(song).catch((err) => setError(err));
           setSavedSong(true);
         }}
       />

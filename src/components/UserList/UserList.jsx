@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Loading from "../Loading/Loading";
 import UserListItem from "../UserListItem/UserListItem";
+import { Timeout } from "../../helpers/abortController";
 import "./UserList.scss";
 
 const loadFollowing = async () => {
@@ -12,22 +13,30 @@ const loadFollowing = async () => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
       },
+      signal: Timeout(15).signal,
     }
   ).then((res) => res.json());
   return response.userDataStructure;
 };
 
 export default function UserList(props) {
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
+
   const [loading, setLoading] = useState(true);
   const [followingData, setFollowingData] = useState(null);
   window.scrollTo(0, 0);
 
   useEffect(() => {
     if (!followingData) {
-      loadFollowing().then((res) => {
-        setFollowingData(res);
-        setLoading(false);
-      });
+      loadFollowing()
+        .then((res) => {
+          setFollowingData(res);
+          setLoading(false);
+        })
+        .catch((err) => setError(err));
     }
   }, []);
 

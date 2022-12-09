@@ -2,9 +2,17 @@ import { useRef } from "react";
 import BasicButton from "../BasicButton/BasicButton";
 import FormInput from "../FormInput/FormInput";
 import CryptoJS from "crypto-js";
+import { Timeout } from "../../helpers/abortController";
 import "./LoginForm.scss";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const LoginForm = (props) => {
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
+  
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -12,7 +20,10 @@ const LoginForm = (props) => {
     localStorage.clear();
     e.preventDefault();
 
-    const encryptedPassword = CryptoJS.AES.encrypt(passwordRef.current.value, process.env.REACT_APP_ENCRYPTION_SECRET).toString();
+    const encryptedPassword = CryptoJS.AES.encrypt(
+      passwordRef.current.value,
+      process.env.REACT_APP_ENCRYPTION_SECRET
+    ).toString();
 
     const payload = {
       email: emailRef.current.value,
@@ -21,27 +32,23 @@ const LoginForm = (props) => {
 
     console.log("Payload sent to login user", payload);
 
-    try {
-      fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(payload),
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      signal: Timeout(15).signal,
+      body: JSON.stringify(payload),
+    })
+      .then((data) => data.json())
+      .then((res) => {
+        if (res.statusCode === 401) {
+          alert("Invalid Login");
+        } else {
+          props.setLoginToken(res.data.token);
+        }
       })
-        .then((data) => data.json())
-        .then((res) => {
-          
-          if (res.statusCode === 401){
-            alert("Invalid Login");
-          } else {
-            props.setLoginToken(res.data.token);
-          }
-        });
-    } catch (error) {
-      console.log("Login Error", error);
-      throw new Error(error);
-    }
+      .catch((err) => setError(err));
   };
 
   return (

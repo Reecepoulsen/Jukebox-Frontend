@@ -4,6 +4,7 @@ import Loading from "../Loading/Loading";
 import ProfileLite from "../ProfileLite/ProfileLite";
 import SearchBar from "../SearchBar/SearchBar";
 import UserList from "../UserList/UserList";
+import { Timeout } from "../../helpers/abortController";
 import "./Connect.scss";
 
 const getUserList = async () => {
@@ -14,12 +15,18 @@ const getUserList = async () => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
       },
+      signal: Timeout(15).signal,
     }
   ).then((res) => res.json());
   return result;
 };
 
 export default function Connect(props) {
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
+
   const [userList, setUserList] = useState(null);
   const [displayUserId, setDisplayUserId] = useState(null);
 
@@ -31,10 +38,12 @@ export default function Connect(props) {
   );
 
   useEffect(() => {
-    getUserList().then((res) => {
-      setUserList(res.data);
-      localStorage.setItem("userList", JSON.stringify(res.data));
-    });
+    getUserList()
+      .then((res) => {
+        setUserList(res.data);
+        localStorage.setItem("userList", JSON.stringify(res.data));
+      })
+      .catch((err) => setError(err));
   }, []);
 
   if (!userList) {

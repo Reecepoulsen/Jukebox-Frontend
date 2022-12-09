@@ -1,12 +1,13 @@
-import './ArtistModal.scss'
-import React from 'react'
-import ScrollableSongList from '../ScrollableSongList/ScrollableSongList'
-import { useState } from 'react';
-import Loading from '../Loading/Loading';
-import { useEffect } from 'react';
-import { getUsersJukeboxPlaylist } from '../../helpers/getUsersJukeboxPlaylist';
-import ScrollableSongListItem from '../ScrollableSongListIem/ScrollableSongListIem';
-import { RiDiscLine } from 'react-icons/ri';
+import "./ArtistModal.scss";
+import React from "react";
+import ScrollableSongList from "../ScrollableSongList/ScrollableSongList";
+import { useState } from "react";
+import Loading from "../Loading/Loading";
+import { useEffect } from "react";
+import { getUsersJukeboxPlaylist } from "../../helpers/getUsersJukeboxPlaylist";
+import ScrollableSongListItem from "../ScrollableSongListIem/ScrollableSongListIem";
+import { RiDiscLine } from "react-icons/ri";
+import { Timeout } from "../../helpers/abortController";
 
 const loadSongs = async (artistData) => {
   console.log("Loading songs for", artistData.name);
@@ -18,12 +19,18 @@ const loadSongs = async (artistData) => {
         Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
         "Content-type": "application/json",
       },
+      signal: Timeout(15).signal,
     }
   ).then((res) => res.json());
   return result.data;
 };
 
 export default function ArtistModal(props) {
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
+
   const [loading, setLoading] = useState(true);
   const [songs, setSongs] = useState(false);
   const [focusedSong, setFocusedSong] = useState(0);
@@ -31,32 +38,36 @@ export default function ArtistModal(props) {
 
   useEffect(() => {
     if (!songs) {
-      loadSongs(props.artistData).then(songs => {
-        setSongs(songs);
-        setLoading(false);
-        if (!jukeboxPlaylist) {
-          getUsersJukeboxPlaylist().then((jboxPlaylist) => {
-            setJukeboxPlaylist(jboxPlaylist);
-          })
-        }
-      })
+      loadSongs(props.artistData)
+        .then((songs) => {
+          setSongs(songs);
+          setLoading(false);
+          if (!jukeboxPlaylist) {
+            getUsersJukeboxPlaylist()
+              .then((jboxPlaylist) => {
+                setJukeboxPlaylist(jboxPlaylist);
+              })
+              .catch((err) => setError(err));
+          }
+        })
+        .catch((err) => setError(err));
     }
-  }, [])
+  }, []);
 
   if (loading || !jukeboxPlaylist) {
-    return <Loading />
+    return <Loading />;
   } else {
     let uriList = [];
     songs.forEach((song) => {
       uriList.push(song.uri);
-    })
+    });
 
     const songList = [];
     let counter = 0;
 
-    songs.forEach(song => {
+    songs.forEach((song) => {
       songList.push(
-        <ScrollableSongListItem 
+        <ScrollableSongListItem
           key={counter}
           song={song}
           uriList={uriList}
@@ -71,7 +82,7 @@ export default function ArtistModal(props) {
           playerTrackIndex={props.playerTrackIndex}
         />
       );
-      counter ++;
+      counter++;
     });
 
     let artistImg = null;
@@ -86,7 +97,7 @@ export default function ArtistModal(props) {
     }
 
     return (
-      <div className='artistModal'>
+      <div className="artistModal">
         <div className="header">
           <h2 className="header__title">Top Songs: {props.artistData.name}</h2>
           <p className="header__songCount">Songs: {songList.length}</p>
@@ -94,6 +105,6 @@ export default function ArtistModal(props) {
         </div>
         <ul className="songList">{songList}</ul>
       </div>
-    )
+    );
   }
 }

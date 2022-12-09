@@ -4,6 +4,7 @@ import { RiDiscLine } from "react-icons/ri";
 import { getUsersJukeboxPlaylist } from "../../helpers/getUsersJukeboxPlaylist";
 import Loading from "../Loading/Loading";
 import ScrollableSongListItem from "../ScrollableSongListIem/ScrollableSongListIem";
+import { Timeout } from "../../helpers/abortController";
 import "./PlaylistModal.scss";
 
 const loadSongs = async (playlistData) => {
@@ -16,6 +17,7 @@ const loadSongs = async (playlistData) => {
         Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
         "Content-type": "application/json",
       },
+      signal: Timeout(15).signal,
     }
   ).then((res) => res.json());
   return result;
@@ -25,29 +27,37 @@ export default function PlaylistModal({
   playlistData,
   setPlayerList,
   setPlayerTrackIndex,
-  playerTrackIndex
+  playerTrackIndex,
 }) {
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
+
   const [tracks, setTracks] = useState(null);
   const [focusedSong, setFocusedSong] = useState(0);
   const [jukeboxPlaylist, setJukeboxPlaylist] = useState(null);
 
   useEffect(() => {
-    loadSongs(playlistData).then((res) => setTracks(res.data.flat()));
+    loadSongs(playlistData)
+      .then((res) => setTracks(res.data.flat()))
+      .catch((err) => setError(err));
     if (jukeboxPlaylist === null) {
-      getUsersJukeboxPlaylist().then((jukeboxPlaylist) => {
-        setJukeboxPlaylist(jukeboxPlaylist);
-      });
+      getUsersJukeboxPlaylist()
+        .then((jukeboxPlaylist) => {
+          setJukeboxPlaylist(jukeboxPlaylist);
+        })
+        .catch((err) => setError(err));
     }
   }, []);
 
   if (playlistData === null || tracks === null || jukeboxPlaylist === null) {
     return <Loading />;
   } else {
-
     let uriList = [];
     tracks.forEach((song) => {
       if (song.track?.name) {
-        if (!song.track.is_local){
+        if (!song.track.is_local) {
           uriList.push(song.track.uri);
         }
       } else {
@@ -55,7 +65,7 @@ export default function PlaylistModal({
           uriList.push(song.uri);
         }
       }
-    })
+    });
 
     let songList = [];
     let counter = 0;

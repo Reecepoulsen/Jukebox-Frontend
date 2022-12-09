@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SpotifyPlayer from "react-spotify-web-playback";
 import { TbLayoutSidebarRightCollapse } from "react-icons/tb";
+import { Timeout } from "../../helpers/abortController";
 import "./Player.scss";
 
 export default function Player({
@@ -8,6 +9,11 @@ export default function Player({
   setPlayerTrackIndex,
   playerTrackIndex,
 }) {
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
+
   const [spotifyToken, setSpotifyToken] = useState(null);
   const [containerBg, setContainerBg] = useState("rgba(18, 18, 18, .9)");
   const [playerScale, setPlayerScale] = useState(1);
@@ -34,11 +40,13 @@ export default function Player({
         headers: {
           Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
         },
+        signal: Timeout(15).signal,
       })
         .then((result) => result.json())
         .then((response) => {
           setSpotifyToken(response.data);
-        });
+        })
+        .catch((err) => setError(err));
     }
   }, [spotifyToken]);
 
@@ -104,7 +112,7 @@ export default function Player({
           className="collapseBtn"
           style={{
             transform: `rotate(${iconRotation}deg)`,
-            pointerEvents: "auto"
+            pointerEvents: "auto",
           }}
           onClick={() => {
             setIconRotation(iconRotation === "90" ? "-90" : "90");

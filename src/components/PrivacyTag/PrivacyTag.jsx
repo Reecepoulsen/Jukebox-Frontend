@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Timeout } from "../../helpers/abortController";
 import "./PrivacyTag.scss";
 
-const togglePrivacy = (widgetTitle, privacySetting, setPrivacySetting) => {
+const togglePrivacy = async (
+  widgetTitle,
+  privacySetting,
+  setPrivacySetting
+) => {
   const privacySettings = ["Private", "Followers", "Public"];
   const index = privacySettings.indexOf(privacySetting);
 
@@ -14,12 +19,13 @@ const togglePrivacy = (widgetTitle, privacySetting, setPrivacySetting) => {
     privacy: nextPrivacySetting,
   });
 
-  fetch(`${process.env.REACT_APP_BACKEND_URL}/profile/widget`, {
+  return fetch(`${process.env.REACT_APP_BACKEND_URL}/profile/widget`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
       "Content-type": "application/json",
     },
+    signal: Timeout(15).signal,
     body: payload,
   })
     .then((res) => res.json())
@@ -29,13 +35,20 @@ const togglePrivacy = (widgetTitle, privacySetting, setPrivacySetting) => {
 };
 
 const PrivacyTag = ({ text, widgetTitle }) => {
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
+
   const [privacySetting, setPrivacySetting] = useState(text);
 
   return (
     <div
       className="privacyTag"
       onClick={() => {
-        togglePrivacy(widgetTitle, privacySetting, setPrivacySetting);
+        togglePrivacy(widgetTitle, privacySetting, setPrivacySetting).catch(
+          (err) => setError(err)
+        );
       }}
     >
       {privacySetting}

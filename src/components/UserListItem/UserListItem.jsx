@@ -1,7 +1,8 @@
 import FollowerCount from "../FollowerCount/FollowerCount";
 import { RiUserAddLine, RiUserFill } from "react-icons/ri";
 import "./UserListItem.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Timeout } from "../../helpers/abortController";
 import ProfilePicPlaceholder from "../ProfilePicPlaceholder/ProfilePicPlaceholder";
 
 const modifyFollowStatus = async (operation, userId, userliteId) => {
@@ -19,6 +20,7 @@ const modifyFollowStatus = async (operation, userId, userliteId) => {
         Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
         "Content-Type": "application/json",
       },
+      signal: Timeout(15).signal,
       body: JSON.stringify(payload),
     }
   ).then((res) => res.json());
@@ -27,8 +29,13 @@ const modifyFollowStatus = async (operation, userId, userliteId) => {
 };
 
 export default function UserListItem(props) {
-  const iconSize = 28;
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
+
   const [userFollowed, setUserFollowed] = useState(props.isFollowed);
+  const iconSize = 28;
 
   let profilePicture = null;
   if (props.userlite.profileImg === "None") {
@@ -66,7 +73,7 @@ export default function UserListItem(props) {
             "add",
             props.userlite.userId,
             props.userlite._id
-          );
+          ).catch((err) => setError(err));
           setUserFollowed(!userFollowed);
         }}
       />
@@ -96,7 +103,7 @@ export default function UserListItem(props) {
             "remove",
             props.userlite.userId,
             props.userlite._id
-          );
+          ).catch((err) => setError(err));
           setUserFollowed(!userFollowed);
         }}
       />

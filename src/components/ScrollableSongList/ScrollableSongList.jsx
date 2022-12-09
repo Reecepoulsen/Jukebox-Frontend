@@ -13,13 +13,20 @@ const ScrollableSongList = ({
   setPlayerTrackIndex,
   playerTrackIndex,
 }) => {
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
+
   const [jukeboxPlaylist, setJukeboxPlaylist] = useState(null);
 
   useEffect(() => {
     if (jukeboxPlaylist === null) {
-      getUsersJukeboxPlaylist().then((jukeboxPlaylist) => {
-        setJukeboxPlaylist(jukeboxPlaylist);
-      });
+      getUsersJukeboxPlaylist()
+        .then((jukeboxPlaylist) => {
+          setJukeboxPlaylist(jukeboxPlaylist);
+        })
+        .catch((err) => setError(err));
     }
   }, []);
   let listItems = [];
@@ -28,7 +35,7 @@ const ScrollableSongList = ({
     let uriList = [];
     songs.forEach((song) => {
       if (song.track?.name) {
-        if (!song.track.is_local){
+        if (!song.track.is_local) {
           uriList.push(song.track.uri);
         }
       } else {
@@ -36,7 +43,7 @@ const ScrollableSongList = ({
           uriList.push(song.uri);
         }
       }
-    })
+    });
 
     let counter = 0;
     songs.forEach((song) => {

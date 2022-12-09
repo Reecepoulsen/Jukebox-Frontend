@@ -1,4 +1,10 @@
-const getSpotifyToken = async (spotifyCode, loginToken, setConnectedSpotify) => {
+import { Timeout } from "./abortController";
+
+const getSpotifyToken = async (
+  spotifyCode,
+  loginToken,
+  setConnectedSpotify
+) => {
   const body = {
     grant_type: "authorization_code",
     code: spotifyCode,
@@ -21,18 +27,23 @@ const getSpotifyToken = async (spotifyCode, loginToken, setConnectedSpotify) => 
       "Content-Type": "application/x-www-form-urlencoded",
       Accept: "application/json",
     },
+    signal: Timeout(15).signal,
     body: encodeFormData(body),
   })
     .then((response) => response.json())
     .then(async (spotifyData) => {
-      await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/authorizeSpotify`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-          Authorization: `Bearer ${loginToken}`,
-        },
-        body: JSON.stringify(spotifyData),
-      })
+      await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/auth/authorizeSpotify`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+            Authorization: `Bearer ${loginToken}`,
+          },
+          signal: Timeout(15).signal,
+          body: JSON.stringify(spotifyData),
+        }
+      )
         .then((response) => response.json())
         .then((res) => {
           if (res.status === 200) {

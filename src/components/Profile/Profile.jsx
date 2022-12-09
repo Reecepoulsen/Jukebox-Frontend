@@ -8,6 +8,11 @@ import WidgetGrid from "../WidgetGrid/WidgetGrid";
 import "./Profile.scss";
 
 const Profile = (props) => {
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
+
   if (
     localStorage.getItem("profileData") === undefined ||
     localStorage.getItem("profileData") === "undefined"
@@ -22,7 +27,9 @@ const Profile = (props) => {
 
   // Blocking function to get data from backend
   const fetchData = async () => {
-    const result = await getProfileData(props.loginToken);
+    const result = await getProfileData(props.loginToken).catch((err) =>
+      setError(err)
+    );
     console.log("Result from getProfileData", result);
     localStorage.setItem("profileData", JSON.stringify(result));
     setProfileData(result);

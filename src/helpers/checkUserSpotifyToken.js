@@ -1,3 +1,5 @@
+import { Timeout } from "./abortController";
+
 export async function checkUserSpotifyToken(loginToken) {
   let spotifyToken = null;
   try {
@@ -7,6 +9,7 @@ export async function checkUserSpotifyToken(loginToken) {
         Authorization: `Bearer ${loginToken}`,
         "Content-type": "application/json",
       },
+      signal: Timeout(15).signal,
     })
       .then((data) => data.json())
       .then((res) => {

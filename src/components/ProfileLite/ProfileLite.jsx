@@ -4,6 +4,7 @@ import ProfileHeader from "../ProfileHeader/ProfileHeader";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import WidgetGrid from "../WidgetGrid/WidgetGrid";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
+import { Timeout } from '../../helpers/abortController';
 import "./ProfileLite.scss";
 
 const loadProfile = async (userId) => {
@@ -14,6 +15,7 @@ const loadProfile = async (userId) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
       },
+      signal: Timeout
     }
   ).then((res) => res.json());
   return response.data;

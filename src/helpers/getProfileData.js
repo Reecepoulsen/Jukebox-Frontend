@@ -1,3 +1,5 @@
+import { Timeout } from "./abortController";
+
 export async function getProfileData(loginToken) {
   let profileData = null;
   try {
@@ -7,6 +9,7 @@ export async function getProfileData(loginToken) {
         Authorization: `Bearer ${loginToken}`,
         "Content-type": "application/json",
       },
+      signal: Timeout(30).signal,
     })
       .then((data) => data.json())
       .then((res) => {

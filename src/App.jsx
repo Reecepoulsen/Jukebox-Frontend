@@ -8,12 +8,17 @@ import { checkUserSpotifyToken } from "./helpers/checkUserSpotifyToken";
 import Loading from "./components/Loading/Loading";
 
 function App() {
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
+
   const [loginToken, setLoginToken] = useState(
     localStorage.getItem("loginToken")
   );
   const [connectedSpotify, setConnectedSpotify] = useState(
     localStorage.getItem("connectedSpotify")
-  )
+  );
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -21,16 +26,20 @@ function App() {
 
     if (urlQueryString.includes("?code=")) {
       const spotifyCode = urlQueryString.split("=")[1];
-      getSpotifyToken(spotifyCode, loginToken, setConnectedSpotify).then(() => {
-        window.location = '/'
-      });
+      getSpotifyToken(spotifyCode, loginToken, setConnectedSpotify)
+        .then(() => {
+          window.location = "/";
+        })
+        .catch((err) => setError(err));
     }
   }, []);
 
   const fetchData = async () => {
     setLoading(true);
-    const result = await checkUserSpotifyToken(loginToken);
-    if (result === "No Token"){
+    const result = await checkUserSpotifyToken(loginToken).catch((err) =>
+      setError(err)
+    );
+    if (result === "No Token") {
       setConnectedSpotify(false);
     } else {
       setConnectedSpotify(true);
@@ -39,8 +48,12 @@ function App() {
   };
 
   useEffect(() => {
-    if (loginToken !== "undefined" && loginToken !== null && loginToken !== 'null') {
-      if (connectedSpotify === 'false' || connectedSpotify === false) {
+    if (
+      loginToken !== "undefined" &&
+      loginToken !== null &&
+      loginToken !== "null"
+    ) {
+      if (connectedSpotify === "false" || connectedSpotify === false) {
         // Haven't connected spotify but we are logged in
         fetchData();
       }
@@ -48,19 +61,20 @@ function App() {
     localStorage.setItem("loginToken", loginToken);
   }, [loginToken]);
 
-  
-
   useEffect(() => {
     // replace initial localstorage null state with false
-    if (connectedSpotify === 'null' || connectedSpotify === null || connectedSpotify === 'undefined')
-    {
+    if (
+      connectedSpotify === "null" ||
+      connectedSpotify === null ||
+      connectedSpotify === "undefined"
+    ) {
       setConnectedSpotify(false);
-      return
+      return;
     }
 
     // otherwise, keep local storage in sync with application state
-    localStorage.setItem('connectedSpotify', connectedSpotify);
-  }, [connectedSpotify])
+    localStorage.setItem("connectedSpotify", connectedSpotify);
+  }, [connectedSpotify]);
 
   // Possible app bodies to return based off of login state
   const connectSpotifyScreen = (
@@ -77,7 +91,7 @@ function App() {
 
   const appScreen = (
     <div className="App">
-      <Main 
+      <Main
         loginToken={loginToken}
         setLoginToken={setLoginToken}
         setConnectedSpotify={setConnectedSpotify}
@@ -91,16 +105,20 @@ function App() {
     </div>
   );
 
-  if (loginToken == "undefined" || loginToken == null || loginToken == 'null') {
+  if (loginToken == "undefined" || loginToken == null || loginToken == "null") {
     // user not logged in
     return loginScreen;
   } else {
-    if (connectedSpotify === 'null' || connectedSpotify === 'undefined') {
+    if (connectedSpotify === "null" || connectedSpotify === "undefined") {
       return errorScreen;
-    } else if (connectedSpotify === 'false' || connectedSpotify === false) {
+    } else if (connectedSpotify === "false" || connectedSpotify === false) {
       // User logged in but spotify account isn't connected
       if (loading) {
-        return <div className="App"><Loading /></div> 
+        return (
+          <div className="App">
+            <Loading />
+          </div>
+        );
       } else {
         return connectSpotifyScreen;
       }

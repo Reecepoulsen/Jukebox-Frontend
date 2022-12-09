@@ -1,10 +1,16 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import BasicButton from "../BasicButton/BasicButton";
 import FormInput from "../FormInput/FormInput";
 import CryptoJS from "crypto-js";
+import { Timeout } from "../../helpers/abortController";
 import "./SignupForm.scss";
 
 const SignupForm = (props) => {
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
+
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -27,26 +33,23 @@ const SignupForm = (props) => {
 
     console.log("Payload sent when creating new user", payload);
 
-    try {
-      fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signup`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(payload),
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signup`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      signal: Timeout(15).signal,
+      body: JSON.stringify(payload),
+    })
+      .then((data) => data.json())
+      .then((res) => {
+        if (res.statusCode === 401) {
+          alert("A user with that email already exists");
+        } else {
+          props.setLoginToken(res.data.token);
+        }
       })
-        .then((data) => data.json())
-        .then((res) => {
-          if (res.statusCode === 401) {
-            alert("A user with that email already exists")
-          } else {
-            props.setLoginToken(res.data.token);
-          }
-        });
-    } catch (error) {
-      console.log("Login Error", error);
-      throw new Error(error);
-    }
+      .catch((err) => setError(err));
   };
 
   return (
