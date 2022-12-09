@@ -15,7 +15,7 @@ const loadProfile = async (userId) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
       },
-      signal: Timeout
+      signal: Timeout(15).signal
     }
   ).then((res) => res.json());
   return response.data;
