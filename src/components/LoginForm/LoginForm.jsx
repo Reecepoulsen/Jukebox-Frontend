@@ -37,7 +37,7 @@ const LoginForm = (props) => {
       headers: {
         "Content-type": "application/json",
       },
-      signal: Timeout(15).signal,
+      signal: Timeout(45).signal,
       body: JSON.stringify(payload),
     })
       .then((data) => data.json())
