@@ -4,6 +4,24 @@ import { TbLayoutSidebarRightCollapse } from "react-icons/tb";
 import { Timeout } from "../../helpers/abortController";
 import "./Player.scss";
 
+const getSpotifyToken = async () => {
+  const token = await fetch(
+    `${process.env.REACT_APP_BACKEND_URL}/profile/token/spotify`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+      },
+      signal: Timeout(15).signal,
+    }
+  )
+    .then((result) => result.json())
+    .then((response) => {
+      return response.data;
+    });
+  return token;
+};
+
 export default function Player({
   playerList,
   setPlayerTrackIndex,
@@ -20,31 +38,11 @@ export default function Player({
   const [iconRotation, setIconRotation] = useState("90");
   const [pointerEvents, setPointerEvents] = useState("auto");
 
-  // const controls = document.getElementsByClassName("_ControlsRSWP")
-  // if (controls?.length > 0) {
-  //   controls.children[0].addEventListener("click", () => {
-  //     console.log("subtract 1")
-  //     setPlayerTrackIndex(playerTrackIndex -= 1);
-  //   })
-  //   controls.children[1].addEventListener("click", () => {
-  //     setPlayerTrackIndex(playerTrackIndex += 1);
-  //   })
-  //   console.log("Hello")
-  // }
-  // console.log("controls", controls);
-
   useEffect(() => {
     if (!spotifyToken) {
-      fetch(`${process.env.REACT_APP_BACKEND_URL}/profile/token/spotify`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
-        },
-        signal: Timeout(15).signal,
-      })
-        .then((result) => result.json())
+      getSpotifyToken()
         .then((response) => {
-          setSpotifyToken(response.data);
+          setSpotifyToken(response);
         })
         .catch((err) => setError(err));
     }
@@ -53,7 +51,6 @@ export default function Player({
   if (!spotifyToken || !playerList) {
     return null;
   } else {
-    let songRange = [];
     if (playerList.length > 700) {
       let min = 0;
       let max = playerList.length - 1;
@@ -86,7 +83,6 @@ export default function Player({
             transform: `scale(${playerScale})`,
           }}
         >
-          {/* Implement a range where the selected index is the middle of the 750 songs */}
           <SpotifyPlayer
             token={spotifyToken}
             uris={
@@ -95,6 +91,7 @@ export default function Player({
             offset={playerTrackIndex}
             name="Jukebox"
             persistDeviceSelection="false"
+            initialVolume={50}
             styles={{
               sliderColor: "var(--app-highlightColor)",
               sliderHandleColor: "#FFFEFE",
@@ -102,9 +99,17 @@ export default function Player({
               trackNameColor: "#FFFEFE",
               trackArtistColor: "#FFFEFE",
               color: "var(--app-highlightColor)",
-              // sliderHandleColor: "Transparent",
               sliderTrackColor: "#242424",
               height: 50,
+            }}
+            callback={(playerState) => {
+              if (playerState.isPlaying) {
+                getSpotifyToken()
+                  .then((token) => {
+                    setSpotifyToken(token);
+                  })
+                  .catch((err) => setError(err));
+              }
             }}
           />
         </div>
